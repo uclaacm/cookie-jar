@@ -6,11 +6,11 @@
 
 What's this? This is a template repository that sets up a few minor systems for a React micro-app, which is something that we've done frequently at Teach LA. Here's what it does:
 
-* has the latest, dependabot-certified version of `create-react-app` and dependencies
-* has GitHub Actions automatically set up for testing builds
-* has Netlify redirects set up for multi-route SPAs
-* includes the [Contributor Covenant](https://www.contributor-covenant.org/) in `CODE_OF_CONDUCT.md`
-* has a little bit of documentation for new people!
+- has the latest, dependabot-certified version of `create-react-app` and dependencies
+- has GitHub Actions automatically set up for testing builds
+- has Netlify redirects set up for multi-route SPAs
+- includes the [Contributor Covenant](https://www.contributor-covenant.org/) in `CODE_OF_CONDUCT.md`
+- has a little bit of documentation for new people!
 
 We are also planning on creating a more opinionated starter (with `react-router-dom`, stricter ESLint checks, auto-formatting, and fonts) soon! Keep an eye out for that!
 
@@ -24,7 +24,7 @@ Thanks for using our template! We hope this makes your life developing significa
 
 Things you should do **after using this as a template**:
 
-- [ ] find-and-replace `YOUR_PROJECT_URL_HERE` with your GitHub repo's project name in this README (it's in a few places, so use an editor!)
+- [ ] find-and-replace `cookie-jar` with your GitHub repo's project name in this README (it's in a few places, so use an editor!)
 - [ ] set up [Netlify](https://www.netlify.com/) for this app - talk to matt (@malsf21) or leo (@krashanoff) if you need access to the Teach LA Netlify team
 - [ ] turn on "Automatically delete head branches" in GitHub `Settings > Options`
 - [ ] in `Settings > Branches`, create a branch protection rule that requires PR reviews. You can optionally enable status checks.
@@ -38,8 +38,8 @@ We'll use a really common Node.js project workflow!
 First, let's clone our repository, and install all of our node dependencies:
 
 ```
-git clone https://github.com/uclaacm/YOUR_PROJECT_URL_HERE.git
-cd YOUR_PROJECT_URL_HERE
+git clone https://github.com/uclaacm/cookie-jar.git
+cd cookie-jar
 npm install
 ```
 
@@ -64,7 +64,7 @@ Want to make a change? Great! Here are the steps:
 3. Make your changes!
 4. **Before you push**, make sure your app builds with `npm run build`. If there are any errors, our CI/CD service will **reject your build**.
 5. Once you're ready, stage and commit your changes!
-6. Make a [pull request](https://github.com/uclaacm/YOUR_PROJECT_URL_HERE/pulls) with your changes, and let someone on the dev team know. Netlify has a neat feature called "Deploy Previews" that give you a link to preview your changes; [see the blog post](https://www.netlify.com/blog/2016/07/20/introducing-deploy-previews-in-netlify/) for more info!
+6. Make a [pull request](https://github.com/uclaacm/cookie-jar/pulls) with your changes, and let someone on the dev team know. Netlify has a neat feature called "Deploy Previews" that give you a link to preview your changes; [see the blog post](https://www.netlify.com/blog/2016/07/20/introducing-deploy-previews-in-netlify/) for more info!
 7. If your code passes code review, we'll merge it into `master`. Congratulations! If you'd like, it's now safe to delete your branch/fork.
 
 ## Licensing & Attribution
@@ -73,7 +73,7 @@ This project and its code are licensed under the MIT License. You're free to use
 
 ## Create React App Artifacts
 
-*You can delete these if you want!*
+_You can delete these if you want!_
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
