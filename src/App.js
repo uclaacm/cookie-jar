@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Switch, Route, useHistory } from "react-router-dom"
 import { AppBar, Button, Toolbar, Typography } from "@material-ui/core"
 import makeStyles from "@material-ui/core/styles/makeStyles"
@@ -24,6 +24,9 @@ function App() {
     history.push(location)
   }
 
+  const [showBakeModal, setShowBakeModal] = useState(true);
+  const closeBakeModal =()=>{setShowBakeModal(false)};
+
   return (
     <>
       <AppBar style={{backgroundColor: '#ffc107'}} position="fixed">
@@ -47,7 +50,7 @@ function App() {
 
       <Switch>
         <Route path="/bake">
-          <Bake />
+          <Bake showBakeModal={showBakeModal} closeBakeModal={closeBakeModal}/>
         </Route>
         <Route path="/shop">
           <Shop />
