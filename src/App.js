@@ -1,8 +1,9 @@
 import React from 'react';
 import { Switch, Route, useHistory } from "react-router-dom"
-import { AppBar, Button, Toolbar, Typography } from "@material-ui/core"
+import { AppBar, Button, Toolbar } from "@material-ui/core"
 import makeStyles from "@material-ui/core/styles/makeStyles"
 import './App.css';
+import './App.sass';
 
 import Landing from './Components/Landing/Landing.js'
 import Bake from './Components/Bake/Bake.js'
@@ -12,7 +13,14 @@ import Buy from './Components/Buy/Buy.js'
 const useStyles = makeStyles(() => ({
   title: {
     flexGrow: 1,
+    fontSize: '2rem',
   },
+  home: {
+    fontWeight: 'bold',
+  },
+  page: {
+    fontSize: '2rem',
+  }
 }))
 
 function App() {
@@ -27,16 +35,18 @@ function App() {
   return (
     <>
       <AppBar style={{backgroundColor: '#ffc107'}} position="fixed">
+      {/* <AppBar style={{backgroundImage: 'url(./navbar.png)', backgroundColor: '#ffc107'}} position="fixed"> */}
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <div className={classes.title}> 
             <Button color="inherit" onClick={() => sendTo("/")}>
               Cookie Jar
             </Button>
-          </Typography>
+          </div>
           <Button color="inherit" onClick={() => sendTo("/bake")}>
             Bake
           </Button>
-          <Button color="inherit" onClick={() => sendTo("/shop")}>
+          
+          <Button color="inherit" style={{ fontSize: "1.2rem" }} onClick={() => sendTo("/shop")}>
             Shop
           </Button>
           <Button color="inherit" onClick={() => sendTo("/buy")}>
