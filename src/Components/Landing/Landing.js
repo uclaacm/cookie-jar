@@ -7,7 +7,7 @@ class Modal extends Component {
   constructor(props) {
       super(props);
       this.state = {
-          active: true
+          active: false
       }
   }
 
@@ -87,7 +87,9 @@ function Landing() {
         <Modal ></Modal>
 
         </div>
-        
+        <div className="container has-text-centered mb-3 mt-2">
+          <div className="is-size-5 family1">Made with ❤️ by TeachLA</div>
+        </div>
       </section>
     </>
   )
