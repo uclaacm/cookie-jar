@@ -69,6 +69,14 @@ function App() {
           <Landing />
         </Route>
       </Switch>
+      
+      <footer class="footer">
+        <div class="content has-text-centered">
+          <p>
+            <div className="is-size-5 family1">Made with ❤️ by <a href='https://teachla.uclaacm.com/'>acm.teachla</a> &copy; 2021</div>
+          </p>
+        </div>
+      </footer>
     </>
   );
 }
