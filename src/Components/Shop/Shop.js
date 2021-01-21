@@ -48,7 +48,7 @@ class CookieTile extends Component {
             <div className="tile is-parent">
                 <article className="tile is-child box">
                 <p className="title">{this.props.title}</p>
-                <img src={this.props.cookieImage} alt="cookie" width="200px"></img> 
+                <img src={this.props.cookieImage} alt={this.props.title} width="200px"></img> 
                 <p className="subtitle">{this.props.subtitle}</p>
                 <CookieModal modalContent={this.props.modalContent}></CookieModal>
                 </article>
