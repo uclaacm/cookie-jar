@@ -50,11 +50,11 @@ function Landing() {
         <div className="container has-text-centered">
           <div className="columns mt-6">
             <div className="column">
-              <div className="family1 title mt-6">Cookie Jar</div>
-              <div className="family1 is-size-3">What are web cookies?</div>
-              <div className="family1 is-size-3">What types of cookies are out there?</div>
-              <div className="family1 is-size-3 mb-6">In cookie jar, we'll learn all about web cookies and how they make life easier. Have fun!</div>
-              <button className="button is-large" onClick={start}>Start Baking</button>
+              <div className="is-family-primary title mt-6">Cookie Jar</div>
+              <div className="is-family-primary is-size-3">What are web cookies?</div>
+              <div className="is-family-primary is-size-3">What types of cookies are out there?</div>
+              <div className="is-family-primary is-size-3 mb-6">In cookie jar, we'll learn all about web cookies and how they make life easier. Have fun!</div>
+              <button className="button is-large is-family-primary" onClick={start}>Start Baking</button>
             </div>
             <div className="column">
               

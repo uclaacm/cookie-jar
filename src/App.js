@@ -38,18 +38,18 @@ function App() {
       {/* <AppBar style={{backgroundImage: 'url(./navbar.png)', backgroundColor: '#ffc107'}} position="fixed"> */}
         <Toolbar>
           <div className={classes.title}> 
-            <Button color="inherit" onClick={() => sendTo("/")}>
+            <Button color="inherit" className="is-family-primary" onClick={() => sendTo("/")}>
               Cookie Jar
             </Button>
           </div>
-          <Button color="inherit" onClick={() => sendTo("/bake")}>
+          <Button color="inherit" className="is-family-primary" onClick={() => sendTo("/bake")}>
             Bake
           </Button>
           
-          <Button color="inherit" style={{ fontSize: "1.2rem" }} onClick={() => sendTo("/shop")}>
+          <Button color="inherit" className="is-family-primary" onClick={() => sendTo("/shop")}>
             Shop
           </Button>
-          <Button color="inherit" onClick={() => sendTo("/buy")}>
+          <Button color="inherit" className="is-family-primary" onClick={() => sendTo("/buy")}>
             Buy
           </Button>
         </Toolbar>
@@ -73,7 +73,7 @@ function App() {
       <footer class="footer">
         <div class="content has-text-centered">
           <p>
-            <div className="is-size-5 family1">Made with ❤️ by <a href='https://teachla.uclaacm.com/'>acm.teachla</a> &copy; 2021</div>
+            <div className="is-size-5 is-family-primary">Made with ❤️ by <a href='https://teachla.uclaacm.com/'>acm.teachla</a> &copy; 2021</div>
           </p>
         </div>
       </footer>
