@@ -76,7 +76,6 @@ class Shop extends Component {
     render(){
         return(
             <div style={{paddingTop: '10%'}} className="container">
-                This is the Shop Page
                 <div className="tile is-ancestor">
                     <div>
                         <CookieTile title="Session Cookies" subtitle="A customer favorite <3" modalContent={modalData.session} cookieImage ={allCookieImages.sessionImage}/>
