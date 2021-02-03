@@ -19,6 +19,7 @@ class CookieModal extends Component {
         return(
             <div >
                 <button onClick={() => this.displayModal()}>See More</button>
+                <button>Add to Cart</button>
                 <div className={this.state.active ? "modal is-active" : "modal"}>
                     <div className="modal-background"></div>
                     <div className="modal-content">
