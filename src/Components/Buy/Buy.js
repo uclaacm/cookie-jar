@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import './Buy.scss';
 
-class Buy extends Component {
+class Buy extends Component { 
     constructor(props) {
         super(props);
         this.state = {
