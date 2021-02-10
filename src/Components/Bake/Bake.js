@@ -31,7 +31,7 @@ class Bake extends Component {
         return(
             <>
                 <section class="hero is-fullheight">
-                    <div class="hero-body">
+                    <div class="hero-body" style={{display: 'block'}}>
                     <div style={{paddingTop: '8%'}}></div>
                         <div className="center"> 
                             
