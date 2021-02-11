@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import './Buy.css'
 
 class Buy extends Component { 
     constructor(props) {
@@ -9,6 +10,7 @@ class Buy extends Component {
                     'You can learn about your activities here.',
                     'Oh, be sure to stay alive.',
                     'Have fun!'],  // most recent msg -> least recent msg
+            first_load: true
         }
     }
 
@@ -27,29 +29,42 @@ class Buy extends Component {
         new_msg_array.push(new_msg);
         new_msg_array.shift();
         new_msg_array.reverse();
-        console.log(new_msg_array);
+        // console.log(new_msg_array);
         this.setState({
-            msg: new_msg_array
+            msg: new_msg_array,
+            first_load: false
         })
     }
 
     render(){
-        var msg = this.state.msg;
+        var val = this.state.msg;
+        var fst = this.state.first_load;
+        // console.log(msg);
         return ( 
             <>
                 <section class="hero is-fullheight">
                     <div class="hero-body">
                         <div  style={{display:'block'}}>
-                            <button onClick={this.addMsg} value={'1'}>store1</button>
-                            <button onClick={this.addMsg} value={'2'}>store2</button>
-                            <button onClick={this.addMsg} value={'3'}>store3</button>
-                            <button onClick={this.addMsg} value={'4'}>store4</button>
+                            <div class="columns">
+                                <div className="column">add life and hearts </div>
+                                <div className="column">
+                                    <button onClick={this.addMsg} value={'1'}>store1</button>
+                                    <button onClick={this.addMsg} value={'2'}>store2</button>
+                                    <button onClick={this.addMsg} value={'3'}>store3</button>
+                                    <button onClick={this.addMsg} value={'4'}>store4</button>
+                                </div>
+                            </div>
+
                             <div className="my-6"></div>
-                            {
-                                msg.map(val => 
-                                    <div class="columns">{val}</div>
-                                )
-                            }
+                            <div className="dialogue_container">
+                            <div className="dialogue">
+                                <div class="columns has-text-weight-bold">{val[0]}</div>
+                                <div class="columns has-text-weight-bold" style={fst ? {opacity:1} : {opacity:0.85}}>{val[1]}</div>
+                                <div class="columns has-text-weight-bold" style={fst ? {opacity:1} : {opacity:0.7}}>{val[2]}</div>
+                                <div class="columns has-text-weight-bold" style={fst ? {opacity:1} : {opacity:0.55}}>{val[3]}</div>
+                                <div class="columns has-text-weight-bold" style={fst ? {opacity:1} : {opacity:0.4}}>{val[4]}</div>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </section>
