@@ -1,0 +1,12 @@
+.dialogue_container {
+  width: 100vw;
+  height: auto;
+  justify-content: center;
+}
+
+.dialogue {
+  width: 95vw;
+  height: auto;
+  padding: 3%;
+  background-color: #EEE;
+}
