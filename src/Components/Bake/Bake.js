@@ -27,39 +27,6 @@ class AcceptModal extends Component {
   }
 }
 
-class LuluModal extends Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-          active: false
-      }
-  }
-
-  displayModal() {
-      this.setState({active: this.state.active^true});
-      console.log(this.state.active.toString())
-  }
-
-  render() {
-      return(
-          <div >
-              <button onClick={() => this.displayModal()}>This is a test :)</button>
-              <div className={this.state.active ? "modal is-active" : "modal"}>
-                  <div className="modal-background"></div>
-                  <div className="modal-content">
-                      <div className="box">
-                         <p>Lulu test modal</p>
-                         <button onClick={()=>this.displayModal()} aria-label="close">Close</button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      
-    )
-  }
-}
-
-
 class Bake extends Component {
 
   constructor(props) {
@@ -76,7 +43,7 @@ class Bake extends Component {
         This is the Bake Page
         {this.props.showBakeModal && <AcceptModal handleClose={this.props.closeBakeModal}/>}
         <p className="subtitle">{this.props.subtitle}</p>
-        <LuluModal></LuluModal>
+       
       </div>
     );
   }
