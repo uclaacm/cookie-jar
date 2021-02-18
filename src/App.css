@@ -1,5 +1,9 @@
+@import url('https://fonts.cdnfonts.com/css/risque');
+@import url('http://fonts.cdnfonts.com/css/alpha-echo');
+
 .App {
   text-align: center;
+  background-color: #FFF8DC;
 }
 
 .App-logo {

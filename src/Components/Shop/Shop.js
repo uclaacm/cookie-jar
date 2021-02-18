@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-let dummyCookieSVG = "https://www.svgrepo.com/show/30963/cookie.svg"; // replace this, filler for now ~
+//let dummyCookieSVG = "https://www.svgrepo.com/show/30963/cookie.svg"; // replace this, filler for now ~
 
 class CookieModal extends Component {
     constructor(props) {
@@ -23,7 +23,7 @@ class CookieModal extends Component {
                     <div className="modal-background"></div>
                     <div className="modal-content">
                         <div className="box">
-                           <p>Yum</p>
+                           <p>{this.props.modalContent}</p>
                            <button onClick={()=>this.displayModal()} aria-label="close">Close</button>
                         </div>
                     </div>
@@ -33,6 +33,7 @@ class CookieModal extends Component {
       )
     }
 }
+
 
 class CookieTile extends Component {
     constructor(props) {
@@ -47,25 +48,44 @@ class CookieTile extends Component {
             <div className="tile is-parent">
                 <article className="tile is-child box">
                 <p className="title">{this.props.title}</p>
-                <img src={dummyCookieSVG} alt="cookie" width="200px"></img> 
+                <img src={this.props.cookieImage} alt={this.props.title} width="200px"></img> 
                 <p className="subtitle">{this.props.subtitle}</p>
-                <CookieModal ></CookieModal>
+                <CookieModal modalContent={this.props.modalContent}></CookieModal>
                 </article>
             </div>
         )
     }
 }
 
+const modalData = {
+    session: 'This cookie helps websites remember you are logged into your account, so that every time you go to a new page you don’t have to log back in again. They only last as long as your browser is open, so if you close all your windows they will be cleared.',
+    firstParty: 'These cookies come from the website you’re on.',
+    persistent: 'These cookies are filled with extra preservatives to make them last longer. They still come with an expiration date which tells your browser when they should be deleted, but they can last for days weeks or months.  These help websites remember your settings or preferences.',
+    thirdParty: 'Think of these as ~imported~ cookies. They can come from a Facebook like or Add tp Pinterest icon on a site. They don’t come from the website you’re on, but from an outside site that has partnered with them.'
+}
+
+const allCookieImages = {
+    sessionImage: 'images/sessionCookies.jpg',
+    firstPartyImage: 'images/firstPartyCookies.jpg',
+    persistentImage: 'images/persistentCookies.jpg',
+    thirdPartyImage: 'images/thirdPartyCookies.jpg'
+}
+
+
 class Shop extends Component {
     render(){
         return(
             <div style={{paddingTop: '10%'}} className="container">
-                This is the Shop Page
                 <div className="tile is-ancestor">
-                    <CookieTile title="Session Cookies" subtitle="A customer favorite <3"/>
-                    <CookieTile title="Persistent Cookies" subtitle="Some preservatives added"/>
-                    <CookieTile title="Third Party Cookies" subtitle="Made with love from our other ~partners~"/>
-                </div>
+                    <div>
+                        <CookieTile title="Session Cookies" subtitle="A customer favorite <3" modalContent={modalData.session} cookieImage ={allCookieImages.sessionImage}/>
+                        <CookieTile title="First Party Cookies" subtitle="Made with love from us" modalContent={modalData.firstParty} cookieImage ={allCookieImages.firstPartyImage}/>
+                    </div>
+                    <div>
+                        <CookieTile title="Persistent Cookies" subtitle="Some preservatives added" modalContent={modalData.persistent} cookieImage ={allCookieImages.persistentImage}/>
+                        <CookieTile title="Third Party Cookies" subtitle="Made with love from our other ~partners~" modalContent={modalData.thirdParty} cookieImage ={allCookieImages.thirdPartyImage}/>
+                    </div>
+                </div>   
             </div>
         )
     }

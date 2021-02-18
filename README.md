@@ -7,7 +7,7 @@
 
 ## Overview
 
-... explain what your project is here! What technology you used, who made it, and what it was for!
+A lesson to teach kids about web cookies! We're cooking up some \~recipes\~ everything from sweet session cookies to zesty third party persistent cookies :0 
 
 ## Development Setup
 
