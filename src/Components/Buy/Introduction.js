@@ -76,7 +76,7 @@ function Page1(props){
   return(
     <>
       <div>
-        In this page, you'll learn all the skills you need to steal Dorgon's kitchen
+        In this page, you'll learn all the skills you need to steal Dorgon's kitchen! (pls help with the write up)
       </div>
     </>
   )
@@ -87,7 +87,11 @@ function Page2(props){
   return(
     <>
       <div>
-        Introducing HTTP requests
+        (Goal) Introducing HTTP requests. 
+        1. HTTP (or HTTPS) is a way for our browser to communicate to the server?
+        2. HTTP allows data of a users (that's you and me) to transfer over the internet.
+        3. When we open a website, we send a request to the server.
+        4. The server will repond to the user's request with different messages.
       </div>
     </>
   )
@@ -98,7 +102,11 @@ function Page3(props){
   return(
     <>
       <div>
-        Introducing cookies
+        (Goal)Introducing cookies.
+        1. Cookie is a way for a web browser to store and pass information between pages. 
+        2. (some more stuff)
+        3. In Gordon's kitchen, he has some secret cookies stored.
+        4. Your task later is to find out his cookies, decode his secret messages, and try to steal his kitchen. 
       </div>
     </>
   )
@@ -109,7 +117,11 @@ function Page4(props){
   return(
     <>
       <div>
-        Introducing how to access dev tools 
+        (Goal)Introducing how to access dev tools.
+        1. For chrome users (not sure what the others are like)
+        2. Right click (or two finger tap if using touchpad), 
+        3. select inspect.
+        4. Attach screenshot. 
       </div>
     </>
   )
@@ -120,7 +132,12 @@ function Page5(props){
   return(
     <>
       <div>
-        Introducing how to find secret Ingredient in cookies 
+        (Goal)Introducing how to find secret Ingredient in cookies.
+        1. On the top nav bar of the console, select cookies. 
+        2. On the leftside, we can see different cookies.
+        3. By clicking on a specific cookie, we can view many properties of the cookie. 
+        4. Attach screenshot.
+        5. Ready to go? Click on "Steal Dorgon's Kitchen" to get started with your quest :) 
       </div>
     </>
   )
