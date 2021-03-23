@@ -15,11 +15,13 @@
   font-size: 4rem;
 }
 
-.img_jar {
-  width: 55%;
-  height: auto;
+.modalTitles {
+  font-size: 3rem;
+  font-weight: bold;
 }
-.img_cookie {
-  width: 15%;
-  height: auto;
+
+.viewCart {
+  position: absolute;
+  left: 1000px;
+  top: 200px;
 }

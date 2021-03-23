@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import './shop.css'
 
 //let dummyCookieSVG = "https://www.svgrepo.com/show/30963/cookie.svg"; // replace this, filler for now ~
 
@@ -18,14 +19,14 @@ class CookieModal extends Component {
     render() {
         return(
             <div >
-                <button onClick={() => this.displayModal()}>See More</button>
-                <button>Add to Cart</button>
+                <button className="is-family-primary" onClick={() => this.displayModal()}>See More</button>
+                <button className="is-family-primary">Add to Cart</button>
                 <div className={this.state.active ? "modal is-active" : "modal"}>
                     <div className="modal-background"></div>
                     <div className="modal-content">
                         <div className="box">
-                           <p>{this.props.modalContent}</p>
-                           <button onClick={()=>this.displayModal()} aria-label="close">Close</button>
+                           <p className="is-family-primary is-size-3">{this.props.modalContent}</p>
+                           <button className="is-family-primary is-size-3" onClick={()=>this.displayModal()} aria-label="close">Close</button>
                         </div>
                     </div>
                 </div>
@@ -48,9 +49,9 @@ class CookieTile extends Component {
         return(
             <div className="tile is-parent">
                 <article className="tile is-child box">
-                <p className="title">{this.props.title}</p>
+                <p className="is-family-primary modalTitles">{this.props.title}</p>
                 <img src={this.props.cookieImage} alt={this.props.title} width="200px"></img> 
-                <p className="subtitle">{this.props.subtitle}</p>
+                <p className="is-family-primary is-size-3">{this.props.subtitle}</p>
                 <CookieModal modalContent={this.props.modalContent}></CookieModal>
                 </article>
             </div>
@@ -77,6 +78,12 @@ class Shop extends Component {
     render(){
         return(
             <div style={{paddingTop: '10%'}} className="container">
+            <div className="is-family-primary title mt-6 title">
+                Our Bakery Items
+            </div>
+            <div className="viewCart">
+                <button className="is-family-primary is-size-3">View My Cart</button>
+            </div>
                 <div className="tile is-ancestor">
                     <div>
                         <CookieTile title="Session Cookies" subtitle="A customer favorite <3" modalContent={modalData.session} cookieImage ={allCookieImages.sessionImage}/>
