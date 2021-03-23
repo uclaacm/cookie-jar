@@ -1,12 +1,8 @@
 import React, { Component } from "react";
-import Anime from 'react-anime';
 import './Buy.css';
 import './Kitchen.css';
 
 class Stove extends Component {
-    constructor (props) {
-        super(props)
-    }
     render() {
         return( 
             <div class="stove">
@@ -24,9 +20,6 @@ class Stove extends Component {
 } export { Stove } 
 
 class Oven extends Component {
-    constructor (props) {
-        super(props)
-    }
     render() {
         return( 
             <div class="oven">
@@ -49,9 +42,6 @@ class Oven extends Component {
 } export { Oven } 
 
 class Door extends Component {
-    constructor (props) {
-        super(props)
-    }
     render() {
         return( 
             <div class="door">
