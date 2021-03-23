@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-
-let dummyCookieSVG = "https://www.svgrepo.com/show/30963/cookie.svg"; // replace this, filler for now ~
+import cookie1 from "./cookiedark.svg";
+import cookie2 from "./cookie.svg";
+import cookie3 from "./cookie3.svg";
 
 class CookieModal extends Component {
     constructor(props) {
@@ -47,7 +48,7 @@ class CookieTile extends Component {
             <div className="tile is-parent">
                 <article className="tile is-child box">
                 <p className="title">{this.props.title}</p>
-                <img src={dummyCookieSVG} alt="cookie" width="200px"></img> 
+                <img src={this.props.cookieSVG} alt="cookie" width="200px"></img> 
                 <p className="subtitle">{this.props.subtitle}</p>
                 <CookieModal ></CookieModal>
                 </article>
@@ -62,9 +63,9 @@ class Shop extends Component {
             <div style={{paddingTop: '10%'}} className="container">
                 This is the Shop Page
                 <div className="tile is-ancestor">
-                    <CookieTile title="Session Cookies" subtitle="A customer favorite <3"/>
-                    <CookieTile title="Persistent Cookies" subtitle="Some preservatives added"/>
-                    <CookieTile title="Third Party Cookies" subtitle="Made with love from our other ~partners~"/>
+                    <CookieTile title="Session Cookies" subtitle="A customer favorite <3" cookieSVG={cookie1}/>
+                    <CookieTile title="Persistent Cookies" subtitle="Some preservatives added" cookieSVG={cookie2}/>
+                    <CookieTile title="Third Party Cookies" subtitle="Made with love from our other ~partners~" cookieSVG={cookie3}/>
                 </div>
             </div>
         )

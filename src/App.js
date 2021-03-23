@@ -73,7 +73,7 @@ function App() {
       <footer class="footer">
         <div class="content has-text-centered">
           <p>
-            <div className="is-size-5 is-family-primary">Made with ❤️ by <a href='https://teachla.uclaacm.com/'>acm.teachla</a> &copy; 2021</div>
+            <div className="is-size-5 is-family-primary">Made with ❤️ by <a href='https://teachla.uclaacm.com/'>acm.teachla</a> &copy; 2021 + graphics from Creative Commons and <a href="ttps://www.svgrepo.com/">svgrepo.com</a></div>
           </p>
         </div>
       </footer>
