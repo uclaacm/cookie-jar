@@ -75,8 +75,10 @@ function Page1(props){
   if(props.currStep !== 1){ return null; }
   return(
     <>
-      <div>
-        In this page, you'll learn all the skills you need to steal Dorgon's kitchen! (pls help with the write up)
+      <div className="is-size-5">
+        <Anime easing="linear" delay={1000} loop={false} opacity={['10%', '100%']}>
+        In this page, you'll learn all the skills you need to steal Dorgon's kitchen!
+        </Anime>
       </div>
     </>
   )
@@ -86,12 +88,19 @@ function Page2(props){
   if(props.currStep !== 2){ return null; }
   return(
     <>
-      <div>
-        (Goal) Introducing HTTP requests. 
-        1. HTTP (or HTTPS) is a way for our browser to communicate to the server?
-        2. HTTP allows data of a users (that's you and me) to transfer over the internet.
-        3. When we open a website, we send a request to the server.
-        4. The server will repond to the user's request with different messages.
+      <div className="is-size-5">
+        <Anime easing="linear" delay={1000} loop={false} opacity={['0%', '100%']}>
+          <div className="my-4">HTTP (and HTTPS) is a way for our browser to communicate to the server.</div>
+        </Anime>
+        <Anime easing="linear" delay={3000} loop={false} opacity={['0%', '100%']}>
+          <div className="my-4">HTTP allows data of a users (that's you and me) to transfer over the internet.</div>
+        </Anime>
+        <Anime easing="linear" delay={5000} loop={false} opacity={['0%', '100%']}>
+          <div className="my-4">When we open a website, we send a request to the server.</div>
+        </Anime>
+        <Anime easing="linear" delay={7000} loop={false} opacity={['0%', '100%']}>
+          <div className="my-4">The server will repond to the user's request with different messages.</div>
+        </Anime>
       </div>
     </>
   )
@@ -101,12 +110,22 @@ function Page3(props){
   if(props.currStep !== 3){ return null; }
   return(
     <>
-      <div>
-        (Goal)Introducing cookies.
-        1. Cookie is a way for a web browser to store and pass information between pages. 
-        2. (some more stuff)
-        3. In Gordon's kitchen, he has some secret cookies stored.
-        4. Your task later is to find out his cookies, decode his secret messages, and try to steal his kitchen. 
+      <div className="is-size-5">
+        <Anime easing="linear" delay={1000} loop={false} opacity={['0%', '100%']}>
+          <div className="my-4">Cookie is a way for a web browser to store and pass information between pages. </div>
+        </Anime>
+        <Anime easing="linear" delay={3000} loop={false} opacity={['0%', '100%']}>
+          <div className="my-4">They are mainly used to manage user sessions, store user personalization preferences, and track user behavior.</div>
+        </Anime>
+        <Anime easing="linear" delay={5000} loop={false} opacity={['0%', '100%']}>
+          <div className="my-4">In Gordon's kitchen, he has some secret cookies stored.</div>
+        </Anime>
+        <Anime easing="linear" delay={7000} loop={false} opacity={['0%', '100%']}>
+          <div className="my-4">Your task later is to find out his cookies, decode his secret messages, and try to steal his kitchen. </div>
+        </Anime>
+        <Anime easing="linear" delay={9000} loop={false} opacity={['0%', '100%']}>
+          <div className="my-4">Before we get started, first let's learn how to access cookies. </div>
+        </Anime>
       </div>
     </>
   )
@@ -117,11 +136,59 @@ function Page4(props){
   return(
     <>
       <div>
-        (Goal)Introducing how to access dev tools.
-        1. For chrome users (not sure what the others are like)
-        2. Right click (or two finger tap if using touchpad), 
-        3. select inspect.
-        4. Attach screenshot. 
+        <Anime easing="linear" delay={0} loop={false} opacity={['0%', '100%']}>
+          <div className="my-4 is-centered">
+          <table className="table center">
+            <thead>
+              <tr>
+                <th>Browser</th>
+                <th>Steps</th>
+                <th>Screenshot</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>
+                  <div>Chrome</div>
+                  <div>& Edge</div>
+                </th>
+                <td>
+                  <div>1. Right click (or two finger tap if using touchpad), and then select Inspect.</div>
+                  <div>2. In the inspector, select Application. </div>
+                  <div>3. On the leftside, expand cookies. </div>
+                </td>
+                <td>
+                  <ImageModal choice={1}></ImageModal>
+                </td>
+              </tr>
+              <tr>
+                <th>Firefox</th>
+                <td>
+                  <div>1. Right click (or two finger tap if using touchpad), and then select Insepect Element</div>
+                  <div>2. In the inspector, select Storage. </div>
+                  <div>3. On the leftside, expand cookies. </div>
+                </td>
+                <td>
+                  <ImageModal choice={2}></ImageModal>
+                </td>
+              </tr>
+              <tr>
+                <th>Safari</th>
+                <td>
+                  <div>1. In the menu bar on the top left of the screen. Select Safari -> Preferences</div>
+                  <div>2. Click Advanced, then select “Show Develop menu in menu bar</div>
+                  <div>3. Click on top menu bar, select Develop -> Show Web Inspector</div>
+                  <div>4. In the inspector, select Storage. </div>
+                  <div>5. On the leftside, expand cookies. </div>
+                </td>
+                <td>
+                <ImageModal choice={3}></ImageModal>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </Anime>
       </div>
     </>
   )
@@ -131,16 +198,61 @@ function Page5(props){
   if(props.currStep !== 5){ return null; }
   return(
     <>
-      <div>
-        (Goal)Introducing how to find secret Ingredient in cookies.
-        1. On the top nav bar of the console, select cookies. 
-        2. On the leftside, we can see different cookies.
-        3. By clicking on a specific cookie, we can view many properties of the cookie. 
-        4. Attach screenshot.
-        5. Ready to go? Click on "Steal Dorgon's Kitchen" to get started with your quest :) 
+      <div className="is-size-5">
+        <Anime easing="linear" delay={1000} loop={false} opacity={['0%', '100%']}>
+          <div className="my-4">Now we have learned how to view cookies on webpages. </div>
+        </Anime>
+        <Anime easing="linear" delay={3000} loop={false} opacity={['0%', '100%']}>
+          <div className="my-4">We know that by clicking on a specific cookie, we can view many properties of the cookie.</div>
+        </Anime>
+        <Anime easing="linear" delay={5000} loop={false} opacity={['0%', '100%']}>
+          <div className="my-4">Our wonderful chef Gordon's hid some secret ingredients in his kitchen.</div>
+        </Anime>
+        <Anime easing="linear" delay={7000} loop={false} opacity={['0%', '100%']}>
+          <div className="my-4">By uncovering the secret ingredients, you will be able to steal his kitchen OvO </div>
+        </Anime>
+        <Anime easing="linear" delay={9000} loop={false} opacity={['0%', '100%']}>
+          <div className="my-4">Ready to go? Click on "Steal Dorgon's Kitchen" to get started with your quest :) </div>
+        </Anime>
       </div>
     </>
   )
 }
+
+
+class ImageModal extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+        active: false,
+      }
+  }
+
+  displayModal() {
+    this.setState({active: this.state.active^true});
+  }
+
+  render() {
+      return(
+          <div >
+              <button onClick={() => this.displayModal()}>View</button>
+              <div className={this.state.active ? "modal is-active" : "modal"}>
+                  <div className="modal-background"></div>
+                  <div className="modal-content">
+                      <div className="box"> 
+                        <p className="image">
+                         { this.props.choice === 1 && <img src={"./chrome-edge.png"} alt={"chrome & edge screenshot"}/> }
+                         { this.props.choice === 2 && <img src={"./firefox.png"} alt={"firefox screenshot"} /> }
+                         { this.props.choice === 3 && <img src={"./safari.png"} alt={"safari screenshot"} /> }
+                        </p>
+                        <button onClick={()=>this.displayModal()} aria-label="close">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+    )
+  }
+}
+
 
 export default Introduction
