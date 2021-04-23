@@ -25,6 +25,9 @@ class Buy extends Component {
         <section class="hero  is-fullheight">
         <div class="hero-body">
           <div className="container has-text-centered">
+            <div className="chef_hat_container">
+              <img src="./chef_hat.svg" alt="chef's hat" className="mt-6 mb-6" style={{width: '650px', height: 'auto'}}></img>
+            </div>
             <div  style={{display:'block'}}>
               <div class="columns">
                 <div className="column"></div>

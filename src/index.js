@@ -3,14 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'bulma/css/bulma.css';
 import { BrowserRouter as Router } from "react-router-dom"
+import { CookiesProvider } from "react-cookie";
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <CookiesProvider>
+      <Router>
+        <App />
+      </Router>
+    </CookiesProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
