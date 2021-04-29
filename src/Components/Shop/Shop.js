@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import './shop.css'
 
 //let dummyCookieSVG = "https://www.svgrepo.com/show/30963/cookie.svg"; // replace this, filler for now ~
+var sessionCount = 0;
+var firstPartyCount = 0;
+var persistentCount = 0;
+var thirdPartyCount = 0;
+    
 
 class CookieModal extends Component {
     constructor(props) {
@@ -9,18 +14,37 @@ class CookieModal extends Component {
         this.state = {
             active: false
         }
-    }
 
+    }  
+    
     displayModal() {
         this.setState({active: this.state.active^true});
         console.log(this.state.active.toString())
+    }
+
+    updateCart() {
+        var cookieClicked = this.props.modalContent;
+        
+        if (cookieClicked == modalData.session){
+            sessionCount = sessionCount + 1;
+            console.log('sessionCount ' + sessionCount);
+        } else if (cookieClicked == modalData.firstParty) {
+            firstPartyCount = firstPartyCount + 1;
+            console.log('firstPartyCount ' + firstPartyCount);
+        } else if (cookieClicked == modalData.persistent) {
+            persistentCount = persistentCount + 1;
+            console.log('persistentCount ' + persistentCount);
+        } else if (cookieClicked == modalData.thirdParty){
+            thirdPartyCount = thirdPartyCount + 1;
+            console.log('thirdPartyCount ' + thirdPartyCount);
+        }
     }
 
     render() {
         return(
             <div >
                 <button className="is-family-primary" onClick={() => this.displayModal()}>See More</button>
-                <button className="is-family-primary">Add to Cart</button>
+                <button className="is-family-primary" onClick={() => this.updateCart()}>Add to Cart</button>
                 <div className={this.state.active ? "modal is-active" : "modal"}>
                     <div className="modal-background"></div>
                     <div className="modal-content">
@@ -31,7 +55,6 @@ class CookieModal extends Component {
                     </div>
                 </div>
             </div>
-        
       )
     }
 }
@@ -47,10 +70,10 @@ class CookieTile extends Component {
 
     render() {
         return(
-            <div className="tile is-parent">
+            <div className="tile is-parent cookieTile">
                 <article className="tile is-child box">
                 <p className="is-family-primary modalTitles">{this.props.title}</p>
-                <img src={this.props.cookieImage} alt={this.props.title} width="200px"></img> 
+                <img className="cookieImage" src={this.props.cookieImage} alt={this.props.title} width="200px"></img> 
                 <p className="is-family-primary is-size-3">{this.props.subtitle}</p>
                 <CookieModal modalContent={this.props.modalContent}></CookieModal>
                 </article>
@@ -74,7 +97,15 @@ const allCookieImages = {
 }
 
 
+
+
+
 class Shop extends Component {
+
+    showCart() {
+        console.log('totals: ' + sessionCount+' '+firstPartyCount+' '+persistentCount+' '+thirdPartyCount);
+    }
+
     render(){
         return(
             <div style={{paddingTop: '10%'}} className="container">
@@ -82,18 +113,17 @@ class Shop extends Component {
                 Our Bakery Items
             </div>
             <div className="viewCart">
-                <button className="is-family-primary is-size-3">View My Cart</button>
+                <button className="is-family-primary is-size-3" onClick={()=>this.showCart()}>View My Cart</button>
             </div>
-                <div className="tile is-ancestor">
-                    <div>
-                        <CookieTile title="Session Cookies" subtitle="A customer favorite <3" modalContent={modalData.session} cookieImage ={allCookieImages.sessionImage}/>
-                        <CookieTile title="First Party Cookies" subtitle="Made with love from us" modalContent={modalData.firstParty} cookieImage ={allCookieImages.firstPartyImage}/>
-                    </div>
-                    <div>
-                        <CookieTile title="Persistent Cookies" subtitle="Some preservatives added" modalContent={modalData.persistent} cookieImage ={allCookieImages.persistentImage}/>
-                        <CookieTile title="Third Party Cookies" subtitle="Made with love from our other ~partners~" modalContent={modalData.thirdParty} cookieImage ={allCookieImages.thirdPartyImage}/>
-                    </div>
-                </div>   
+            <div className="cookieTileDiv">
+                <CookieTile title="Session Cookies" subtitle="A customer favorite <3" modalContent={modalData.session} cookieImage ={allCookieImages.sessionImage}/>
+                <CookieTile title="First Party Cookies" subtitle="Made with love from us" modalContent={modalData.firstParty} cookieImage ={allCookieImages.firstPartyImage}/>
+            </div>
+            <div className="cookieTileDiv">
+                <CookieTile title="Persistent Cookies" subtitle="Some preservatives added" modalContent={modalData.persistent} cookieImage ={allCookieImages.persistentImage}/>
+                <CookieTile title="Third Party Cookies" subtitle="Made with love from our other ~partners~" modalContent={modalData.thirdParty} cookieImage ={allCookieImages.thirdPartyImage}/>
+            </div>
+                        
             </div>
         )
     }
