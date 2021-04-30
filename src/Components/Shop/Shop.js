@@ -25,16 +25,16 @@ class CookieModal extends Component {
     updateCart() {
         var cookieClicked = this.props.modalContent;
         
-        if (cookieClicked == modalData.session){
+        if (cookieClicked === modalData.session){
             sessionCount = sessionCount + 1;
             console.log('sessionCount ' + sessionCount);
-        } else if (cookieClicked == modalData.firstParty) {
+        } else if (cookieClicked === modalData.firstParty) {
             firstPartyCount = firstPartyCount + 1;
             console.log('firstPartyCount ' + firstPartyCount);
-        } else if (cookieClicked == modalData.persistent) {
+        } else if (cookieClicked === modalData.persistent) {
             persistentCount = persistentCount + 1;
             console.log('persistentCount ' + persistentCount);
-        } else if (cookieClicked == modalData.thirdParty){
+        } else if (cookieClicked === modalData.thirdParty){
             thirdPartyCount = thirdPartyCount + 1;
             console.log('thirdPartyCount ' + thirdPartyCount);
         }
