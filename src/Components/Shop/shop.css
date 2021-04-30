@@ -1,0 +1,29 @@
+.title {
+  font-size: 4rem;
+}
+
+.modalTitles {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.viewCart {
+  position: absolute;
+  left: 1000px;
+  top: 200px;
+}
+
+.cookieImage {
+  width: 200px;
+  height: 200px;
+}
+
+.cookieTile {
+  width: 300px;
+  height: 450px;
+  display: block;
+}
+
+.cookieTileDiv {
+  display: flex;
+}

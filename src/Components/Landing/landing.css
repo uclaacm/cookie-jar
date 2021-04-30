@@ -1,24 +1,25 @@
-.risque{
-    font-family: 'Risque', Avenir;
+.risque {
+  font-family: "Risque", Avenir;
 }
 
-.background2{
-    background-color: #FFF8DC;
+.background2 {
+  background-color: #fff8dc;
 }
 
-.family2{
-    /* font-family: "Comic Sans MS", "Comic Sans", cursive; */
-    font-family: 'Alpha Echo', sans-serif;    
+.family2 {
+  /* font-family: "Comic Sans MS", "Comic Sans", cursive; */
+  font-family: "Alpha Echo", sans-serif;
 }
 
-.title{
-    font-size: 4rem;
+.title {
+  font-size: 4rem;
 }
-.img_jar{
-    width: 55%;
-    height: auto;
+
+.img_jar {
+  width: 55%;
+  height: auto;
 }
-.img_cookie{
-    width: 15%;
-    height: auto;
+.img_cookie {
+  width: 15%;
+  height: auto;
 }
