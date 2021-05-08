@@ -42,9 +42,10 @@ class Oven extends Component {
 } export { Oven } 
 
 class Door extends Component {
+    color = () => this.props.color ? "green" : "brown";
     render() {
         return( 
-            <div class="door">
+            <div class="door" style={{backgroundColor:this.color()}}>
                 <div class="door-window">
                     <p>Employees Only</p>
                 </div>

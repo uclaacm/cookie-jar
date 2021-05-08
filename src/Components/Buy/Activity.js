@@ -19,7 +19,7 @@ function Activity() {
 
   const [questions, setQuestions] = useState([[],[],[]]);
 
-  if (!rendered){
+  if (!rendered) { // !rendered){
     setRendered(1);
     setCookie("user", "Gordon", { path: '/' });
     setCookie(
@@ -29,25 +29,30 @@ function Activity() {
     );
     var expiration_date = new Date();
     expiration_date.setDate(expiration_date.getDate() + 2);
-    setCookie(
-      "oven", 
-      "MFoiLCJJb3RkIjowLCJEZnQiOm51bGwsIk12cyI6MCwiRmx0IjowLCJJbXAiOjEzOTB9PC=U316&R=200&RB=0&GB=0&RG=200", 
-      { path: '/', expires: expiration_date}
-    );
-    setCookie(
-      "door", 
-      "de5746cc22b8107ace4a715ed1dde69871616469224", 
-      { path: '/'}
-    );
+    if (stage !== 2) {
+      setCookie(
+        "oven", 
+        "MFoiLCJJb3RkIjowLCJEZnQiOm51bGwsIk12cyI6MCwiRmx0IjowLCJJbXAiOjEzOTB9PC=U316&R=200&RB=0&GB=0&RG=200", 
+        { path: '/', expires: expiration_date}
+      );
+      setCookie(
+        "door", 
+        "de5746cc22b8107ace4a715ed1dde69871616469224", 
+        { path: '/'}
+      );
+    }
+    
     setQuestions([
       ["What's cooking on the stove?", "Ramen"], // read the value of a cookie
       ["How many days should Gordon wait to turn the oven off", "2"], // checking expiration date of a cookie 
-      ["Can you change the color of the door from red to green?", "green"] // modifying a cookie
+      ["Can you change the color of the door from red to green?", "green"], // modifying a cookie
+      ["Congrats!", ""]
     ]);
   }
 
   console.log(cookies["user"]) // remove the cookie unused warning msg
   console.log(cookies["door"])
+  console.log(stage)
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -58,12 +63,6 @@ function Activity() {
     }
   };
 
-  if (stage === 2) {
-    // if (cookies["door"].toLowerCase() === "green") setStage(stage+1);
-    // if (document.cookies["door"].toLowerCase() === "green") console.log("hi");
-    // console.log(cookies["door"]);
-  }
-
   return(
     <>
       <div>
@@ -72,12 +71,12 @@ function Activity() {
         <div style={{display:"flex",alignItems:"center"}}>
           <Stove></Stove>
           <Oven></Oven>
-          <Door></Door>
+          <Door color={document.cookie.indexOf("door=green") > 0}></Door>
         </div>
 
         <div className="is-size-5 field-label is-normal center"> {questions[stage][0]} </div>
 
-        { stage < 2 &&
+        { stage < 3 &&
         <form onSubmit={handleSubmit}>
           <div className="my-2"></div>
           <input 
@@ -89,8 +88,11 @@ function Activity() {
           <input type="submit" className="button"/>
         </form>
         }
+        {
+          stage === 2 && document.cookie.indexOf("door=green") > 0  && setStage(3) // may be better suited as a timeout ?
+        }
         { stage === 3 &&
-          <div>congrats!</div>
+          <div>You're a cookie connoisseur >:)</div>
         }
         
       </div>
