@@ -131,16 +131,15 @@ class Bake extends Component {
             <>
                 <section class="hero is-fullheight">
                     <div class="hero-body" style={{display: 'block'}}>
-                    <div style={{paddingTop: '8%'}}></div>
-                        <div className="center"> 
-                            
-                            <HTMLFlipBook 
-                            width={400} 
-                            height={500} 
-                            showCover={true} 
-                            maxShadowOpacity={0.5}
-                            className="mt-6"
-                            style={{justifyContent: 'center', left: '20%', right: '20%'}}
+                    <div style={{ paddingTop: "5%" }}></div>
+                    <div className="center">
+                            <HTMLFlipBook
+                                width={window.innerWidth * 0.35}
+                                height={window.innerHeight * 0.75}
+                                showCover={true}
+                                maxShadowOpacity={0.5}
+                                /*className="mt-6"*/
+                                style={{ justifyContent: "center", left: "20%", right: "20%" }}
                             >
                                 <PageCover>Cookie Recipes</PageCover>
                                 <Page number={1} header="Chapter 1: Why Bake Cookies?">
