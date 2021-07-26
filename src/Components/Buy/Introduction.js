@@ -175,9 +175,9 @@ function Page4(props){
               <tr>
                 <th>Safari</th>
                 <td>
-                  <div>1. In the menu bar on the top left of the screen. Select Safari -> Preferences</div>
+                  <div>1. In the menu bar on the top left of the screen. Select "Safari", then "Preferences"</div>
                   <div>2. Click Advanced, then select “Show Develop menu in menu bar</div>
-                  <div>3. Click on top menu bar, select Develop -> Show Web Inspector</div>
+                  <div>3. Click on top menu bar, select "Develop", then "Show Web Inspector"</div>
                   <div>4. In the inspector, select Storage. </div>
                   <div>5. On the leftside, expand cookies. </div>
                 </td>
