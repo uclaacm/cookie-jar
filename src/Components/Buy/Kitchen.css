@@ -1,0 +1,68 @@
+.stove {
+    background-color:  gray;
+    margin: 5%;
+    height: 100%;
+    width: 30%;
+}
+   
+.burner-row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.burner {
+    background-color: black;
+    border-radius: 100%;
+    height: 30%;
+    width: 25%;
+    padding: 10%;
+    margin: 5%;
+}
+
+.oven {
+    background: gray;
+    margin: 5%;
+    height: 100%;
+    width: 30%;
+}
+
+.oven-door {
+    background-color: orange;
+    width: 70%;
+    height: 50%;
+    padding: 10%;
+    margin-bottom: 5%;
+}
+
+.door {
+    background-color: brown;
+    height: 100%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+}
+
+.door-window {
+    background-color: tan;
+    width: 80%;
+    height: 20%;
+    margin: 10%;
+    padding: 10%;
+}
+
+.burner-success {
+    background-color: brown;
+    border-radius: 100%;
+    height: 30%;
+    width: 25%;
+    padding: 10%;
+    margin: 5%;
+}
+
+.oven-door-success {
+    background-color: tan;
+    width: 70%;
+    height: 50%;
+    padding: 10%;
+    margin-bottom: 5%;
+}

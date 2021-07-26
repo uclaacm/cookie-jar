@@ -10,3 +10,17 @@
   padding: 3%;
   background-color: #EEE;
 }
+
+table.center {
+  margin-left:auto; 
+  margin-right:auto;
+}
+
+.chef_hat_container{
+  display: block;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+  height: auto;
+}
