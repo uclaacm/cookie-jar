@@ -53,3 +53,55 @@ class Door extends Component {
         )
     }
 } export { Door };
+
+class StoveSuccess extends Component {
+    render() {
+        return( 
+            <div class="stove">
+                <div class="burner-row">
+                    <div class="burner-success"></div>
+                    <div class="burner-success"></div>
+                </div>
+                <div class="burner-row">
+                    <div class="burner-success"></div>
+                    <div class="burner-success"></div>
+                </div>
+            </div>
+        )
+    } 
+} export { StoveSuccess } 
+
+class OvenSuccess extends Component {
+    render() {
+        return( 
+            <div class="oven">
+                <div class="burner-row">
+                    <div class="mx-4" style={{flexGrow:1}}></div>
+                    <div style={{flexGrow:2,display:"flex"}}>
+                        <div class="burner-success"></div>
+                        <div class="burner-success"></div>
+                        <div class="burner-success"></div>
+                    </div>
+                    <div class="mx-4" style={{flexGrow:1}}></div>
+                </div>
+                <div class="burner-row">
+                    <div class="oven-door-success"></div>
+                </div>
+                
+            </div>
+        )
+    } 
+} export { OvenSuccess } 
+
+class DoorSuccess extends Component {
+    render() {
+        return( 
+            <div class="door-success">
+                <div class="door-window">
+                    <p>Employees Only</p>
+                </div>
+                <div class="my-6"></div>
+            </div>
+        )
+    }
+} export { DoorSuccess };

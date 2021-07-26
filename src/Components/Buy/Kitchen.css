@@ -49,3 +49,28 @@
     margin: 10%;
     padding: 10%;
 }
+
+.burner-success {
+    background-color: brown;
+    border-radius: 100%;
+    height: 30%;
+    width: 25%;
+    padding: 10%;
+    margin: 5%;
+}
+
+.oven-door-success {
+    background-color: tan;
+    width: 70%;
+    height: 50%;
+    padding: 10%;
+    margin-bottom: 5%;
+}
+
+.door-success {
+    background-color: green;
+    height: 100%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+}

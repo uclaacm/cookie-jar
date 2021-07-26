@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './Buy.css';
-import { Stove, Oven, Door } from "./Kitchen.js";
+import { Stove, Oven, Door, StoveSuccess, OvenSuccess, DoorSuccess } from "./Kitchen.js";
 import { useCookies } from "react-cookie";
 
 function Activity() {
@@ -10,7 +10,7 @@ function Activity() {
   state records how many parts solved:
   0 ~ 1 are input questions
   2 is editing cookie value
-  3 is success page
+  3 is success page, not constructed yet
   */
   const [stage, setStage] = useState(0); 
 
@@ -58,21 +58,27 @@ function Activity() {
     }
   };
 
-  if (stage === 2) {
-    // if (cookies["door"].toLowerCase() === "green") setStage(stage+1);
-    // if (document.cookies["door"].toLowerCase() === "green") console.log("hi");
-    // console.log(cookies["door"]);
-  }
-
   return(
     <>
       <div>
         <div className="is-size-3 has-text-weight-semibold my-4"> Welcome to your SmartKitchen, Dorgon. </div>
 
         <div style={{display:"flex",alignItems:"center"}}>
-          <Stove></Stove>
-          <Oven></Oven>
-          <Door></Door>
+          {stage > 0? (
+            <StoveSuccess></StoveSuccess>
+          ) : (
+            <Stove></Stove>
+          )}
+          {stage > 1? (
+            <OvenSuccess></OvenSuccess>
+          ) : (
+            <Oven></Oven>
+          )}
+          {stage > 2? (
+            <DoorSuccess></DoorSuccess>
+          ) : (
+            <Door></Door>
+          )}
         </div>
 
         <div className="is-size-5 field-label is-normal center"> {questions[stage][0]} </div>
@@ -83,9 +89,11 @@ function Activity() {
           <input 
             type="text" value={val} onChange={e => setVal(e.target.value)} 
             placeholder="Answer"
-            className=""
+            className="input"
+            style={{width: '20%'}}
           />
           <br />
+          <div className="my-3"></div>
           <input type="submit" className="button"/>
         </form>
         }
