@@ -1,0 +1,24 @@
+// Variables
+//===============================
+$header-1: 50px;
+$description: 30px;
+
+
+// Columns
+//===============================
+#col-1 {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 50%;
+    #title {
+        color: black;
+        font-size:$header-1;
+        margin-bottom:0px;
+    }
+    #description {
+        font-size:$description;
+    }
+}

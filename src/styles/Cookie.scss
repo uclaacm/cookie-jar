@@ -1,0 +1,138 @@
+/* for gird */
+.cookie-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  padding: 20px;
+  height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-y: auto; /* vertical scrolling if necessary */
+  align-items: center;
+  justify-items: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(1, 1fr); /* 1 column on small screens */
+  }
+}
+
+/* actual cookie */
+.cookie {
+  text-align: center;
+  width: 30vw;
+  max-width: 80%;
+  height: 30vh;
+  max-height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
+
+  img {
+    width: 15vw;
+    height: 15vw;
+    max-width: 20vh;
+    max-height: 20vh;
+    object-fit: contain;
+  }
+
+  p {
+    font-size: 2vw; /* Make font size responsive to viewport width */
+    color: #333;
+    margin: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .cookie {
+    width: 50vw;
+    height: 40vh;
+
+    img {
+      width: 25vw;
+      height: 25vw;
+    }
+
+    p {
+      font-size: 3vw;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .cookie {
+    width: 80vw;
+    height: 50vh;
+
+    img {
+      width: 30vw;
+      height: 30vw;
+    }
+
+    p {
+      font-size: 4vw;
+    }
+  }
+}
+
+/* for popup */
+.cookie-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: brown;
+  border-radius: 10px; /* Changed from circle to a rectangular box */
+  width: 300px;
+  max-height: 400px; /* Set maximum height */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden; /* Ensure no overflow from popup box */
+
+  .popup-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    h2 {
+      margin: 20px 0;
+      color: white;
+      text-align: center;
+    }
+  }
+
+  .popup-description {
+    padding: 0 20px;
+    overflow-y: auto; /* vertical scrolling */
+    flex-grow: 1; /* Allow the description to grow and take up remaining space */
+
+    p {
+      color: white;
+    }
+  }
+
+  .close-btn {
+    background-color: #ff7043;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    position: relative;
+    bottom: 0;
+
+    &:hover {
+      background-color: #ff5722;
+    }
+  }
+}
+
