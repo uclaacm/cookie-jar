@@ -1,5 +1,7 @@
-function Shop(): JSX.Element {
-    return <div>Content of Shop</div>;
-}
+import React from 'react';
+
+const Shop: React.FC = () => {
+  return <div>This is the Shop Page</div>;
+};
 
 export default Shop;

@@ -1,0 +1,13 @@
+#root {
+  width: 100%; /* Ensure full width of the viewport */
+  height: 100vh; /* Ensure full height of the viewport */
+  margin: 0; /* Remove automatic horizontal centering */
+  padding: 0; /* Remove excess padding */
+}
+
+
+/*really helpful for debug cuz visually outline all elements*/
+* {
+  outline: 1px solid red;
+}
+

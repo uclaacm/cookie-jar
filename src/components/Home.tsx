@@ -1,7 +1,8 @@
+import React from 'react';
 import '../styles/Home.scss';
 import Button from '@mui/material/Button';
 
-function Home(): JSX.Element {
+const Home: React.FC = () => {
     return ( 
         <div id="col-1">
             <h1 id="title">Cookie Jar</h1>
@@ -14,7 +15,7 @@ function Home(): JSX.Element {
             <Button sx={{backgroundColor:'white', color: 'black', '&:hover': {backgroundColor: 'white'}}} size="large" variant="contained">Menu</Button>
         </div>
  );
-}
+    }
 
 
 export default Home;
