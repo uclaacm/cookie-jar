@@ -6,6 +6,7 @@ import Home from './components/Home'; // Import Home
 import Menu from './components/Menu'; // Import Menu
 import Shop from './components/Shop'; // Import Shop
 import Bake from './components/Bake'; // Import Bake
+import SignIn from './components/SignIn'; // Import SignIn
 
 const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const App: React.FC = () => {
         <Route path="/menu" element={<Menu />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/bake" element={<Bake />} />
+        <Route path="/signin" element={<SignIn />} />
       </Routes>
     </Layout>
   );

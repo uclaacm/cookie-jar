@@ -44,6 +44,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     <Link to="/menu" style={{ color: 'white', textDecoration: 'none' }}>Menu</Link>
                     <Link to="/shop" style={{ color: 'white', textDecoration: 'none' }}>Shop</Link>
                     <Link to="/bake" style={{ color: 'white', textDecoration: 'none' }}>Bake</Link>
+                    <Link to="/signin" style={{ color: 'white', textDecoration: 'none' }}>Sign-In</Link>
                 </div>
             </Toolbar>
         </AppBar>
