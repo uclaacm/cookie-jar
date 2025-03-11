@@ -5,6 +5,8 @@ import Home from './components/Home'; // Import Home
 import Menu from './components/Menu'; // Import Menu
 import Shop from './components/Shop'; // Import Shop
 import Bake from './components/Bake'; // Import Bake
+import "./styles/App.scss";
+
 
 const App: React.FC = () => {
   return (
