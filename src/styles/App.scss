@@ -1,13 +1,59 @@
-#root {
-  width: 100%; /* Ensure full width of the viewport */
-  height: 100vh; /* Ensure full height of the viewport */
-  margin: 0; /* Remove automatic horizontal centering */
-  padding: 0; /* Remove excess padding */
-}
 
+@import url('https://fonts.googleapis.com/css2?family=Manjari:wght@100;400;700&family=Righteous&display=swap');
 
-/*really helpful for debug cuz visually outline all elements*/
+// Font Families
+$primary-font: 'Righteous', sans-serif; // Change this to your preferred font
+$secondary-font: 'Manjari', sans-serif;
+
+// Font Sizes
+$base-font-size: 16px;
+$small-font: 14px;
+$medium-font: 18px;
+$large-font: 24px;
+$title-font-size: 32px;
+
+// Line Heights
+$line-height-default: 1.5;
+$line-height-title: 1.2;
+
+// Global Styles
 * {
-  outline: 1px solid red;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+// Apply Global Font Styles
+body {
+  font-family: $primary-font;
+  font-size: $base-font-size;
+  line-height: $line-height-default;
+  color: #333; // Default text color
+  background-color: #f9f9f9; // Background color
+}
+
+// Default Typography
+h1, h2, h3, h4, h5, h6 {
+  font-family: $secondary-font;
+  line-height: $line-height-title;
+}
+
+h1 {
+  font-size: $title-font-size;
+}
+
+p {
+  font-size: $base-font-size;
+  line-height: $line-height-default;
+}
+
+small {
+  font-size: $small-font;
+}
+
+// Buttons
+button {
+  font-size: $medium-font;
+  font-weight: bold;
+  font-family: $primary-font;
+}

@@ -6,51 +6,75 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { styled } from '@mui/system';
 import { Box } from '@mui/material';
 
-// Define type for LayoutProps to accept children
+
 interface LayoutProps {
   children: ReactNode;
 }
 
-// Define styled components
+
 const Root = styled('div')({
   display: 'flex',
   flexDirection: 'column',
-  height: '100vh', // Full viewport height
+  height: '100vh', // We still want the page to fill the viewport height
 });
 
 const ToolbarOffset = styled('div')({
-    height: '64px', // larger screens
-    '@media (max-width:600px)': {
-      height: '56px', // AppBar height for smaller screens
-    },
-  });
+  height: '64px', // default MUI AppBar height for desktop
+  '@media (max-width:600px)': {
+    height: '56px', // smaller screens
+  },
+});
 
+/**
+ * We remove the "display: flex" and "flexDirection: column" from here
+ * so that the child pages (Home, Menu, etc.) can fully control their own layout.
+ */
 const Content = styled(Box)(({ theme }) => ({
   flexGrow: 1,
-  padding: theme.spacing(2),
-  display: 'flex',
-  flexDirection: 'column',
   overflowY: 'auto',
+  // optional: remove or keep some padding
+  // padding: theme.spacing(2),
 }));
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <Root>
-        <CssBaseline />
-        <AppBar style={{ backgroundColor: '#ffc107' }} position="fixed">
-            <Toolbar style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                <Link to="/" style={{ color: 'white', textDecoration: 'none', fontWeight: 'bold' }}>Home</Link>
-                <div style={{ display: 'flex', gap: '20px' }}>
-                    <Link to="/menu" style={{ color: 'white', textDecoration: 'none' }}>Menu</Link>
-                    <Link to="/shop" style={{ color: 'white', textDecoration: 'none' }}>Shop</Link>
-                    <Link to="/bake" style={{ color: 'white', textDecoration: 'none' }}>Bake</Link>
-                </div>
-            </Toolbar>
-        </AppBar>
-        <ToolbarOffset /> {/* Spacer to prevent overlap */}
-        <Content>
-            {children} {/* Renders the route content */}
-        </Content>
+      <CssBaseline />
+      <AppBar style={{ backgroundColor: '#ffc107' }} position="fixed">
+        <Toolbar style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+          {/* Left side of the AppBar */}
+          <Link
+            to="/"
+            style={{
+              color: 'black',
+              textDecoration: 'none',
+              fontWeight: 'bold',
+              fontSize: '1.2rem',
+            }}
+          >
+            Home
+          </Link>
+
+          {/* Right side of the AppBar */}
+          <div style={{ display: 'flex', gap: '20px' }}>
+            <Link to="/menu" style={{ color: 'black', textDecoration: 'none' }}>
+              Menu
+            </Link>
+            <Link to="/shop" style={{ color: 'black', textDecoration: 'none' }}>
+              Shop
+            </Link>
+            <Link to="/bake" style={{ color: 'black', textDecoration: 'none' }}>
+              Bake
+            </Link>
+          </div>
+        </Toolbar>
+      </AppBar>
+
+      {/* Offset so content doesn't hide behind the AppBar */}
+      <ToolbarOffset />
+
+      {/* Main content area: children have full layout control */}
+      <Content>{children}</Content>
     </Root>
   );
 };
