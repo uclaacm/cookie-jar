@@ -7,7 +7,6 @@ import Shop from './components/Shop'; // Import Shop
 import Bake from './components/Bake'; // Import Bake
 import "./styles/App.scss";
 
-
 const App: React.FC = () => {
   return (
     <Layout>

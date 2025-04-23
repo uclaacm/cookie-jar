@@ -6,9 +6,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { styled } from '@mui/system';
 import { Box } from '@mui/material';
 
+
 interface LayoutProps {
   children: ReactNode;
 }
+
 
 const Root = styled('div')({
   display: 'flex',

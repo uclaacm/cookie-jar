@@ -1,3 +1,4 @@
+
 import React,  { useState, useEffect } from 'react';
 import '../styles/Home.scss';
 import '../styles/App.scss';
@@ -112,4 +113,3 @@ const Home: React.FC = () => {
 };
   
 export default Home;
-
