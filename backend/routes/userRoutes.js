@@ -4,7 +4,7 @@ import { client } from "../database.js";
 
 const router = express.Router();
 
-const db = client.db("cookiejar");
+const db = client.db("sample_mflix");
 const usersCollection = db.collection("users");
 
 
