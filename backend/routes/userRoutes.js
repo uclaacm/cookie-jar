@@ -1,5 +1,6 @@
 import express from "express";
 import bcrypt from "bcrypt";
+import jwt from 'jsonwebtoken';
 import { client } from "../database.js"; 
 
 const router = express.Router();
@@ -7,6 +8,34 @@ const router = express.Router();
 const db = client.db("sample_mflix");
 const usersCollection = db.collection("users");
 
+const JWT_SECRET = process.env.JWT_SECRET
+
+const generateToken = (user) => {
+  return jwt.sign(
+    { 
+      userId: user._id,
+      email: user.email 
+    },
+    JWT_SECRET,
+    { expiresIn: '24h' }
+  );
+};
+
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ error: 'No token provided' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+};
 
 // POST login endpoint
 
@@ -31,9 +60,13 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    // Return user data (excluding password)
+    // Generate JWT token
+    const token = generateToken(existingUser);
+
+    // Return user data and token
     return res.status(200).json({
       message: "Login successful",
+      token,
       user: {
         firstName: existingUser.firstName,
         lastName: existingUser.lastName,
@@ -84,9 +117,14 @@ router.post("/signup", async (req, res) => {
     // Insert the new user into the collection
     const result = await usersCollection.insertOne(user);
 
+    // Generate JWT token for the new user  
+    const token = generateToken({ _id: result.insertedId, email }); 
+
     return res.status(201).json({
       message: "User registered successfully",
-      userId: result.insertedId
+      token,
+      userId: result.insertedId,
+      jwt_token: token,
     });
   } catch (error) {
     console.error("Signup error:", error);
