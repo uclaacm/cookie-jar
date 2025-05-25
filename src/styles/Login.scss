@@ -1,0 +1,26 @@
+.login {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 20px;
+    
+}
+
+.login-button {
+    background-color: #F3C760 !important;
+    color: black !important;
+    font-family: 'Manjari', sans-serif !important; 
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 12px 24px;
+    width: 200px; 
+    border-radius: 8px;
+    text-transform: none; 
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+        background-color: #E3B750 !important; // Slightly darker
+    }
+}
