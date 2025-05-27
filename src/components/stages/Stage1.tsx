@@ -42,15 +42,15 @@ const Stage1: React.FC = () => {
   }
 
   return (
-    <div class="stage1-container">
+    <div className="stage1-container">
       <h1>Stage 1</h1>
       <p>
         See how we can pick and choose? Websites use cookies to store our
         preferences— like what kind of cookies we like!
       </p>
-      <div class="cookie-select-container">
+      <div className="cookie-select-container">
         <h1>Pick your favorite cookie!</h1>
-        <div class="cookie-container">
+        <div className="cookie-container">
           {cookies.map((cookie) => (
             <Link to="/stage2">
               <div key={cookie.id} onClick={() => selectCookie(cookie.id)}>
