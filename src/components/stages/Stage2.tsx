@@ -43,7 +43,7 @@ const Stage2: React.FC = () => {
   ];
 
   return (
-    <div class="stage2-container">
+    <div className="stage2-container">
       <h1 style={{ marginBottom: "40px" }}>Stage 2</h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
