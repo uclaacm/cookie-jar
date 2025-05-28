@@ -14,7 +14,7 @@ const SignUp: React.FC = () => {
       <input type="email"></input>
       <p> Password </p>
       <input type="password"></input>
-      <Button className='signup-button'>Login</Button>
+      <Button className='signup-button'>Sign Up</Button>
     </div>
   );
 };
