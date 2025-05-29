@@ -1,4 +1,3 @@
-import React,  { useState, useEffect } from 'react';
 import '../styles/Home.scss';
 import '../styles/App.scss';
 import '../styles/SignUp.scss'
