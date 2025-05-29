@@ -1,14 +1,19 @@
 import React from "react";
 import "../../styles/Stage2.scss";
-import flour from "/assets/Flour.png";
+//import flour from "/assets/Flour.png";
+
 
 const Stage2: React.FC = () => {
-  interface InteractiveCards {
-    id: number;
-    name: string;
-    img: string;
-  }
 
+  /*
+    interface InteractiveCards {
+      id: number;
+      name: string;
+      img: string;
+    }
+  */
+
+  /*
   const cards: InteractiveCards[] = [
     {
       id: Date.now(),
@@ -41,6 +46,7 @@ const Stage2: React.FC = () => {
       img: flour,
     },
   ];
+  */
 
   return (
     <div className="stage2-container">
