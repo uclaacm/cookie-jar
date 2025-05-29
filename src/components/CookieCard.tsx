@@ -1,4 +1,5 @@
 import React from 'react';
+import cookieImage from '../assets/cookie.svg'
 import './../styles/Cookie.scss';
 
 interface CookieCardProps {
@@ -12,7 +13,7 @@ const CookieCard: React.FC<CookieCardProps> = ({ name, type, onClick }) => {
     <div className="cookie">
       <p>{name}</p>
       <img
-        src={'../assets/cookie.svg'}
+        src={cookieImage}
         alt={name} //for accessibility
         onClick={onClick}
         className="cookie-image"
