@@ -5,9 +5,11 @@ import Home from './components/Home'; // Import Home
 import Menu from './components/Menu'; // Import Menu
 import Shop from './components/Shop'; // Import Shop
 import Bake from './components/Bake'; // Import Bake
+import Footer from './components/Footer'; //Import Footer
 import Login from './components/Login'; // Import Login
 import "./styles/App.scss";
 import SignUp from './components/SignUp';
+
 
 const App: React.FC = () => {
   return (
@@ -20,6 +22,7 @@ const App: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element = {<SignUp />} />
       </Routes>
+      <Footer />
     </Layout>
   );
 };
