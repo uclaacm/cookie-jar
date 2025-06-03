@@ -8,7 +8,7 @@ interface CookieCardProps {
   onClick: () => void;
 }
 
-const CookieCard: React.FC<CookieCardProps> = ({ name, type, onClick }) => {
+const CookieCard: React.FC<CookieCardProps> = ({ name, onClick }) => {
   return (
     <div className="cookie">
       <p>{name}</p>
