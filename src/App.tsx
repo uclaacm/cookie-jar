@@ -12,6 +12,7 @@ import Stage1 from "./components/stages/Stage1"; // Import Stage1
 import Stage2 from "./components/stages/Stage2"; // Import Stage2
 import "./styles/App.scss";
 
+
 const App: React.FC = () => {
   return (
     <Layout>
