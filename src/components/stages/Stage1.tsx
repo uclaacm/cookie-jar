@@ -37,6 +37,7 @@ const Stage1: React.FC = () => {
     },
   ];
 
+
   function selectCookie(id: number) {
     console.log(id);
   }
