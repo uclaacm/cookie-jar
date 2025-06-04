@@ -29,7 +29,7 @@ const ToolbarOffset = styled('div')({
  * We remove the "display: flex" and "flexDirection: column" from here
  * so that the child pages (Home, Menu, etc.) can fully control their own layout.
  */
-const Content = styled(Box)(({ theme }) => ({
+const Content = styled(Box)(({ /*theme*/ }) => ({
   flexGrow: 1,
   overflowY: 'auto',
   // optional: remove or keep some padding
@@ -66,11 +66,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <Link to="/bake" style={{ color: 'black', textDecoration: 'none' }}>
               Bake
             </Link>
-            <Link to="/login" style={{ color: 'black', textDecoration: 'none' }}> 
-              Login 
+            <Link to="/login" style={{ color: 'black', textDecoration: 'none' }}>
+              Login
             </Link>
-            <Link to="/signup" style={{ color: 'black', textDecoration: 'none' }}> 
-              Sign Up 
+            <Link to="/signup" style={{ color: 'black', textDecoration: 'none' }}>
+              Sign Up
             </Link>
           </div>
         </Toolbar>

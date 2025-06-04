@@ -1,5 +1,6 @@
 import React from "react";
 import "../../styles/Stage2.scss";
+
 import flour from "/assets/Flour.png";
 
 const Stage2: React.FC = () => {
@@ -41,6 +42,7 @@ const Stage2: React.FC = () => {
       img: flour,
     },
   ];
+
 
   return (
     <div className="stage2-container">

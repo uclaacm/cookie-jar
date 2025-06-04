@@ -124,7 +124,6 @@ router.post("/signup", async (req, res) => {
       message: "User registered successfully",
       token,
       userId: result.insertedId,
-      jwt_token: token,
     });
   } catch (error) {
     console.error("Signup error:", error);
