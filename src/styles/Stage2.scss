@@ -9,4 +9,29 @@
   p {
     font-size: 24px;
   }
+
+  .back-button {
+    position: fixed;
+    bottom: 40px;
+    left: 30px;
+    background-color: #0062ff;
+    color: #ffc107;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.4);
+
+    &:hover {
+    background: #ffc107;
+    color: #0062ff;
+    transform: translateX(4px) scale(1.05);
+    }
+
+    svg {
+    stroke-width: 3;
+    }
+  }
 }
