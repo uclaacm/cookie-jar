@@ -63,9 +63,9 @@ const Stage1: React.FC = () => {
           ))}
         </div>
       </div>
-      
+
       <Link to="/stage2" className="next-button">
-          <ArrowRight />
+        <ArrowRight />
       </Link>
 
     </div>

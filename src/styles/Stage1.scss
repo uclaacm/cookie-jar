@@ -6,6 +6,7 @@
   h1 {
     font-size: 64px;
   }
+
   p {
     font-size: 40px;
   }
@@ -58,10 +59,10 @@
 
   .next-button {
     position: fixed;
-    bottom: 40px;
+    bottom: 80px;
     right: 30px;
-    background-color: #0062ff;
-    color: #ffc107;
+    background-color: #ffc107;
+    color: black;
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -71,12 +72,13 @@
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.4);
 
     &:hover {
-    background: #ffc107;
-    color: #0062ff;
-    transform: translateX(4px) scale(1.05);
+      background: #E3B750;
+      color: black;
+      transform: translateX(4px) scale(1.05);
     }
+
     svg {
-    stroke-width: 3;
+      stroke-width: 3;
     }
   }
 }

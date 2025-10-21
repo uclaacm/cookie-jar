@@ -60,7 +60,7 @@ const Stage2: React.FC = () => {
       </p>
 
       <Link to="/stage1" className="back-button">
-          <ArrowLeft />
+        <ArrowLeft />
       </Link>
 
     </div>
