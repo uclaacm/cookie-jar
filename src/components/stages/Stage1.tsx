@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import { useState, useEffect } from "react";
+//import { useState, useEffect } from "react";
 import "../../styles/Stage1.scss";
 import c2 from "/assets/c2.png";
 import c6 from "/assets/c6.png";
@@ -36,7 +36,6 @@ const Stage1: React.FC = () => {
       img: c6,
     },
   ];
-
 
   function selectCookie(id: number) {
     console.log(id);
