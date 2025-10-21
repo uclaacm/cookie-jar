@@ -69,9 +69,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <Link to="/login" style={{ color: 'black', textDecoration: 'none' }}>
               Login
             </Link>
-            <Link to="/signup" style={{ color: 'black', textDecoration: 'none' }}>
-              Sign Up
-            </Link>
           </div>
         </Toolbar>
       </AppBar>
