@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import "../../styles/Stage2.scss";
 
 import flour from "/assets/Flour.png";
@@ -56,6 +58,11 @@ const Stage2: React.FC = () => {
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt
         mollit anim id est laborum.
       </p>
+
+      <Link to="/stage1" className="back-button">
+          <ArrowLeft />
+      </Link>
+
     </div>
   );
 };
