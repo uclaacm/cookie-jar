@@ -45,32 +45,39 @@ const SignUp: React.FC = () => {
 
   return (
     <div className='signup'>
-      <h1> Sign Up to Start Baking! </h1>
+      <h1 className="signup-title">Cookie Jar Game</h1>
       <form onSubmit={handleSubmit}>
-        <p> First Name </p>
         <input 
           type="text" 
+          placeholder="First Name"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           required
         />
-        <p> Last Name </p>
         <input 
           type="text" 
+          placeholder="Last Name"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
           required
         />
-        <p> Email </p>
         <input 
           type="email" 
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <p> Password </p>
         <input 
           type="password" 
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <input 
+          type="password" 
+          placeholder="Confirm Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required

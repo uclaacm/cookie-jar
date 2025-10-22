@@ -42,22 +42,26 @@ const Login: React.FC = () => {
 
   return (
     <div className='login'>
-      <h1> Login to Start Baking! </h1>
+      <h1><b>Log In</b></h1>
       <form onSubmit={handleSubmit}>
-        <p> Email </p>
         <input 
           type="email" 
           value={email}
+          placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
+          style={{ display: "block", marginTop: "20px" }}
           required
         />
-        <p> Password </p>
+  
+      <div className="password-container">
         <input 
-          type="password" 
+          type={"password"} 
+          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+      </div>
         {error && <p className="error">{error}</p>}
         <Button type="submit" className='login-button'>Login</Button>
       </form>
