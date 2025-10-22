@@ -5,7 +5,7 @@ import { client } from "../database.js";
 
 const router = express.Router();
 
-const db = client.db("sample_mflix");
+const db = client.db("sample_mflix");  //connect to real database
 const usersCollection = db.collection("users");
 
 const JWT_SECRET = process.env.JWT_SECRET
