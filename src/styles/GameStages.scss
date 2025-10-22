@@ -1,6 +1,7 @@
 .game-stage-cards-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-evenly;
     padding: 100px;
     row-gap: 2.2rem;
 }

@@ -15,6 +15,26 @@ const GameStages: React.FC = () => {
             name="Stage 2"
             description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         />
+        <GameStageCard
+            to="/stage3"
+            name="Stage 3"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        />
+        <GameStageCard
+            to="/stage4"
+            name="Stage 4"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        />
+        <GameStageCard
+            to="/stage5"
+            name="Stage 5"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        />
+        <GameStageCard
+            to="/stage6"
+            name="Stage 6"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        />
     </div>
   );
 };

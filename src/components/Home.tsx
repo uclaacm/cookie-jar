@@ -125,11 +125,6 @@ const Home: React.FC = () => {
         <Link to="/stage1">
           <Button className="start-button">Start Baking</Button>
         </Link>
-        <br />
-        <br />
-        <Link to="/gamestages">
-          <Button className="start-button">View Game Stages</Button>
-        </Link>
       </div>
 
       {/* Right Column: Cookie Jar Animation */}
