@@ -1,0 +1,23 @@
+.gameArea {
+    position: relative;
+    width: 100vw;
+    height: 60vh;
+    background: linear-gradient(#87ceeb, #fff7cc);
+    overflow: hidden;
+  
+.instructions {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-weight: 600;
+  }
+.basket {
+    position: absolute;
+    bottom: 16px;
+    height: 36px;
+    background: sienna;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    transition: left 0.1s ease;
+  }
+}
