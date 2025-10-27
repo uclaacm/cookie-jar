@@ -1,14 +1,19 @@
 .gameArea {
     position: relative;
     width: 100vw;
-    height: 60vh;
+    height: 87vh;
     background: linear-gradient(#87ceeb, #fff7cc);
     overflow: hidden;
-  
+
+.score{
+    position:absolute;
+    top:8px;
+    left:8px;
+}
 .instructions {
     position: absolute;
     top: 8px;
-    left: 8px;
+    left: 120px;
     font-weight: 600;
   }
 .basket {
@@ -20,4 +25,10 @@
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     transition: left 0.1s ease;
   }
+.cookie {
+    position: absolute;
+    background: red;
+    width: 4px;
+    height: 4px;
+}
 }
