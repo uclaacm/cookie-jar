@@ -16,6 +16,23 @@
     left: 120px;
     font-weight: 600;
   }
+.pause-button{
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: rgb(249, 1, 1);
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+  
+    &:hover {
+      transform: scale(1.02);
+    }
+  
+}
 .basket {
     position: absolute;
     bottom: 16px;

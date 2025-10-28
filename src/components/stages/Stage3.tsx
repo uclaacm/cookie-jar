@@ -81,6 +81,7 @@ function Cookie({data}:CookieProps){
 
 export default function Stage3() {
     const [cookies, setCookies] = useState<CookieProps["data"][]>([]);
+    const [isPaused, setIsPaused] = useState(false);
     const Frames_per_spawn = 125;
     const frames_elapsed = useRef(0);
     const gameAreaRef = useRef<HTMLDivElement>(null);
@@ -99,6 +100,8 @@ export default function Stage3() {
 
     useEffect(() => {
         const interval = setInterval(() => {
+            if (isPaused) return;
+
             frames_elapsed.current+=1;
 
             let should_spawn = false;
@@ -137,11 +140,14 @@ export default function Stage3() {
         });      
     }, 16);
         return () => clearInterval(interval);
-    }, []);
+    }, [isPaused]);
 
     return (
         <div className = "gameArea" ref = {gameAreaRef}>
         <div className = "score">Score: {score}</div>
+        <button className = "pause-button" onClick = {() => setIsPaused(prev => !prev)}>
+            {isPaused ? "Resume": "Pause"}
+        </button>
         <Basket basketX={basketX} basketWidth={basketWidth} setBasketX={setBasketX} />
            {cookies.map (cookie => (
             <div
