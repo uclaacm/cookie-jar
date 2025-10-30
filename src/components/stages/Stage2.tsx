@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import "../../styles/Stage2.scss";
 
 import flour from "/assets/Flour.png";
@@ -61,6 +61,10 @@ const Stage2: React.FC = () => {
 
       <Link to="/stage1" className="back-button">
         <ArrowLeft />
+      </Link>
+
+      <Link to="/stage3" className="next-button">
+        <ArrowRight />
       </Link>
 
     </div>
