@@ -1,17 +1,17 @@
-.stage2-container {
+.stage3-container {
   padding: 114px 60px;
   font-family: "Manjari", sans-serif;
   font-weight: 700;
 
-  h1 {
-    font-size: 64px;
-  }
+    h1 {
+        font-size: 64px;
+    }
 
-  p {
-    font-size: 24px;
-  }
+    p {
+        font-size: 24px;
+    }
 
-  .back-button {
+    .back-button {
     position: fixed;
     bottom: 50px;
     left: 30px;
@@ -59,4 +59,5 @@
       stroke-width: 3;
     }
   }
+
 }
