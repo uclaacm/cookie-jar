@@ -7,7 +7,7 @@ import milk from "/assets/MilkCarton.png";
 import sugar from "/assets/SpoonofSugar.png";
 import knife from "/assets/Knife.png";
 import cookies from "/assets/Cookies.png";
-import bowl from "/assets/Bowl.png";
+import bowl from "/assets/bowl.png";
 import bowlSubtract from "/assets/BowlSubtract.png";
 import eggs from "/assets/Eggs.png";
 import sugarMound from "/assets/Sugar.png";
@@ -67,7 +67,7 @@ const Stage2: React.FC = () => {
       "Just like how flour is added to real cookies, login information (such as usernames and passwords) can be added and stored in web cookies!",
     EGGS: "Your browsing history can be stored in web cookies as well. Let's add some eggs in to represent all the sites you have visited.",
     MILK: "Personal data like name, address, and phone number can be stored in web cookies. Just like how milk isn't always added to real cookies, web cookies don't always contain this data!",
-    SUGAR: "Time to add something sweet!",
+    SUGAR: "Time to add something sweet! Technical details like your IP address, browser type, and operating system can be included in a web cookie!",
     BUTTER:
       "Web cookies can store items in a shopping cart on an online shopping website. This can make your shopping experience smooth as butter!",
     TOPPINGS:
@@ -78,7 +78,7 @@ const Stage2: React.FC = () => {
     setHideCardsInBackground(true);
   }
 
-  function selectIngredient(id) {
+  function selectIngredient(id: number) {
     if (hideCardsInBackground) return; // don't allow user to select a card if one is already selected
     const ingredientName = ingredients.find((item) => item.id === id).name;
     if (addedIngredients.has(ingredientName)) {
@@ -109,8 +109,8 @@ const Stage2: React.FC = () => {
                 hideCardsInBackground
                   ? "ingredient-card-hidden"
                   : addedIngredients.has(card.name)
-                  ? "ingredient-card ingredient-card-used"
-                  : "ingredient-card"
+                    ? "ingredient-card ingredient-card-used"
+                    : "ingredient-card"
               }
               onClick={() => selectIngredient(card.id)}
             >
