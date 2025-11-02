@@ -1,8 +1,8 @@
-import express from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import { connectDB } from "./database.js";
-import userRoutes from "./routes/userRoutes.js";
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import { connectDB } from './database.js';
+import userRoutes from './routes/userRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -13,10 +13,10 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// connectDB();
+connectDB();
 
 // // Mount user routes
-app.use("/api/users", userRoutes);
+app.use('/api/users', userRoutes);
 
 // more endpoints
 
