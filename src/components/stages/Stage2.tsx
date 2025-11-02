@@ -11,6 +11,8 @@ import bowl from "/assets/bowl.png";
 import bowlSubtract from "/assets/BowlSubtract.png";
 import eggs from "/assets/Eggs.png";
 import sugarMound from "/assets/Sugar.png";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import {
   Button,
   Card,

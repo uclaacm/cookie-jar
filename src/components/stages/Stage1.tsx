@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 // import { useState, useEffect } from "react";
 import "../../styles/Stage1.scss";
 import c2 from "/assets/c2.png";
@@ -37,6 +38,7 @@ const Stage1: React.FC = () => {
     },
   ];
 
+
   function selectCookie(id: number) {
     console.log(id);
   }
@@ -61,6 +63,11 @@ const Stage1: React.FC = () => {
           ))}
         </div>
       </div>
+
+      <Link to="/stage2" className="next-button">
+        <ArrowRight />
+      </Link>
+
     </div>
   );
 };

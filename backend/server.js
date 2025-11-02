@@ -16,7 +16,7 @@ app.use(express.json());
 // connectDB();
 
 // // Mount user routes
-// app.use("/api/users", userRoutes);
+app.use("/api/users", userRoutes);
 
 // more endpoints
 

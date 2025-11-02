@@ -43,7 +43,7 @@ Ready to bake some goodness? Here are the steps:
    git checkout -b <your-branch-name>
    ```
 3. Implement your code changes for your feature: Mix and knead away! 
-   - Before committing, run `npm lint`.
+   - Before committing, run `npm run lint`.
 4. Once you're ready, stage and commit your changes.
    - Please include the # followed by the issue number in your commit message to create a reference.
    ```

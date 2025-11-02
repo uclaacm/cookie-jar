@@ -1,0 +1,41 @@
+.footer {
+  background-color: #ffc107;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: #1e1e1e;
+  z-index: 1000;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.footer-content {
+  text-align: center;
+}
+
+.footer-icon {
+  vertical-align: middle;
+  height: 1em;
+}
+
+.footer-logo {
+  vertical-align: middle;
+  height: 1.5em;
+  margin: 0 4px;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: #1e1e1e;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.footer-link:hover {
+  opacity: 0.8;
+}
