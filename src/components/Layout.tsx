@@ -60,9 +60,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <Link to="/menu" style={{ color: 'black', textDecoration: 'none' }}>
               Menu
             </Link>
-            <Link to="/shop" style={{ color: 'black', textDecoration: 'none' }}>
-              Shop
-            </Link>
             <Link to="/stage1" style={{ color: 'black', textDecoration: 'none' }}>
               Bake
             </Link>
