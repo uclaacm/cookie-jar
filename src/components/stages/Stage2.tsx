@@ -13,6 +13,7 @@ import eggs from "/assets/Eggs.png";
 import sugarMound from "/assets/Sugar.png";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import {
   Button,
   Card,
@@ -153,8 +154,15 @@ const Stage2: React.FC = () => {
         </div>
       </div>
       {addedIngredients.size === ingredients.length && (
-        <button className="next-stage-button">Next Stage</button>
+        <Link to="/stage3" className="next-button">
+          <ArrowRight />
+        </Link>
       )}
+
+      <Link to="/stage1" className="back-button">
+        <ArrowLeft />
+      </Link>
+
     </div>
   );
 };
