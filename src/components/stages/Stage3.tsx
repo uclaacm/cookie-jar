@@ -21,7 +21,7 @@ const Stage3: React.FC = () => {
             <Link to="/stage2" className="back-button">
                 <ArrowLeft />
             </Link>
-            <Link to="/gamestages" className="next-button">
+            <Link to="/stage4" className="next-button">
                 <ArrowRight />
             </Link>
 
