@@ -28,7 +28,7 @@ const GameStages: React.FC = () => {
             <GameStageCard
                 to="/stage5"
                 name="Stage 5"
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                description="See how zombie cookies can come back after being deleted."
             />
             <GameStageCard
                 to="/stage6"
