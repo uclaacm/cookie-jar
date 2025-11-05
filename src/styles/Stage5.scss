@@ -1,0 +1,65 @@
+/* mostly copied from Stage2.scss */
+.stage5-container {
+  padding: 50px 60px;
+  padding-bottom: 150px; // Add extra bottom padding to account for footer
+  font-family: "Manjari", sans-serif;
+  font-weight: 700;
+
+  h1 {
+    font-size: 64px;
+  }
+
+  p {
+    font-size: 24px;
+  }
+
+  .back-button {
+    position: fixed;
+    bottom: 50px;
+    left: 30px;
+    background-color: #ffc107;
+    color: black;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.4);
+
+    &:hover {
+      background: #E3B750;
+      color: black;
+      transform: translateX(4px) scale(1.05);
+    }
+
+    svg {
+      stroke-width: 3;
+    }
+  }
+
+  .next-button {
+    position: fixed;
+    bottom: 50px;
+    right: 30px;
+    background-color: #ffc107;
+    color: black;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.4);
+
+    &:hover {
+      background: #E3B750;
+      color: black;
+      transform: translateX(4px) scale(1.05);
+    }
+
+    svg {
+      stroke-width: 3;
+    }
+  }
+}
