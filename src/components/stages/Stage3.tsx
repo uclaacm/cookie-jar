@@ -1,39 +1,41 @@
-import React, { useState }  from "react";
+import React, { useRef, useState }  from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import CardRadioButton from "../CardRadioButton";
 import "../../styles/Stage3.scss";
 
 const Stage3: React.FC = () => {
-    const [time, setTime] = useState({ minutes: 5, seconds: "00" });
+    const [time, setTime] = useState({ minutes: 5, seconds: 0 });
+    const timerIntervalId = useRef<number | undefined>(undefined);
     const [cookieBase, setCookieBase] = useState("");
     const [cookieToppings, setCookieToppings] = useState<string[]>([]);
 
     const runTimer = () => {
-        const intervalId = setInterval(() => {
-            setTime(prevTime => {
-                let newTime = { minutes: prevTime.minutes, seconds: prevTime.seconds }
+        if (timerIntervalId.current != undefined) {
+            return;
+        }
 
-                if (parseInt(prevTime.seconds) > 0) {
-                    const newSeconds = parseInt(prevTime.seconds) - 1;
-                    if (newSeconds < 10) {
-                        newTime.seconds = "0" + newSeconds;
-                    } else {
-                        newTime.seconds = "" + newSeconds;
-                    }
-                    return newTime;
+        timerIntervalId.current = setInterval(() => {
+            setTime(prevTime => {
+                if (prevTime.seconds > 0) {
+                    return { minutes: prevTime.minutes, seconds: prevTime.seconds - 1 };
                 } else {
                     if (prevTime.minutes == 0) {
-                        clearInterval(intervalId);
-                        return newTime;
+                        clearInterval(timerIntervalId.current);
+                        timerIntervalId.current = undefined;
+                        return { minutes: prevTime.minutes, seconds: prevTime.seconds };
                     }
 
-                    newTime.minutes = prevTime.minutes - 1;
-                    newTime.seconds = "59";
-                    return newTime;
+                    return { minutes: prevTime.minutes - 1, seconds: 59 };
                 }
             });
         }, 1000);
+    }
+
+    const resetTimer = () => {
+        clearInterval(timerIntervalId.current);
+        timerIntervalId.current = undefined;
+        setTime({ minutes: 5, seconds: 0 });
     }
 
     const selectCookieBase = () => {
@@ -66,12 +68,12 @@ const Stage3: React.FC = () => {
             <div style={{ display: "flex" }}>
                 <div className="content-container">
                     <div style={{ width: "150px", height: "50px", border: "1px solid black", marginBottom: "20px" }}>
-                        {time.minutes + ":" + time.seconds}
+                        {time.minutes + ":" + (time.seconds < 10 ? "0" : "") + time.seconds}
                     </div>
                     <div style={{ width: "300px", height: "300px", border: "1px solid black" }}>
                         <div>{cookieBase}</div>
-                        {cookieToppings.map((cookieTopping) => (
-                            <div>{cookieTopping}</div>
+                        {cookieToppings.map((cookieTopping, index) => (
+                            <div key={index}>{cookieTopping}</div>
                         ))}
                     </div>
                 </div>
@@ -120,7 +122,16 @@ const Stage3: React.FC = () => {
                             <label><input type="checkbox" name="cookie-topping" value="Chocolate Chips" onClick={() => selectCookieTopping()} />Chocolate Chips</label><br />
                             <label><input type="checkbox" name="cookie-topping" value="Nuts" onClick={() => selectCookieTopping()} />Nuts</label><br />
                             <label><input type="checkbox" name="cookie-topping" value="Candy" onClick={() => selectCookieTopping()} />Candy</label><br />
-                            <button onClick={() => runTimer()}>Done</button>
+                            {timerIntervalId.current == undefined && time.minutes != 0 && (
+                                <button onClick={() => runTimer()}>Done</button>
+                            )}
+                            {timerIntervalId.current == undefined && time.minutes == 0 && (
+                                <button onClick={() => resetTimer()}>Make New Cookie</button>
+                            )}
+                            {timerIntervalId.current != undefined && (
+                                <button onClick={() => resetTimer()}>Reset Cookie</button>
+                            )}
+                            
                         </div>
                     )}
                 </div>
