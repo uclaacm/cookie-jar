@@ -1,25 +1,18 @@
 import React from 'react';
-import cookieImage from '../assets/cookie.svg'
 import './../styles/Cookie.scss';
 
 interface CookieCardProps {
-  name: string;
-  type: string;
-  onClick: () => void;
+    name: string;
+    image: string;
+    onClick: () => void;
 }
 
-const CookieCard: React.FC<CookieCardProps> = ({ name, onClick }) => {
-  return (
-    <div className="cookie">
-      <p>{name}</p>
-      <img
-        src={cookieImage}
-        alt={name} //for accessibility
-        onClick={onClick}
-        className="cookie-image"
-      />
+const CookieCard: React.FC<CookieCardProps> = ({ name, image, onClick }) => (
+    <div className="cookie-card" onClick={onClick}>
+        <img src={image} alt={name} className="cookie-image" />
+        <h3>{name}</h3>
     </div>
-  );
-};
+);
+
 
 export default CookieCard;
