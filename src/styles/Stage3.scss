@@ -2,7 +2,7 @@
     position: relative;
     width: 100vw;
     height: 87vh;
-    background: linear-gradient(#87ceeb, #fff7cc);
+    background: white;
     overflow: hidden;
 
 .score{
@@ -39,20 +39,32 @@
     height: 36px;
     background: sienna;
     border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     transition: left 0.1s ease;
   }
+.basket1{
+    box-shadow: 0 0 10px red;
+}
+.basket3{
+    box-shadow: 0 0 10px green;
+}
+
+
 .cookie {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    width: 12px;
+    height: 12px;
+    background-image: url("/assets/c8.png");
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    overflow: hidden;
 }
 .cookie-1{
-    background: red;
+    box-shadow: 0 0 10px red;
 }
 
 .cookie-3{
-    background: green;
+    box-shadow: 0 0 10px green;
 }
 
 .game-over-overlay{
@@ -67,8 +79,22 @@
     align-items: center;
     color: white;
     font-size: 2rem;
-    z-index: 100;
-  
-
+    z-index: 1000;
+}
+.cookie-overlay{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    min-height: 200px;
+    height: auto;
+    background: rgba(255, 255, 255, 0.85);
+    color: black;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 1000;
+    text-align: left;
+    border: 8px solid grey;
 }
 }
