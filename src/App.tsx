@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout'; // Import Layout
+import ProtectedRoute from './components/ProtectedRoute'; // Import ProtectedRoute
 import Home from './components/Home'; // Import Home
 import Menu from './components/Menu'; // Import Menu
 import Bake from './components/Bake'; // Import Bake
@@ -19,14 +20,56 @@ const App: React.FC = () => {
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/bake" element={<Bake />} />
-        <Route path="/stage1" element={<Stage1 />} />
-        <Route path="/stage2" element={<Stage2 />} />
-        <Route path="/stage3" element={<Stage3 />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/gamestages" element={<GameStages />} />
+        <Route
+          path="/menu"
+          element={
+            <ProtectedRoute>
+              <Menu />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/bake"
+          element={
+            <ProtectedRoute>
+              <Bake />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/stage1"
+          element={
+            <ProtectedRoute>
+              <Stage1 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/stage2"
+          element={
+            <ProtectedRoute>
+              <Stage2 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/stage3"
+          element={
+            <ProtectedRoute>
+              <Stage3 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/gamestages"
+          element={
+            <ProtectedRoute>
+              <GameStages />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
     </Layout>

@@ -73,6 +73,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     navigate('/');
   };
 
+  const handleProtectedNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    if (!isLoggedIn) {
+      e.preventDefault();
+      navigate('/login');
+    }
+  };
+
   return (
     <Root>
       <CssBaseline />
@@ -93,13 +100,25 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
           {/* Right side of the AppBar */}
           <div style={{ display: 'flex', gap: '20px' }}>
-            <Link to="/menu" style={{ color: 'black', textDecoration: 'none' }}>
+            <Link
+              to="/menu"
+              style={{ color: 'black', textDecoration: 'none' }}
+              onClick={(e) => handleProtectedNavigation(e, '/menu')}
+            >
               Menu
             </Link>
-            <Link to="/stage1" style={{ color: 'black', textDecoration: 'none' }}>
+            <Link
+              to="/stage1"
+              style={{ color: 'black', textDecoration: 'none' }}
+              onClick={(e) => handleProtectedNavigation(e, '/stage1')}
+            >
               Bake
             </Link>
-            <Link to="/gamestages" style={{ color: 'black', textDecoration: 'none' }}>
+            <Link
+              to="/gamestages"
+              style={{ color: 'black', textDecoration: 'none' }}
+              onClick={(e) => handleProtectedNavigation(e, '/gamestages')}
+            >
               Game Stages
             </Link>
             {isLoggedIn ? (
