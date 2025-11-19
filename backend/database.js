@@ -1,15 +1,14 @@
 // database.js
-import { MongoClient } from "mongodb";
-import dotenv from "dotenv";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
 const uri = process.env.MONGO_URI;
-const client = new MongoClient(uri);
 
 async function connectDB() {
   try {
-    await client.connect();
+    await mongoose.connect(uri);
     console.log("can start filling da jar");
   } catch (error) {
     console.error("the jar broke", error);
@@ -17,4 +16,4 @@ async function connectDB() {
   }
 }
 
-export { client, connectDB };
+export { connectDB };

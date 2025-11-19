@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import React, { ReactNode, useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -37,6 +37,49 @@ const Content = styled(Box)(({ /*theme*/ }) => ({
 }));
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  // Check if user is logged in on component mount and when localStorage changes
+  useEffect(() => {
+    const checkAuth = () => {
+      const token = localStorage.getItem('token');
+      setIsLoggedIn(!!token);
+    };
+
+    checkAuth();
+
+    // Listen for storage changes (in case user logs in/out in another tab)
+    window.addEventListener('storage', checkAuth);
+
+    // Custom event for same-tab logout
+    window.addEventListener('authChange', checkAuth);
+
+    return () => {
+      window.removeEventListener('storage', checkAuth);
+      window.removeEventListener('authChange', checkAuth);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    // Remove token from localStorage
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+
+    // Dispatch custom event for same-tab auth change
+    window.dispatchEvent(new Event('authChange'));
+
+    // Navigate to home page
+    navigate('/');
+  };
+
+  const handleProtectedNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    if (!isLoggedIn) {
+      e.preventDefault();
+      navigate('/login');
+    }
+  };
+
   return (
     <Root>
       <CssBaseline />
@@ -57,18 +100,47 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
           {/* Right side of the AppBar */}
           <div style={{ display: 'flex', gap: '20px' }}>
-            <Link to="/menu" style={{ color: 'black', textDecoration: 'none' }}>
+            <Link
+              to="/menu"
+              style={{ color: 'black', textDecoration: 'none' }}
+              onClick={(e) => handleProtectedNavigation(e, '/menu')}
+            >
               Menu
             </Link>
-            <Link to="/stage1" style={{ color: 'black', textDecoration: 'none' }}>
+            <Link
+              to="/stage1"
+              style={{ color: 'black', textDecoration: 'none' }}
+              onClick={(e) => handleProtectedNavigation(e, '/stage1')}
+            >
               Bake
             </Link>
-            <Link to="/gamestages" style={{ color: 'black', textDecoration: 'none' }}>
+            <Link
+              to="/gamestages"
+              style={{ color: 'black', textDecoration: 'none' }}
+              onClick={(e) => handleProtectedNavigation(e, '/gamestages')}
+            >
               Game Stages
             </Link>
-            <Link to="/login" style={{ color: 'black', textDecoration: 'none' }}>
-              Login
-            </Link>
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                style={{
+                  color: 'black',
+                  textDecoration: 'none',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: '1rem',
+                  fontFamily: 'inherit',
+                }}
+              >
+                Logout
+              </button>
+            ) : (
+              <Link to="/login" style={{ color: 'black', textDecoration: 'none' }}>
+                Login
+              </Link>
+            )}
           </div>
         </Toolbar>
       </AppBar>

@@ -32,7 +32,10 @@ const Login: React.FC = () => {
 
       // Store the token in localStorage
       localStorage.setItem('token', data.token);
-      
+
+      // Dispatch custom event to update auth state in navbar
+      window.dispatchEvent(new Event('authChange'));
+
       // Navigate to home page or dashboard
       navigate('/');
     } catch (err) {
