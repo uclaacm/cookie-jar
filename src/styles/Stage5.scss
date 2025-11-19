@@ -63,3 +63,23 @@
     }
   }
 }
+
+// specific to this stage
+// TODO: make sure this is the right way to do this
+// (in particular whether the units for the width and height are good; how do they show up on differently-sized screens?)
+.zombie {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  background-color: green;
+  cursor: pointer; // TODO: this actually depends on the zombie state (so does background-color); so have different classes for each state
+}
+
+.player {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  background-color: brown;
+}
