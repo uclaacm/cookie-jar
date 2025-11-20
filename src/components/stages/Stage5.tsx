@@ -12,12 +12,19 @@ const ORIGIN_X = 400;
 const ORIGIN_Y = 400;
 const STARTING_DISTANCE = 1024;
 
+// how close a zombie can get to the player before the player loses a life
+// TODO: name (really is the min zombie distance before the zombie & player get removed)
+// TODO: how to match this up with the displayed size in the CSS?
+const MAX_ZOMBIE_DISTANCE = 64;
+
 // TODO: adjust this value (maybe change speed as a function of time)
 const DEFAULT_SPEED = 6;
 
 // number of ticks between zombie spawns
 const TICKS_PER_SPAWN = 50;
-const MILLISECONDS_PER_TICK = 100;
+const MILLISECONDS_PER_TICK = 50;
+
+const MAX_HEALTH = 5;
 
 // from https://overreacted.io/making-setinterval-declarative-with-react-hooks/
 function useInterval(callback: () => void, delay: number) {
@@ -45,6 +52,7 @@ interface ZombieData {
   readonly angle: number; // in radians
   readonly speed: number;
   readonly key: number; // just for the key; TODO: see if it should be called "id"
+  readonly onReachingPlayer: () => void; // TODO: how to put this into `step()`?
 }
 
 // TODO: maybe make this an abstract class and have the different states be the concrete classes (using the State design pattern)
@@ -71,6 +79,12 @@ class Zombie {
       return undefined;
     }
 
+    // if the zombie reaches the player, call the passed-in callback and remove the zombie.
+    if (this.data.distance <= MAX_ZOMBIE_DISTANCE) {
+      this.data.onReachingPlayer();
+      return undefined;
+    }
+
     return new Zombie({
       ...this.data,
       distance: this.data.distance - this.data.speed
@@ -90,36 +104,57 @@ class Zombie {
     }
 
     // TODO: get classNames (list of CSS classes) from the state of the zombie
-    // TODO: what's the best way to allow this to return northing if `!this.exists`?
+    // TODO: what's the best way to allow this to return nothing if `!this.exists`?
     return this.exists ? (
       <div className="zombie" style={{left: x, bottom: y}} onClick={onClick} key={this.data.key} />
     ) : <></>;
   }
 }
 
-function newZombie(speed: number, key: number): Zombie {
+function newZombie(speed: number, key: number, onReachingPlayer: () => void): Zombie {
   console.log(`Creating zombie #${key}`);
   return new Zombie({
     distance: STARTING_DISTANCE,
     angle: 2 * Math.PI * Math.random(),
     speed: speed,
-    key: key
+    key: key,
+    onReachingPlayer: onReachingPlayer
   });
+}
+
+// TODO: type annotation
+function HealthBar({ health }: { health: number }) {
+  // TODO: styling
+  // TODO: display an amount of hearts given by `Health`
+  return (
+    <p>Health: {health}</p>
+  )
 }
 
 function Game() {
   const [count, setCount] = useState(0); // for keeping track of the key to assign to zombies
   const [tick, setTick] = useState(0); // current game tick (used to keep track of things that take multiple ticks to happen)
   const [zombies, setZombies] = useState<Zombie[]>([]);
+  const [health, setHealth] = useState(MAX_HEALTH);
+
+  // TODO: name
+  function onReachingPlayer(key: number) {
+    return () => {
+      console.log(`Zombie #${key} reached the player`);
+      // it seems that `setHealth(health - 1)` doesn't behave the way I want, because it uses the value of `health` from when the zombie spawned
+      setHealth((health) => health - 1);
+      // TODO: handle health reaching 0
+    }
+  }
 
   function spawnZombie() {
     // TODO: when to pass a function into a `set` function and when to directly pass the new value?
-    setZombies(prev => [...prev, newZombie(DEFAULT_SPEED, count)]);
+    setZombies([...zombies, newZombie(DEFAULT_SPEED, count, onReachingPlayer(count))]);
     setCount(count + 1);
   }
 
   function gameTick() {
-    setZombies((zombies) => zombies.map((zombie) => zombie.step()).filter((result): result is Zombie => result !== undefined));
+    setZombies(zombies.map((zombie) => zombie.step()).filter((result): result is Zombie => result !== undefined));
     if (tick % TICKS_PER_SPAWN == 0) {
       spawnZombie()
     }
@@ -132,6 +167,7 @@ function Game() {
     <>
       <div className="player" style={{left: ORIGIN_X, bottom: ORIGIN_Y}} />
       {zombies.map((zombie) => zombie.asComponent())}
+      <HealthBar health={health} />
     </>
   );
 }
