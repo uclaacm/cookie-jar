@@ -45,6 +45,7 @@ interface ZombieData {
   readonly angle: number; // in radians
   readonly speed: number;
   readonly key: number; // just for the key; TODO: see if it should be called "id"
+  readonly onClick: () => void;
 }
 
 // TODO: maybe make this an abstract class and have the different states be the concrete classes (using the State design pattern)
@@ -78,7 +79,7 @@ class Zombie {
 
     // TODO: get classNames (list of CSS classes) from the state of the zombie
     return (
-      <div className="zombie" style={{left: x, bottom: y}} key={this.data.key} />
+      <div className="zombie" style={{left: x, bottom: y}} onClick={this.data.onClick} key={this.data.key} />
     );
   }
 
@@ -86,12 +87,13 @@ class Zombie {
   // (maybe allow the Game component to pass in a callback/handler)
 }
 
-function newZombie(speed: number, key: number): Zombie {
+function newZombie(speed: number, key: number, onClick: () => void): Zombie {
   return new Zombie({
     distance: STARTING_DISTANCE,
     angle: 2 * Math.PI * Math.random(),
     speed: speed,
-    key: key
+    key: key,
+    onClick: onClick
   });
 }
 
@@ -100,9 +102,17 @@ function Game() {
   const [tick, setTick] = useState(0); // current game tick (used to keep track of things that take multiple ticks to happen)
   const [zombies, setZombies] = useState<Zombie[]>([]);
 
+  // TODO: this functionality should be partially handled by the Zombie class, and should involve a state transition in the case that the zombie isn't completely removed.
+  function onZombieClick(key: number) {
+    return () => {
+      console.log(`Clicked zombie #${key}`);
+      setZombies(prev => prev.filter((zombie) => zombie.data.key != key));
+    };
+  }
+
   function spawnZombie() {
     // TODO: when to pass a function into a `set` function and when to directly pass the new value?
-    setZombies(prev => [...prev, newZombie(DEFAULT_SPEED, count)]);
+    setZombies(prev => [...prev, newZombie(DEFAULT_SPEED, count, onZombieClick(count))]);
     setCount(count + 1);
     console.log(`Spawned zombie #${count}`);
   }
