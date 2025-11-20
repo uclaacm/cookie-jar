@@ -21,7 +21,7 @@ const MILLISECONDS_PER_TICK = 100;
 
 // from https://overreacted.io/making-setinterval-declarative-with-react-hooks/
 function useInterval(callback: () => void, delay: number) {
-  const savedCallback = useRef();
+  const savedCallback = useRef(() => {});
 
   // Remember the latest callback.
   useEffect(() => {
@@ -45,7 +45,6 @@ interface ZombieData {
   readonly angle: number; // in radians
   readonly speed: number;
   readonly key: number; // just for the key; TODO: see if it should be called "id"
-  readonly onClick: () => void;
 }
 
 // TODO: maybe make this an abstract class and have the different states be the concrete classes (using the State design pattern)
@@ -53,16 +52,24 @@ interface ZombieData {
 class Zombie {
   readonly data: ZombieData; // TODO: maybe call this "props"
   // TODO: is there a way to avoid having to type `.data` all the time? e.g. writing `this.distance` instead of `this.data.distance`?
+  exists: boolean; // keeps track of whether to remove the zombie at the end of this step
 
   // code outside this class shouldn't call the constructor.
   // instead, create Zombie objects using newZombie() or Zombie.step().
   constructor(data: ZombieData) {
     this.data = data;
+    this.exists = true;
   }
 
   // TODO: address different zombie states
-  step(): Zombie {
+  // returns `undefined` if the zombie should be removed
+  step(): Zombie | undefined {
     // TODO: check if the player loses a life
+
+    if (!this.exists) {
+      console.log(`Removing zombie #${this.data.key}`); // TODO: why is the message displayed twice?
+      return undefined;
+    }
 
     return new Zombie({
       ...this.data,
@@ -77,23 +84,26 @@ class Zombie {
     const x = ORIGIN_X + SCALING_FACTOR * this.data.distance * Math.cos(this.data.angle);
     const y = ORIGIN_Y + SCALING_FACTOR * this.data.distance * Math.sin(this.data.angle);
 
-    // TODO: get classNames (list of CSS classes) from the state of the zombie
-    return (
-      <div className="zombie" style={{left: x, bottom: y}} onClick={this.data.onClick} key={this.data.key} />
-    );
-  }
+    // TODO: this function should involve a state transition in the case that the zombie doesn't get completely removed.
+    const onClick = () => {
+      this.exists = false;
+    }
 
-  // TODO: handle zombies being clicked
-  // (maybe allow the Game component to pass in a callback/handler)
+    // TODO: get classNames (list of CSS classes) from the state of the zombie
+    // TODO: what's the best way to allow this to return northing if `!this.exists`?
+    return this.exists ? (
+      <div className="zombie" style={{left: x, bottom: y}} onClick={onClick} key={this.data.key} />
+    ) : <></>;
+  }
 }
 
-function newZombie(speed: number, key: number, onClick: () => void): Zombie {
+function newZombie(speed: number, key: number): Zombie {
+  console.log(`Creating zombie #${key}`);
   return new Zombie({
     distance: STARTING_DISTANCE,
     angle: 2 * Math.PI * Math.random(),
     speed: speed,
-    key: key,
-    onClick: onClick
+    key: key
   });
 }
 
@@ -102,23 +112,14 @@ function Game() {
   const [tick, setTick] = useState(0); // current game tick (used to keep track of things that take multiple ticks to happen)
   const [zombies, setZombies] = useState<Zombie[]>([]);
 
-  // TODO: this functionality should be partially handled by the Zombie class, and should involve a state transition in the case that the zombie isn't completely removed.
-  function onZombieClick(key: number) {
-    return () => {
-      console.log(`Clicked zombie #${key}`);
-      setZombies(prev => prev.filter((zombie) => zombie.data.key != key));
-    };
-  }
-
   function spawnZombie() {
     // TODO: when to pass a function into a `set` function and when to directly pass the new value?
-    setZombies(prev => [...prev, newZombie(DEFAULT_SPEED, count, onZombieClick(count))]);
+    setZombies(prev => [...prev, newZombie(DEFAULT_SPEED, count)]);
     setCount(count + 1);
-    console.log(`Spawned zombie #${count}`);
   }
 
   function gameTick() {
-    setZombies((zombies) => zombies.map((zombie) => zombie.step()));
+    setZombies((zombies) => zombies.map((zombie) => zombie.step()).filter((result): result is Zombie => result !== undefined));
     if (tick % TICKS_PER_SPAWN == 0) {
       spawnZombie()
     }
