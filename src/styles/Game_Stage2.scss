@@ -1,0 +1,92 @@
+.game-stage2-container {
+  padding: 50px 60px;
+  padding-bottom: 75px; // Add extra bottom padding to account for footer
+  font-family: "Manjari", sans-serif;
+  font-weight: 700;
+  height: 100%;
+
+  h1 {
+    font-size: 64px;
+  }
+
+  p {
+    font-size: 24px;
+  }
+
+  .start-button {
+    width: 220px;
+    height: 85px;
+    background-color: #f3c760;
+    padding-top: 8px;
+    margin-top: 40px;
+    transition: transform 0.5s ease;
+  }
+
+  .start-button:hover {
+    cursor: pointer;
+    transform: translateY(-8px);
+  }
+
+  .customer-container {
+    position: absolute;
+    bottom: 20px;
+    right: 5%;
+    width: fit-content;
+    text-align: right;
+  }
+}
+
+.game-mode-background {
+  position: fixed;
+  background-color: #d9d9d9;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10000;
+}
+
+.game-mode-container {
+  position: relative;
+  background-color: #ffffff;
+  border: 3px solid black;
+  height: 100%;
+  border-radius: 16px;
+  padding: 36px;
+
+  .cookie-container {
+    border: 3px solid #ff9ab2;
+    border-radius: 16px;
+    padding: 20px;
+    width: fit-content;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 90px;
+    row-gap: 18px;
+
+    img {
+      width: 120px;
+      transition: transform 0.5s ease;
+    }
+
+    img:hover {
+      cursor: pointer;
+      transform: translateY(-8px);
+    }
+  }
+
+  .player-score {
+    font-size: 36px;
+    position: absolute;
+    top: 28px;
+    right: 50px;
+  }
+}
+
+button {
+  font-family: "Manjari", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  border: none;
+  border-radius: 10px;
+}
