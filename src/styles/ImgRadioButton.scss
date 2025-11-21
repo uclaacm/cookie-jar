@@ -1,0 +1,22 @@
+.img-radio-button {
+    font-family: 'Manjari', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: black;
+    cursor: pointer;
+}
+
+.img-radio-button > input {
+    display: none;
+
+    &:checked ~ div {
+        border-bottom: 3px solid #F3C760;
+    }
+}
+
+.img-radio-button > div {
+    box-sizing: border-box;
+    border-bottom: 3px solid #00000000;
+    text-align: center;
+}
+
