@@ -66,6 +66,18 @@
     margin: 16px;
 }
 
+.timer {
+    width: fit-content;
+    padding: 10px 20px 5px;
+    background-color: #293E44;
+    border-radius: 10px;
+    font-family: 'Manjari', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #FFF;
+    margin-bottom: 20px;
+}
+
 .cookie-toppings-container {
     display: flex;
     flex-wrap: wrap;
@@ -88,4 +100,5 @@
     font-size: 1.4rem;
     font-weight: 700;
     color: black;
+    cursor: pointer;
 }

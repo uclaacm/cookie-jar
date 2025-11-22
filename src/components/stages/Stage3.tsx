@@ -8,26 +8,21 @@ import sprinklesImg from "../../assets/sprinkles.svg";
 import frostingImg from "../../assets/frosting.svg";
 import mmsImg from "../../assets/mms.svg";
 import caramelImg from "../../assets/caramel.svg";
+import plainCookieImg from  "../../assets/plain-cookie.svg";
+import chocolateChipCookieImg from "../../assets/chocolate-chip-cookie.svg";
+import sprinklesCookieImg from "../../assets/sprinkles-cookie.svg";
 
 const Stage3: React.FC = () => {
     const [time, setTime] = useState({ minutes: 5, seconds: 0 });
     const timerIntervalId = useRef<number | undefined>(undefined);
-    const [cookieTopping, setCookieTopping] = useState<string>("");
+    const [cookieTopping, setCookieTopping] = useState("plain");
 
     const toppings = [
-        "chocolate chips",
-        "sprinkles",
-        "frosting",
-        "m&m's candy",
-        "caramel drizzle"
-    ]
-
-    const toppingImages = [
-        chocolateChipsImg,
-        sprinklesImg,
-        frostingImg,
-        mmsImg,
-        caramelImg
+        { name: "chocolate chips", img: chocolateChipsImg, cookieImg: chocolateChipCookieImg },
+        { name: "sprinkles", img: sprinklesImg, cookieImg: sprinklesCookieImg },
+        { name: "frosting", img: frostingImg, cookieImg: plainCookieImg },
+        { name: "m&m's candy", img: mmsImg, cookieImg: plainCookieImg },
+        { name: "caramel drizzle", img: caramelImg, cookieImg: plainCookieImg}
     ];
 
     const runTimer = () => {
@@ -63,6 +58,14 @@ const Stage3: React.FC = () => {
         for (let i = 0; i < cookieToppingBoxes.length; i++) {
             const button = cookieToppingBoxes[i] as HTMLInputElement; 
             if (button.checked) {
+                const cookieImg = document.getElementById("cookieImg") as HTMLImageElement;
+                for (let j = 0; j < toppings.length; j++) {
+                    if (toppings[j].name == button.value) {
+                        cookieImg.src = toppings[j].cookieImg;
+                        break;
+                    }
+                }
+                cookieImg.alt = button.value;
                 setCookieTopping(button.value);
             }
         }
@@ -71,29 +74,27 @@ const Stage3: React.FC = () => {
     return (
         <div className="stage3-container">
             <h1>Stage 3</h1>
-
+            <p>
+                Websites use a tool called <u>cookies</u> to remember information about you across multiple visits.<br />Pick a topping for your cookie! This website will use a <u>cookie</u> to remember your decision.
+            </p>
             <div style={{ display: "flex" }}>
                 <div className="content-container">
-                    <div style={{ width: "150px", height: "50px", border: "1px solid black", marginBottom: "20px" }}>
+                    <div className="timer">
                         {time.minutes + ":" + (time.seconds < 10 ? "0" : "") + time.seconds}
                     </div>
-                    <div style={{ width: "500px", height: "500px", border: "1px solid black" }}>
-                        <div>{cookieTopping}</div>
+                    <div>
+                        <img id="cookieImg" src={plainCookieImg} alt="Plain Cookie" width="500" height="500" />
                     </div>
                 </div>
                 <div className="content-container">
                     <div>
-                        <p>
-                            Select cookie toppings
-                        </p>
-
                         <div className="cookie-toppings-container">
                             {toppings.map((topping, index) => (
                                 <ImgRadioButton 
                                     key={index}
                                     groupName="cookie-topping"
-                                    value={topping}
-                                    img={toppingImages[index]}
+                                    value={topping.name}
+                                    img={topping.img}
                                     onClick={() => selectCookieTopping()}
                                 />
                             ))}
