@@ -1,9 +1,45 @@
+.instructionScreen{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 400px;
+    padding: 20px;
+    text-align: center;
+    background: rgb(181, 180, 180);
+
+    .start-button{
+        position:absolute;
+        bottom:15%;
+        left:50%;
+        transform: translate(-50%, -50%);
+    }
+}
+.instructionScreen p {
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+  }
+  
+.game-Container{
+    position:relative;
+    width: 100vw;
+    height: 90vh;
+    background:grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .gameArea {
     position: relative;
-    width: 100vw;
-    height: 87vh;
+    width: 85vw;
+    height: 80vh;
     background: white;
     overflow: hidden;
+    border: 12px solid #333;
+    border-radius: 20px;
+    box-sizing: border-box;
 
 .score{
     position:absolute;
@@ -36,10 +72,13 @@
 .basket {
     position: absolute;
     bottom: 16px;
-    height: 36px;
-    background: sienna;
+    height: 100px;
+    background: rgb(164, 155, 152);
     border-radius: 8px;
     transition: left 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 .basket1{
     box-shadow: 0 0 10px red;
@@ -48,11 +87,16 @@
     box-shadow: 0 0 10px green;
 }
 
+.basket p {
+    color: white;
+    font-size: 24px;
+}
+  
 
 .cookie {
     position: absolute;
-    width: 12px;
-    height: 12px;
+    width: 30px;
+    height: 30px;
     background-image: url("/assets/c8.png");
     background-size: cover;
     background-position: center;
@@ -75,11 +119,14 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 20px;
     color: white;
     font-size: 2rem;
     z-index: 1000;
+    
 }
 .cookie-overlay{
     position: absolute;
@@ -98,3 +145,4 @@
     border: 8px solid grey;
 }
 }
+

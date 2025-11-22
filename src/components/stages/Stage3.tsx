@@ -78,12 +78,13 @@ function Basket({ basketX, basketWidth, setBasketX, controls, typeBasket}: Baske
     }, []);
 
     return (
-        <>
-          <div className = "instructions">Press ← → to move</div>
-          <div className = {`basket ${typeBasket === "basket1" ? "basket1" : "basket3"}`}
-            style={{ left: basketX, width: basketWidth,}}
-          />
-          </>
+        
+    <div className = "basket-container">
+        <div className = {`basket ${typeBasket === "basket1" ? "basket1" : "basket3"}`}
+            style={{ left: basketX, width: basketWidth,}}>
+                <p className="basket-label"> {typeBasket === "basket1" ? "Your Basket" : "Everyone's Basket"}</p>
+        </div>
+        </div>
       );
     }
 
@@ -104,8 +105,8 @@ function Cookie({data}:CookieProps){
 
 export default function Stage3() {
     const [cookies, setCookies] = useState<CookieProps["data"][]>([]);
+    const [gameState, setGameState] = useState<"instructions"|"playing"|"gameover"|"gamewon">("instructions")
     const [isPaused, setIsPaused] = useState(false);
-    const [gameOver, setGameOver] = useState(false);
     const [clickedCookie, setClickedCookie] = useState<CookieProps["data"] | null>(null);
     const Frames_per_spawn = 125;
     const frames_elapsed = useRef(0);
@@ -113,13 +114,27 @@ export default function Stage3() {
     const [score, setScore] = useState(0);
     const [basket1X, setBasket1X] = useState(100);
     const [basket3X, setBasket3X] = useState(300);
+    const [noCookiesLeft, setNoCookiesLeft] = useState(false);
     const usedCookieIds = useRef<Set<string>>(new Set());
     const basket1XRef = useRef(basket1X);
     const basket3XRef = useRef(basket3X);
-    const basketWidth = 100;
-    const basketHeight = 36;
+    const basketWidth = 250;
+    const basketHeight = 100;
+    const cookieWidth = 30;
+    const cookieHeight = 30;
     let OffScreen = false;
 
+    function resetGame() {
+        setScore(0);
+        setCookies([]);
+        usedCookieIds.current.clear();
+        frames_elapsed.current = 0;
+        setClickedCookie(null);
+        setIsPaused(false);
+        setGameState("playing"); // restarts loop
+        setNoCookiesLeft(false);
+    }
+    
     function handleCookieClick(cookie: CookieProps["data"]){
         setIsPaused(true);
         setClickedCookie(cookie);
@@ -129,50 +144,49 @@ export default function Stage3() {
         }, 3000);
     }    
 
-
+    //function to handle spawning cookies
     async function spawnCookie(gameWidth: number){
         const target = Math.random() < 0.5 ? "basket1" : "basket3";
         let cookieType = target==="basket1"? "first" : "third";
         
         const exclude = Array.from(usedCookieIds.current).join(",");
-        console.log("Exclude List:", exclude);
         let res = await fetch(`/api/cookies/random?type=${cookieType}&exclude=${exclude}`,
         {cache: "no-store"});
         let data = await res.json();
         if (!res.ok || !data._id) {
-            console.log("Failed to get '${cookieType}', trying other type...");
-                
-            // Flip the type
+            
+            // Try again with the other type
             cookieType = (cookieType === "first") ? "third" : "first";
-                
-                // Try again with the *other* type
-                res = await fetch(`/api/cookies/random?type=${cookieType}&exclude=${exclude}`, {
-                  cache: "no-store"
-                });
-                data = await res.json();
+            res = await fetch(`/api/cookies/random?type=${cookieType}&exclude=${exclude}`, {
+                cache: "no-store"});
+            data = await res.json();
         
-                // 3. If *this* one also failed, then we are truly out of all cookies
-                if (!res.ok || !data._id) {
-                    console.log("No more cookies of *any* type available.");
-                    return; // <-- This is the all-important RETURN
-                }         }          
+            if (!res.ok || !data._id) {
+                setNoCookiesLeft(true);
+                console.log("we win theseeeee")
+                return; }}          
+
+            if (noCookiesLeft) {
+                return;
+                }
+                
         usedCookieIds.current.add(data._id);
 
         const newCookie: CookieProps["data"] = {
             id: Date.now(),
-            x: Math.random() * (gameWidth - 4 * 2) + 4,
+            x: Math.random() * (gameWidth - cookieWidth * 2) + cookieWidth,
             y:-40,
             speed:1,
-            width: 4,
-            height: 4,
-            type: target,
+            width: cookieWidth,
+            height: cookieHeight,
+            type: cookieType,
             mongo_id: data._id,
             info: data,
         };
         setCookies(prev =>[...prev, newCookie]);
     }
 
-
+    //references for basket locations
     useEffect(() => {
         basket1XRef.current = basket1X;
     }, [basket1X]);
@@ -181,10 +195,21 @@ export default function Stage3() {
         basket3XRef.current = basket3X;
     }, [basket3X]);
 
-
     useEffect(() => {
+        if (noCookiesLeft && cookies.length === 0 && gameState === "playing") {
+            setGameState("gamewon");
+        }
+    }, [noCookiesLeft, cookies, gameState]);
+    
+
+    const gameStateRef = useRef(gameState);
+    //main game loop
+    useEffect(() => {
+        gameStateRef.current = gameState;
+        if(gameStateRef.current!="playing") return;
+
         const interval = setInterval(() => {
-            if(gameOver){
+            if(gameStateRef.current=="gameover"||gameStateRef.current=="gamewon"){
                 usedCookieIds.current.clear();
                 return;
             }
@@ -216,28 +241,44 @@ export default function Stage3() {
                     const collidedWithBasket3 = checkCollision(cookie, basket3XPos, basketY, basketWidth, basketHeight);
 
                     if(collidedWithBasket1||collidedWithBasket3){
-                        if((cookie.type==="basket1"&&collidedWithBasket1)||(cookie.type==="basket3"&&collidedWithBasket3)){
+                        if((cookie.type==="first"&&collidedWithBasket1)||(cookie.type==="third"&&collidedWithBasket3)){
                             newScore +=1;}
                         else{
-                            setGameOver(true)
+                            setGameState("gameover")
                         }
                     }
 
                     return !collidedWithBasket1 && !collidedWithBasket3});
                 
                 if (newScore > 0) setScore(prev => prev + newScore);
-                if (OffScreen) setGameOver(true);
-                if (should_spawn) {
+                if (OffScreen) setGameState("gameover");
+
+            
+                if (should_spawn && !noCookiesLeft) {
                     spawnCookie(gameWidth); //fix this later cuz like why are we sorting cookies and then spawning them we have a useless variable here
-                    console.log("should_spawn:", should_spawn);
                 }
                 return updatedCookies;
         });      
     }, 16);
         return () => clearInterval(interval);
-    }, [isPaused, gameOver]);
-
+    }, [isPaused, gameState]);
+    
+    if (gameState == "instructions"){
+        return(
+        <div className = "instructionScreen">
+            <h2>How to Play</h2>
+            <p>Click on the falling cookie to see it's info. Decide whether it's a first party or third party cookie.</p>
+            <p>If it's a first party cookie, sort it into the Player's Jar. If it's a third party cookie, sort it into Everyone's Jar.</p>
+            <p>Use the A and D keys to move the player's Jar left and right, and the left and right arrow keys to move everyone's Jar left and right.</p>
+            <p>Good Luck!</p>
+            <button className = "start-button" onClick={()=>setGameState("playing")}>
+                Start Playing!
+            </button>
+        </div>
+        );
+    }
     return (
+        <div className="game-Container">
         <div className = "gameArea" ref = {gameAreaRef}>
         <div className = "score">Score: {score}</div>
         <button className = "pause-button" onClick = {() => setIsPaused(prev => !prev)}>
@@ -249,7 +290,7 @@ export default function Stage3() {
            {cookies.map (cookie => (
             <div
             key = {cookie.id}
-            className = {`cookie ${cookie.type === "basket1" ? "cookie-1": "cookie-3"}`}
+            className = {`cookie ${cookie.type === "first" ? "cookie-1": "cookie-3"}`}
             style = {{
                 top: cookie.y,
                 left: cookie.x,
@@ -265,12 +306,15 @@ export default function Stage3() {
                 <p>Purpose: {clickedCookie.info.purpose}</p>
             </div>
            )}
-           {gameOver && (
+           {(gameState == "gamewon"||gameState=="gameover") && (
         <div className="game-over-overlay">
-                Game Over       
+                <h2>{gameState=="gamewon" ? "You won" : "Game Over"} </h2>
+                <button className = "restart-button" onClick={resetGame}>
+                Play Again    
+                </button>       
         </div>
         )}
         </div>
-        
+        </div>
         );
     }
