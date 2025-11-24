@@ -3,10 +3,11 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { connectDB } from './database.js';
 import userRoutes from './routes/userRoutes.js';
+import stageRoutes from './routes/stageRoutes.js';
+import cookieRoutes from './routes/cookieRoutes.js';
 
 dotenv.config();
 const app = express();
-app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
@@ -15,10 +16,10 @@ app.use(express.json());
 
 connectDB();
 
-// // Mount user routes
+// Mount routes
 app.use('/api/users', userRoutes);
-
-// more endpoints
+app.use('/api/stages', stageRoutes);
+app.use('/api/cookies', cookieRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
