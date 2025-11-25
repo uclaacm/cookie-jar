@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useLayoutEffect} from "react";
 import "../../styles/Stage3.scss";
  
 
@@ -39,6 +39,7 @@ interface BasketProps {
         left: string;
         right:string;
     };
+    gameWidth: number;
     typeBasket: "basket1" | "basket3";
 
 }
@@ -61,16 +62,16 @@ function checkCollision(cookie: any, basketX: number, basketY: number, basketWid
     );
   }
 
-function Basket({ basketX, basketWidth, setBasketX, controls, typeBasket}: BasketProps) {
+function Basket({basketX, basketWidth, setBasketX, controls, gameWidth, typeBasket}: BasketProps) {
 
     //Basket Movement
     useEffect(() => {
         const handleKeyDown = (e:KeyboardEvent) =>{
         if(e.key === controls.left){
-            setBasketX((x) => Math.max(0,x-60));
+            setBasketX((x) => Math.max(0,x-1));
         }
         else if (e.key=== controls.right){
-            setBasketX((x) => Math.min(window.innerWidth-basketWidth, x+60))
+            setBasketX((x) => Math.min(gameWidth-basketWidth, x+1))
         }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -111,6 +112,8 @@ export default function Stage3() {
     const Frames_per_spawn = 125;
     const frames_elapsed = useRef(0);
     const gameAreaRef = useRef<HTMLDivElement>(null);
+    const [gameWidth, setGameWidth] = useState(0);
+    const [gameHeight, setGameHeight] = useState(0);
     const [score, setScore] = useState(0);
     const [basket1X, setBasket1X] = useState(100);
     const [basket3X, setBasket3X] = useState(300);
@@ -123,6 +126,7 @@ export default function Stage3() {
     const cookieWidth = 30;
     const cookieHeight = 30;
     let OffScreen = false;
+    const [ready, setReady] = useState(false);
 
     function resetGame() {
         setScore(0);
@@ -134,7 +138,17 @@ export default function Stage3() {
         setGameState("playing"); // restarts loop
         setNoCookiesLeft(false);
     }
-    
+
+    useLayoutEffect(() => {
+        if (gameAreaRef.current) {
+            console.log("we are here")
+          const rect = gameAreaRef.current.getBoundingClientRect();
+          setGameWidth(rect.width);
+          setGameHeight(rect.height);
+          setReady(true); 
+        }
+      }, []);
+      
     function handleCookieClick(cookie: CookieProps["data"]){
         setIsPaused(true);
         setClickedCookie(cookie);
@@ -206,7 +220,9 @@ export default function Stage3() {
     //main game loop
     useEffect(() => {
         gameStateRef.current = gameState;
+        
         if(gameStateRef.current!="playing") return;
+        if (!ready) return;
 
         const interval = setInterval(() => {
             if(gameStateRef.current=="gameover"||gameStateRef.current=="gamewon"){
@@ -228,8 +244,6 @@ export default function Stage3() {
         
             setCookies((oldCookies) => {
                 let newScore = 0;
-                const gameHeight = gameAreaRef.current?.clientHeight || window.innerHeight;
-                const gameWidth = gameAreaRef.current?.clientWidth || window.innerWidth;
                 const basketY = gameHeight - basketHeight - 16;
                 let updatedCookies = oldCookies.map(cookie => ({ ...cookie, y: cookie.y + cookie.speed }))
                 .filter(cookie => {
@@ -261,8 +275,8 @@ export default function Stage3() {
         });      
     }, 16);
         return () => clearInterval(interval);
-    }, [isPaused, gameState]);
-    
+    }, [ready, isPaused, gameState]);
+
     if (gameState == "instructions"){
         return(
         <div className = "instructionScreen">
@@ -284,8 +298,8 @@ export default function Stage3() {
         <button className = "pause-button" onClick = {() => setIsPaused(prev => !prev)}>
             {isPaused ? "Resume": "Pause"}
         </button>
-        <Basket basketX={basket1X} basketWidth={basketWidth} setBasketX={setBasket1X} controls={{ left: "a", right: "d" }} typeBasket = "basket1"/>
-        <Basket basketX={basket3X} basketWidth={basketWidth} setBasketX={setBasket3X} controls={{ left: "ArrowLeft", right: "ArrowRight" }} typeBasket = "basket3"/>
+        <Basket basketX={basket1X} basketWidth={basketWidth} setBasketX={setBasket1X} controls={{ left: "a", right: "d" }} gameWidth = {gameWidth} typeBasket = "basket1"/>
+        <Basket basketX={basket3X} basketWidth={basketWidth} setBasketX={setBasket3X} controls={{ left: "ArrowLeft", right: "ArrowRight" }} gameWidth = {gameWidth} typeBasket = "basket3"/>
 
            {cookies.map (cookie => (
             <div
@@ -315,6 +329,6 @@ export default function Stage3() {
         </div>
         )}
         </div>
-        </div>
+    </div>
         );
     }
