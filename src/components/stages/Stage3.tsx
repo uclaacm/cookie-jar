@@ -1,7 +1,5 @@
 //Falling cookie game
 import React from "react";
-import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
 import { useState, useEffect, useRef, useLayoutEffect} from "react";
 import "../../styles/Stage3.scss";
  
@@ -28,6 +26,7 @@ interface CookieProps {
         type: string;
         mongo_id: string;
         info:CookieInfo;
+        clicked: boolean;
     }
 }
 
@@ -68,10 +67,10 @@ function Basket({basketX, basketWidth, setBasketX, controls, gameWidth, typeBask
     useEffect(() => {
         const handleKeyDown = (e:KeyboardEvent) =>{
         if(e.key === controls.left){
-            setBasketX((x) => Math.max(0,x-1));
+            setBasketX((x) => Math.max(0,x-60));
         }
         else if (e.key=== controls.right){
-            setBasketX((x) => Math.min(gameWidth-basketWidth, x+1))
+            setBasketX((x) => Math.min(gameWidth-basketWidth, x+60))
         }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -79,7 +78,6 @@ function Basket({basketX, basketWidth, setBasketX, controls, gameWidth, typeBask
     }, []);
 
     return (
-        
     <div className = "basket-container">
         <div className = {`basket ${typeBasket === "basket1" ? "basket1" : "basket3"}`}
             style={{ left: basketX, width: basketWidth,}}>
@@ -88,20 +86,6 @@ function Basket({basketX, basketWidth, setBasketX, controls, gameWidth, typeBask
         </div>
       );
     }
-
-function Cookie({data}:CookieProps){
-    return (
-        <div className="cookie"
-        style={{
-          position: "absolute",
-          left: data.x,
-          top: data.y, }}
-        />
-    );
-}
-
-
-
 
 
 export default function Stage3() {
@@ -140,21 +124,35 @@ export default function Stage3() {
     }
 
     useLayoutEffect(() => {
+        if (gameState !== "playing") return; 
         if (gameAreaRef.current) {
-            console.log("we are here")
-          const rect = gameAreaRef.current.getBoundingClientRect();
-          setGameWidth(rect.width);
-          setGameHeight(rect.height);
+        console.log("We've done it....")
+            const rect = gameAreaRef.current.getBoundingClientRect();
+            const style = window.getComputedStyle(gameAreaRef.current);
+            const borderLeft = parseFloat(style.borderLeftWidth);
+            const borderRight = parseFloat(style.borderRightWidth);
+            const borderTop = parseFloat(style.borderTopWidth);
+            const borderBottom = parseFloat(style.borderBottomWidth);        
+            
+            const playableWidth = rect.width - borderLeft - borderRight;
+            const playableHeight = rect.height - borderTop - borderBottom;        
+        
+          setGameWidth(playableWidth);
+          setGameHeight(playableHeight);
+        console.log(rect.width);
+        console.log(rect.height)
           setReady(true); 
         }
-      }, []);
+      }, [gameState]);
       
     function handleCookieClick(cookie: CookieProps["data"]){
+        if(cookie.clicked) return;
         setIsPaused(true);
         setClickedCookie(cookie);
         setTimeout(() => {
             setIsPaused(false);
             setClickedCookie(null);
+            cookie.clicked=true;
         }, 3000);
     }    
 
@@ -177,7 +175,6 @@ export default function Stage3() {
         
             if (!res.ok || !data._id) {
                 setNoCookiesLeft(true);
-                console.log("we win theseeeee")
                 return; }}          
 
             if (noCookiesLeft) {
@@ -196,6 +193,7 @@ export default function Stage3() {
             type: cookieType,
             mongo_id: data._id,
             info: data,
+            clicked: false,
         };
         setCookies(prev =>[...prev, newCookie]);
     }
@@ -294,7 +292,9 @@ export default function Stage3() {
     return (
         <div className="game-Container">
         <div className = "gameArea" ref = {gameAreaRef}>
-        <div className = "score">Score: {score}</div>
+        {ready && (
+        <>
+        {/* <div className = "score">Score: {score}</div> */}
         <button className = "pause-button" onClick = {() => setIsPaused(prev => !prev)}>
             {isPaused ? "Resume": "Pause"}
         </button>
@@ -328,6 +328,8 @@ export default function Stage3() {
                 </button>       
         </div>
         )}
+        </>
+    )}
         </div>
     </div>
         );
