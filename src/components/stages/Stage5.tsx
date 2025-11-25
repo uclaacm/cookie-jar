@@ -7,9 +7,9 @@ import "../../styles/Stage5.scss";
 
 // TODO: names; also think about how to properly determine these (maybe use viewport units)
 // TODO: make it behave well when the window resizes
-const SCALING_FACTOR = 0.25;
-const ORIGIN_X = 400;
-const ORIGIN_Y = 400;
+const SCALING_FACTOR = 100/1024/2;
+const ORIGIN_X = 50;
+const ORIGIN_Y = 50;
 const STARTING_DISTANCE = 1024;
 
 // how close a zombie can get to the player before the player loses a life
@@ -106,7 +106,7 @@ class Zombie {
     // TODO: get classNames (list of CSS classes) from the state of the zombie
     // TODO: what's the best way to allow this to return nothing if `!this.exists`?
     return this.exists ? (
-      <div className="zombie" style={{left: x, bottom: y}} onClick={onClick} key={this.data.key} />
+      <div className="zombie" style={{left: `${x}%`, bottom: `${y}%`}} onClick={onClick} key={this.data.key} />
     ) : <></>;
   }
 }
@@ -165,8 +165,10 @@ function Game() {
 
   return (
     <>
-      <div className="player" style={{left: ORIGIN_X, bottom: ORIGIN_Y}} />
-      {zombies.map((zombie) => zombie.asComponent())}
+      <div className="game">
+        <div className="player" style={{left: `${ORIGIN_X}%`, bottom: `${ORIGIN_Y}%`}} />
+        {zombies.map((zombie) => zombie.asComponent())}
+      </div>
       <HealthBar health={health} />
     </>
   );
