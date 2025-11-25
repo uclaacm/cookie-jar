@@ -47,79 +47,31 @@ function useInterval(callback: () => void, delay: number) {
   }, [delay]);
 }
 
-interface ZombieData {
+// TODO: maybe name this "position"
+interface Coordinates {
   readonly distance: number; // distance from the player
   readonly angle: number; // in radians
+}
+
+// TODO: name and type
+// for use in a `style` attribute
+function coordinateMap({ distance, angle }: Coordinates) {
+  const x = ORIGIN_X + SCALING_FACTOR * distance * Math.cos(angle);
+  const y = ORIGIN_Y + SCALING_FACTOR * distance * Math.sin(angle);
+  return {left: `${x}%`, bottom: `${y}%`};
+}
+
+interface ZombieProps {
+  readonly coords: Coordinates;
   readonly speed: number;
   readonly key: number; // just for the key; TODO: see if it should be called "id"
-  readonly onReachingPlayer: () => void; // TODO: how to put this into `step()`?
 }
 
-// TODO: maybe make this an abstract class and have the different states be the concrete classes (using the State design pattern)
-// note: all methods are pure
-class Zombie {
-  readonly data: ZombieData; // TODO: maybe call this "props"
-  // TODO: is there a way to avoid having to type `.data` all the time? e.g. writing `this.distance` instead of `this.data.distance`?
-  exists: boolean; // keeps track of whether to remove the zombie at the end of this step
-
-  // code outside this class shouldn't call the constructor.
-  // instead, create Zombie objects using newZombie() or Zombie.step().
-  constructor(data: ZombieData) {
-    this.data = data;
-    this.exists = true;
-  }
-
-  // TODO: address different zombie states
-  // returns `undefined` if the zombie should be removed
-  step(): Zombie | undefined {
-    // TODO: check if the player loses a life
-
-    if (!this.exists) {
-      console.log(`Removing zombie #${this.data.key}`); // TODO: why is the message displayed twice?
-      return undefined;
-    }
-
-    // if the zombie reaches the player, call the passed-in callback and remove the zombie.
-    if (this.data.distance <= MAX_ZOMBIE_DISTANCE) {
-      this.data.onReachingPlayer();
-      return undefined;
-    }
-
-    return new Zombie({
-      ...this.data,
-      distance: this.data.distance - this.data.speed
-    });
-  }
-
-  // TODO: ensure the name and type of this function are right
-  asComponent(): React.ReactElement {
-    // TODO: function to map game coordinates onto "physical" coordinates
-    // TODO: it seems that somehow, either the zombies or player aren't aligned (not sure if this is a calculation issue or a CSS issue); the center of a zombie doesn't necessarily pass through the center of the player when the zombie passes over the player (while the zombie hitting the player is not yet handled)
-    const x = ORIGIN_X + SCALING_FACTOR * this.data.distance * Math.cos(this.data.angle);
-    const y = ORIGIN_Y + SCALING_FACTOR * this.data.distance * Math.sin(this.data.angle);
-
-    // TODO: this function should involve a state transition in the case that the zombie doesn't get completely removed.
-    const onClick = () => {
-      this.exists = false;
-    }
-
-    // TODO: get classNames (list of CSS classes) from the state of the zombie
-    // TODO: what's the best way to allow this to return nothing if `!this.exists`?
-    return this.exists ? (
-      <div className="zombie" style={{left: `${x}%`, bottom: `${y}%`}} onClick={onClick} key={this.data.key} />
-    ) : <></>;
-  }
-}
-
-function newZombie(speed: number, key: number, onReachingPlayer: () => void): Zombie {
-  console.log(`Creating zombie #${key}`);
-  return new Zombie({
-    distance: STARTING_DISTANCE,
-    angle: 2 * Math.PI * Math.random(),
-    speed: speed,
-    key: key,
-    onReachingPlayer: onReachingPlayer
-  });
+function Zombie({ props: { coords }, onClick }: { props: ZombieProps, onClick: () => void }) {
+  // TODO: get classNames (list of CSS classes) from the state of the zombie
+  return (
+    <div className="zombie" style={coordinateMap(coords)} onClick={onClick} />
+  );
 }
 
 // TODO: type annotation
@@ -131,30 +83,65 @@ function HealthBar({ health }: { health: number }) {
   )
 }
 
+function newZombie(speed: number, key: number): ZombieProps {
+  return {
+    coords: {
+      distance: STARTING_DISTANCE,
+      angle: 2 * Math.PI * Math.random()
+    },
+    speed: speed,
+    key: key,
+  };
+}
+
 function Game() {
   const [count, setCount] = useState(0); // for keeping track of the key to assign to zombies
   const [tick, setTick] = useState(0); // current game tick (used to keep track of things that take multiple ticks to happen)
-  const [zombies, setZombies] = useState<Zombie[]>([]);
+  const [zombies, setZombies] = useState<ZombieProps[]>([]);
   const [health, setHealth] = useState(MAX_HEALTH);
 
-  // TODO: name
-  function onReachingPlayer(key: number) {
-    return () => {
-      console.log(`Zombie #${key} reached the player`);
-      // it seems that `setHealth(health - 1)` doesn't behave the way I want, because it uses the value of `health` from when the zombie spawned
-      setHealth((health) => health - 1);
-      // TODO: handle health reaching 0
-    }
+  function removeZombie(key: number) {
+    console.log(`Removing zombie #${key}`); // TODO: why is the message displayed twice?
+    setZombies((zombies) => zombies.filter((zombie) => zombie.key !== key));
   }
 
+  function onClick(key: number): () => void {
+    // will be different once zombies can have multiple states
+    return () => {removeZombie(key)};
+  }
+
+  // TODO: address different zombie states
+  // returns `undefined` if the zombie should be removed
+  function stepZombie(zombie: ZombieProps): ZombieProps | undefined {
+    // TODO: check if the player loses a life
+
+    // if the zombie reaches the player, decrement `health` and remove the zombie.
+    if (zombie.coords.distance <= MAX_ZOMBIE_DISTANCE) {
+      console.log(`Zombie #${zombie.key} has reached the player`)
+      setHealth((health) => health - 1); // TODO: or `setHealth(health - 1)`?
+      // TODO: handle health reaching 0
+      return undefined;
+    }
+
+    return {
+      ...zombie,
+      coords: {
+        ...zombie.coords,
+        distance: zombie.coords.distance - zombie.speed
+      }
+    };
+  }
+
+
   function spawnZombie() {
+    console.log(`Creating zombie #${count}`);
     // TODO: when to pass a function into a `set` function and when to directly pass the new value?
-    setZombies([...zombies, newZombie(DEFAULT_SPEED, count, onReachingPlayer(count))]);
+    setZombies([...zombies, newZombie(DEFAULT_SPEED, count)]);
     setCount(count + 1);
   }
 
   function gameTick() {
-    setZombies(zombies.map((zombie) => zombie.step()).filter((result): result is Zombie => result !== undefined));
+    setZombies(zombies.map((zombie) => stepZombie(zombie)).filter((result): result is ZombieProps => result !== undefined));
     if (tick % TICKS_PER_SPAWN == 0) {
       spawnZombie()
     }
@@ -166,8 +153,8 @@ function Game() {
   return (
     <>
       <div className="game">
-        <div className="player" style={{left: `${ORIGIN_X}%`, bottom: `${ORIGIN_Y}%`}} />
-        {zombies.map((zombie) => zombie.asComponent())}
+        <div className="player" style={coordinateMap({ distance: 0, angle: 0 })} />
+        {zombies.map((props) => <Zombie props={props} onClick={onClick(props.key)} key={props.key} />)}
       </div>
       <HealthBar health={health} />
     </>
