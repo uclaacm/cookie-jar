@@ -15,7 +15,7 @@ const STARTING_DISTANCE = 1024;
 // how close a zombie can get to the player before the player loses a life
 // TODO: name (really is the min zombie distance before the zombie & player get removed)
 // TODO: how to match this up with the displayed size in the CSS?
-const MAX_ZOMBIE_DISTANCE = 64;
+const MAX_ZOMBIE_DISTANCE = 0;
 
 // TODO: adjust this value (maybe change speed as a function of time)
 const DEFAULT_SPEED = 6;
@@ -94,7 +94,7 @@ function newZombie(speed: number, key: number): ZombieProps {
   };
 }
 
-function Game() {
+function ActiveGame({ gameOver }: { gameOver: () => void }) {
   const [count, setCount] = useState(0); // for keeping track of the key to assign to zombies
   const [tick, setTick] = useState(0); // current game tick (used to keep track of things that take multiple ticks to happen)
   const [zombies, setZombies] = useState<ZombieProps[]>([]);
@@ -116,10 +116,9 @@ function Game() {
     // TODO: check if the player loses a life
 
     // if the zombie reaches the player, decrement `health` and remove the zombie.
-    if (zombie.coords.distance <= MAX_ZOMBIE_DISTANCE) {
+    if (zombie.coords.distance - zombie.speed <= MAX_ZOMBIE_DISTANCE) {
       console.log(`Zombie #${zombie.key} has reached the player`)
       setHealth((health) => health - 1); // TODO: or `setHealth(health - 1)`?
-      // TODO: handle health reaching 0
       return undefined;
     }
 
@@ -131,7 +130,6 @@ function Game() {
       }
     };
   }
-
 
   function spawnZombie() {
     console.log(`Creating zombie #${count}`);
@@ -150,15 +148,46 @@ function Game() {
 
   useInterval(gameTick, MILLISECONDS_PER_TICK);
 
+  if (health <= 0) {
+    console.log("Game over");
+    gameOver();
+  }
+
   return (
     <>
       <div className="game">
-        <div className="player" style={coordinateMap({ distance: 0, angle: 0 })} />
         {zombies.map((props) => <Zombie props={props} onClick={onClick(props.key)} key={props.key} />)}
+        <div className="player" style={coordinateMap({ distance: 0, angle: 0 })} />
       </div>
       <HealthBar health={health} />
     </>
   );
+}
+
+function GameOver({ playAgain }: { playAgain: () => void }) {
+  return (
+    <>
+      <h2>Game over</h2>
+      <button onClick={playAgain}>Play again</button>
+    </>
+  );
+}
+
+// TODO: state for before the game has been played
+enum GameState {
+  Active,
+  GameOver
+}
+
+function Game() {
+  const [state, setState] = useState(GameState.GameOver);
+  switch (state) {
+    case GameState.Active:
+      // TODO: see the warning in the browser console that prints upon game over ("Warning: Cannot update a component (`Game`) while rendering a different component (`ActiveGame`).")
+      return <ActiveGame gameOver={() => {setState(GameState.GameOver)}} />;
+    case GameState.GameOver:
+      return <GameOver playAgain={() => {setState(GameState.Active)}} />;
+  }
 }
 
 const Stage5: React.FC = () => {
