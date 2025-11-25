@@ -295,9 +295,9 @@ export default function Stage3() {
         {ready && (
         <>
         {/* <div className = "score">Score: {score}</div> */}
-        <button className = "pause-button" onClick = {() => setIsPaused(prev => !prev)}>
+       {/* <button className = "pause-button" onClick = {() => setIsPaused(prev => !prev)}>
             {isPaused ? "Resume": "Pause"}
-        </button>
+        </button>*/}
         <Basket basketX={basket1X} basketWidth={basketWidth} setBasketX={setBasket1X} controls={{ left: "a", right: "d" }} gameWidth = {gameWidth} typeBasket = "basket1"/>
         <Basket basketX={basket3X} basketWidth={basketWidth} setBasketX={setBasket3X} controls={{ left: "ArrowLeft", right: "ArrowRight" }} gameWidth = {gameWidth} typeBasket = "basket3"/>
 
