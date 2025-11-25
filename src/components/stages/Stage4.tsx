@@ -1,7 +1,7 @@
 //Falling cookie game
 import React from "react";
 import { useState, useEffect, useRef, useLayoutEffect} from "react";
-import "../../styles/Stage3.scss";
+import "../../styles/Stage4.scss";
  
 
 interface CookieInfo {
