@@ -6,11 +6,14 @@ import "../../styles/Stage3.scss";
 import chocolateChipsImg from "../../assets/chocolate-chips.svg";
 import sprinklesImg from "../../assets/sprinkles.svg";
 import frostingImg from "../../assets/frosting.svg";
-import mmsImg from "../../assets/mms.svg";
+import mmsImg from "../../assets/mms.png";
 import caramelImg from "../../assets/caramel.svg";
 import plainCookieImg from  "../../assets/plain-cookie.svg";
 import chocolateChipCookieImg from "../../assets/chocolate-chip-cookie.svg";
 import sprinklesCookieImg from "../../assets/sprinkles-cookie.svg";
+
+const TIMER_START_MINUTES = 5;
+const TOPPING_DURATION_SECONDS = TIMER_START_MINUTES * 60;
 
 const setCookie = (name: string, value: string | null, durationSeconds?: number) => {
     document.cookie = name + "=" + (value || "") + "; max-age=" + (durationSeconds ?? "") + "; path=/";
@@ -44,15 +47,15 @@ const Stage3: React.FC = () => {
         { name: "caramel drizzle", img: caramelImg, cookieImg: plainCookieImg}
     ];
 
-    // Initialize timer state with value in cookie if available
-    let minutesRemaining = 5;
+    // Initialize time state with value in cookie if available
+    let minutesRemaining = TIMER_START_MINUTES;
     let secondsRemaining = 0;
     let isTimerZero = false;
     if (!((getCookie("timer") == "") || (getCookie("timer") === null))) {
         const now = Date.now();
         const timerStarted = Number(getCookie("timer"));
         const secondsPassed = Math.round((now - timerStarted) / 1000);
-        const totalSecondsRemaining = 300 - secondsPassed;
+        const totalSecondsRemaining = TOPPING_DURATION_SECONDS - secondsPassed;
         if (totalSecondsRemaining > 0) {
             minutesRemaining = Math.floor((totalSecondsRemaining) / 60);
             secondsRemaining = (totalSecondsRemaining) - (minutesRemaining * 60);
@@ -69,7 +72,7 @@ const Stage3: React.FC = () => {
         topping = Number(getCookie("topping"));
     }
 
-    const [time, setTime] = useState({ minutes: minutesRemaining, seconds: secondsRemaining });
+    const [timer, setTimer] = useState({ minutes: minutesRemaining, seconds: secondsRemaining });
     const timerIntervalId = useRef<number | undefined>(undefined);
     const [cookieTopping, setCookieTopping] = useState(topping);
     const [timerStartFlag, setTimerStartFlag] = useState(false);
@@ -85,19 +88,19 @@ const Stage3: React.FC = () => {
         }
 
         timerIntervalId.current = setInterval(() => {
-            setTime(prevTime => {
-                if (prevTime.seconds > 0) {
-                    return { minutes: prevTime.minutes, seconds: prevTime.seconds - 1 };
+            setTimer(prevTimer => {
+                if (prevTimer.seconds > 0) {
+                    return { minutes: prevTimer.minutes, seconds: prevTimer.seconds - 1 };
                 } else {
-                    if (prevTime.minutes == 0) {
+                    if (prevTimer.minutes == 0) {
                         clearInterval(timerIntervalId.current);
                         timerIntervalId.current = undefined;
                         setTimerStartFlag(false);
                         setTimerCompleteFlag(true);
-                        return { minutes: prevTime.minutes, seconds: prevTime.seconds };
+                        return { minutes: prevTimer.minutes, seconds: prevTimer.seconds };
                     }
 
-                    return { minutes: prevTime.minutes - 1, seconds: 59 };
+                    return { minutes: prevTimer.minutes - 1, seconds: 59 };
                 }
             });
         }, 1000);
@@ -107,7 +110,7 @@ const Stage3: React.FC = () => {
         clearInterval(timerIntervalId.current);
         timerIntervalId.current = undefined;
         eraseCookie("timer");
-        setTime({ minutes: 5, seconds: 0 });
+        setTimer({ minutes: TIMER_START_MINUTES, seconds: 0 });
     }
 
     const selectCookieTopping = () => {
@@ -127,7 +130,7 @@ const Stage3: React.FC = () => {
             return;
         }
 
-        setCookie("topping", String(cookieTopping), 300);
+        setCookie("topping", String(cookieTopping), TOPPING_DURATION_SECONDS);
         runTimer(true);
         setTimerStartFlag(true);
     }
@@ -142,27 +145,29 @@ const Stage3: React.FC = () => {
     }
 
     // Automatically start running the timer if in progress
-    if (!((getCookie("timer") == "") || (getCookie("timer") === null) || ((time.minutes == 0) && (time.seconds == 0)))) {
+    if (!((getCookie("timer") == "") || (getCookie("timer") === null) || ((timer.minutes == 0) && (timer.seconds == 0)))) {
         runTimer(false);
     }
 
     return (
         <div className="stage3-container">
 
+            {/* Temporary message screen when timer starts */}
             {timerStartFlag && (
                 <div style={{ padding: "0px 200px" }}>
                     <div style={{ textAlign: "center" }}><h1>Time is ticking...</h1></div>
-                    <div style={{ padding: "30px 0px" }}><p>The website will remember your choice of <u>{toppings[cookieTopping].name}</u> using a cookie and display custom designs based on that information! This cookie will expire after 5 minutes, and the website will forget your info.</p></div>
+                    <div style={{ padding: "30px 0px" }}><p>The website will remember your choice of <u>{toppings[cookieTopping].name}</u> using a cookie and display custom designs based on that information! This cookie will expire after {TIMER_START_MINUTES} minutes, and the website will forget your info.</p></div>
                     <div style={{ display: "flex", justifyContent: "space-around" }}>
                         <Link to="/stage4"><button className="done-button">continue</button></Link>
                         <div className="timer">
-                            {time.minutes + ":" + (time.seconds < 10 ? "0" : "") + time.seconds}
+                            {timer.minutes + ":" + (timer.seconds < 10 ? "0" : "") + timer.seconds}
                         </div>
                         <div><button className="done-button" onClick={() => resetCookieTopping()}>restart</button></div>
                     </div>
                 </div>
             )}
 
+            {/* Temporary message screen when timer ends */}
             {timerCompleteFlag && (
                 <div>
                     <div style={{ textAlign: "center" }}><h1>Time is up!</h1></div>
@@ -182,7 +187,7 @@ const Stage3: React.FC = () => {
                     <div style={{ display: "flex" }}>
                         <div className="content-container">
                             <div className="timer">
-                                {time.minutes + ":" + (time.seconds < 10 ? "0" : "") + time.seconds}
+                                {timer.minutes + ":" + (timer.seconds < 10 ? "0" : "") + timer.seconds}
                             </div>
                             <div>
                                 <img id="cookieImg" src={toppings[cookieTopping].cookieImg} alt={toppings[cookieTopping].name + " cookie"} width="500" height="500" />
@@ -190,7 +195,7 @@ const Stage3: React.FC = () => {
                         </div>
                         <div className="content-container">
                             <div>
-                                {time.minutes == 5 && (
+                                {timer.minutes == TIMER_START_MINUTES && (
                                     <div className="cookie-toppings-container">
                                         {toppings.map((topping, index) => (
                                             (index != 0 && topping.img != null && (
@@ -207,7 +212,7 @@ const Stage3: React.FC = () => {
                                         ))}
                                     </div>
                                 )}
-                                {time.minutes != 5 && (
+                                {timer.minutes != TIMER_START_MINUTES && (
                                     <div className="cookie-topping-display">
                                         <p>You have selected <u>{toppings[cookieTopping].name}</u> as your topping!</p>
                                     </div>
@@ -215,10 +220,10 @@ const Stage3: React.FC = () => {
                                 
 
                                 <div className="done-button-container">
-                                    {timerIntervalId.current == undefined && time.minutes != 0 && (
+                                    {timerIntervalId.current == undefined && timer.minutes != 0 && (
                                         <button className="done-button" onClick={() => submitCookieTopping()}>done</button>
                                     )}
-                                    {timerIntervalId.current == undefined && time.minutes == 0 && (
+                                    {timerIntervalId.current == undefined && timer.minutes == 0 && (
                                         <button className="done-button" onClick={() => resetTimer()}>make new cookie</button>
                                     )}
                                     {timerIntervalId.current != undefined && (
