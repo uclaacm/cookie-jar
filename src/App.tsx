@@ -11,7 +11,7 @@ import Stage1 from "./components/stages/Stage1"; // Import Stage1
 import Stage2 from "./components/stages/Stage2"; // Import Stage2
 import Stage3 from "./components/stages/Stage3"; // Import Stage3
 import GameStages from "./components/GameStages"; // Import Game Stages
-import GameStage2 from "./components/stages/Game_Stage2"; // Import Game Stage 2
+import GameStage6 from "./components/stages/Game_Stage6"; // Import Game Stage 2
 import "./styles/App.scss";
 
 const App: React.FC = () => {
@@ -27,7 +27,7 @@ const App: React.FC = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/gamestages" element={<GameStages />} />
-        <Route path="/game-stage2" element={<GameStage2 />} />
+        <Route path="/game-stage6" element={<GameStage6 />} />
       </Routes>
       <Footer />
     </Layout>

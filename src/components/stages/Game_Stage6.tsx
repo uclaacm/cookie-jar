@@ -3,7 +3,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useDrag, useDrop } from "react-dnd";
 import { useState, useEffect, useRef } from "react";
-import "../../styles/Game_Stage2.scss";
+import "../../styles/Game_Stage6.scss";
 import ShoppingCart from "/assets/ShoppingCart.png";
 import Clara from "/assets/Clara.png";
 import ChatBubble from "/assets/ChatBubble.png";
@@ -78,7 +78,7 @@ function ShoppingCartDropZone({ onDrop }: ShoppingCartProps) {
   );
 }
 
-const GameStage2: React.FC = () => {
+const GameStage6: React.FC = () => {
   interface Cookie {
     id: number;
     label: string;
@@ -224,10 +224,10 @@ const GameStage2: React.FC = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="game-stage2-container">
+      <div className="game-stage6-container">
         {!inGameMode ? (
           <div>
-            <h1>Stage 3</h1>
+            <h1>Stage 6</h1>
             <p style={{ paddingTop: "20px" }}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -305,7 +305,7 @@ const GameStage2: React.FC = () => {
                 </div>
               ) : (
                 <div className="stage-complete-container">
-                  <h1>Completed Stage 3!</h1>
+                  <h1>Completed Stage 6!</h1>
                   <p>Final score: {score}</p>
                   <button onClick={() => restartStage()}>Retry</button>
                 </div>
@@ -318,4 +318,4 @@ const GameStage2: React.FC = () => {
   );
 };
 
-export default GameStage2;
+export default GameStage6;
