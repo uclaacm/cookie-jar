@@ -2,20 +2,20 @@ import React, { MouseEventHandler } from 'react';
 import "../styles/ImgRadioButton.scss";
 
 interface ImgRadioButtonProps {
-    key: number;
     groupName: string;
-    value: string;
+    label: string;
+    value: number;
     img: string;
     onClick: MouseEventHandler<HTMLInputElement>;
 }
 
-const ImgRadioButton: React.FC<ImgRadioButtonProps> = ({ key, groupName, value, img, onClick }) => {
+const ImgRadioButton: React.FC<ImgRadioButtonProps> = ({ groupName, label, value, img, onClick }) => {
     return (
-        <div key={key} style={{ display: "inline-block", margin: "16px" }}>
+        <div style={{ display: "inline-block", margin: "16px" }}>
             <label className="img-radio-button">
                 <input type="radio" name={groupName} value={value} onClick={onClick} />
-                <img src={img} alt={value} width="120" height="120" />
-                <div>{value}</div>
+                <img src={img} alt={label} width="120" height="120" />
+                <div>{label}</div>
             </label>
         </div>
     );

@@ -7,6 +7,10 @@
         font-size: 64px;
     }
 
+    h2 {
+        font-size: 32px;
+    }
+
     p {
         font-size: 24px;
     }
@@ -67,14 +71,15 @@
 }
 
 .timer {
-    width: fit-content;
-    padding: 10px 20px 5px;
+    width: 90px;
+    padding: 10px 0px 5px;
     background-color: #293E44;
     border-radius: 10px;
     font-family: 'Manjari', sans-serif;
     font-size: 1.4rem;
     font-weight: 700;
-    color: #FFF;
+    color: white;
+    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -85,10 +90,17 @@
     width: 500px;
 }
 
+.cookie-topping-display {
+    padding: 20px 30px;
+    border: 4px solid #F3C760;
+    border-radius: 15px;
+    background-color: #fffaed;
+}
+
 .done-button-container {
     display: flex;
     justify-content: flex-end;
-    padding-top: 100px;
+    padding-top: 60px;
 }
 
 .done-button {
