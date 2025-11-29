@@ -1,16 +1,17 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
 import { styled } from '@mui/system';
 import { Box } from '@mui/material';
-
+import { TOPPINGS } from "../data/toppings";
+import { getCookie } from '../utils/getCookie';
+import { monitorCookie } from '../utils/moniterCookie';
 
 interface LayoutProps {
   children: ReactNode;
 }
-
 
 const Root = styled('div')({
   display: 'flex',
@@ -37,10 +38,23 @@ const Content = styled(Box)(({ /*theme*/ }) => ({
 }));
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  // If user completed Stage 3, customize header based on selected cookie topping
+  const topping = Number(getCookie("topping"));
+  const [headerColor, setHeaderColor] = useState(TOPPINGS[topping].color);
+
+  const redrawHeader = (newTopping: string | null): void => {
+    const topping = Number(newTopping);
+    setHeaderColor(TOPPINGS[topping].color);
+  }
+
+  // Poll the cookie named topping every second
+  // Change header color if the cookie changes
+  monitorCookie("topping", redrawHeader);
+
   return (
     <Root>
       <CssBaseline />
-      <AppBar style={{ backgroundColor: '#ffc107' }} position="fixed">
+      <AppBar id="header" style={{ backgroundColor: headerColor }} position="fixed">
         <Toolbar style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
           {/* Left side of the AppBar */}
           <Link

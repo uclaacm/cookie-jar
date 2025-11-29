@@ -3,50 +3,15 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import ImgRadioButton from "../ImgRadioButton";
 import "../../styles/Stage3.scss";
-import chocolateChipsImg from "../../assets/chocolate-chips.svg";
-import sprinklesImg from "../../assets/sprinkles.svg";
-import frostingImg from "../../assets/frosting.svg";
-import mmsImg from "../../assets/mms.png";
-import caramelImg from "../../assets/caramel.svg";
-import plainCookieImg from  "../../assets/plain-cookie.svg";
-import chocolateChipCookieImg from "../../assets/chocolate-chip-cookie.svg";
-import sprinklesCookieImg from "../../assets/sprinkles-cookie.svg";
+import { TOPPINGS } from "../../data/toppings";
+import { setCookie } from "../../utils/setCookie";
+import { getCookie } from "../../utils/getCookie";
+import { eraseCookie } from "../../utils/eraseCookie";
 
 const TIMER_START_MINUTES = 5;
 const TOPPING_DURATION_SECONDS = TIMER_START_MINUTES * 60;
 
-const setCookie = (name: string, value: string | null, durationSeconds?: number) => {
-    document.cookie = name + "=" + (value || "") + "; max-age=" + (durationSeconds ?? "") + "; path=/";
-}
-
-const getCookie = (name: string) => {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ')
-            c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0)
-            return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
-
-const eraseCookie = (name: string) => {   
-    document.cookie = name + "=; path=/";
-}
-
 const Stage3: React.FC = () => {
-    // All toppings
-    const toppings = [
-        { name: "plain", img: null, cookieImg: plainCookieImg },
-        { name: "chocolate chips", img: chocolateChipsImg, cookieImg: chocolateChipCookieImg },
-        { name: "sprinkles", img: sprinklesImg, cookieImg: sprinklesCookieImg },
-        { name: "frosting", img: frostingImg, cookieImg: plainCookieImg },
-        { name: "m&m's candy", img: mmsImg, cookieImg: plainCookieImg },
-        { name: "caramel drizzle", img: caramelImg, cookieImg: plainCookieImg}
-    ];
-
     // Initialize time state with value in cookie if available
     let minutesRemaining = TIMER_START_MINUTES;
     let secondsRemaining = 0;
@@ -156,7 +121,7 @@ const Stage3: React.FC = () => {
             {timerStartFlag && (
                 <div style={{ padding: "0px 200px" }}>
                     <div style={{ textAlign: "center" }}><h1>Time is ticking...</h1></div>
-                    <div style={{ padding: "30px 0px" }}><p>The website will remember your choice of <u>{toppings[cookieTopping].name}</u> using a cookie and display custom designs based on that information! This cookie will expire after {TIMER_START_MINUTES} minutes, and the website will forget your info.</p></div>
+                    <div style={{ padding: "30px 0px" }}><p>The website will remember your choice of <mark style={{ backgroundColor: TOPPINGS[cookieTopping].color }}>{TOPPINGS[cookieTopping].name}</mark> using a cookie and display a custom header based on that information! This cookie will expire after {TIMER_START_MINUTES} minutes, and the website will forget your info.</p></div>
                     <div style={{ display: "flex", justifyContent: "space-around" }}>
                         <Link to="/stage4"><button className="done-button">continue</button></Link>
                         <div className="timer">
@@ -171,7 +136,7 @@ const Stage3: React.FC = () => {
             {timerCompleteFlag && (
                 <div>
                     <div style={{ textAlign: "center" }}><h1>Time is up!</h1></div>
-                    <div style={{ padding: "30px 100px" }}><p>The cookie containing your info has expired! You can choose another topping to create a new cookie.</p></div>
+                    <div style={{ padding: "30px 100px", textAlign: "center" }}><p>The cookie containing your info has expired! You can choose another topping to create a new cookie.</p></div>
                     <div style={{ display: "flex", justifyContent: "center" }}>
                         <button className="done-button" onClick={() => resetCookieTopping()}>make a new cookie</button>
                     </div>
@@ -190,14 +155,14 @@ const Stage3: React.FC = () => {
                                 {timer.minutes + ":" + (timer.seconds < 10 ? "0" : "") + timer.seconds}
                             </div>
                             <div>
-                                <img id="cookieImg" src={toppings[cookieTopping].cookieImg} alt={toppings[cookieTopping].name + " cookie"} width="500" height="500" />
+                                <img id="cookieImg" src={TOPPINGS[cookieTopping].cookieImg} alt={TOPPINGS[cookieTopping].name + " cookie"} width="500" height="500" />
                             </div>
                         </div>
                         <div className="content-container">
                             <div>
                                 {timer.minutes == TIMER_START_MINUTES && (
                                     <div className="cookie-toppings-container">
-                                        {toppings.map((topping, index) => (
+                                        {TOPPINGS.map((topping, index) => (
                                             (index != 0 && topping.img != null && (
                                                 <ImgRadioButton 
                                                     key={index}
@@ -214,7 +179,7 @@ const Stage3: React.FC = () => {
                                 )}
                                 {timer.minutes != TIMER_START_MINUTES && (
                                     <div className="cookie-topping-display">
-                                        <p>You have selected <u>{toppings[cookieTopping].name}</u> as your topping!</p>
+                                        <p>You have selected <u>{TOPPINGS[cookieTopping].name}</u> as your topping!</p>
                                     </div>
                                 )}
                                 
