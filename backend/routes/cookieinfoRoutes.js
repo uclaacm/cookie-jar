@@ -1,5 +1,5 @@
 import express from "express";
-import Cookie from "../models/cookieModel.js";
+import Cookie from "../models/cookieInfoModel.js";
 import mongoose from "mongoose";
 
 const router = express.Router();

@@ -20,13 +20,8 @@ connectDB();
 app.use('/api/users', userRoutes);
 app.use('/api/stages', stageRoutes);
 app.use('/api/cookies', cookieRoutes);
+app.use("/api/cookiesInfo", cookieInfoRoutes);
 
-const startServer = async() => {
-  try{
-    await connectDB();
-    console.log("connected to server");
-  app.use("/api/users", userRoutes);
-  app.use("/api/cookies", cookieRoutes);
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
 });
