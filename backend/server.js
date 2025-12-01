@@ -5,6 +5,7 @@ import { connectDB } from './database.js';
 import userRoutes from './routes/userRoutes.js';
 import stageRoutes from './routes/stageRoutes.js';
 import cookieRoutes from './routes/cookieRoutes.js';
+import cookieInfoRoutes from './routes/cookieInfoRoutes.js';
 
 dotenv.config();
 const app = express();
