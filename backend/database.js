@@ -1,6 +1,6 @@
 // database.js
-import mongoose, { connect } from "mongoose"
-import dotenv from "dotenv";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -16,3 +16,5 @@ export async function connectDB() {
     process.exit(1);
   }
 }
+
+export { connectDB };
