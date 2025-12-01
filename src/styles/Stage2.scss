@@ -1,5 +1,6 @@
 .stage2-container {
-  padding: 114px 60px;
+  padding: 50px 60px;
+  padding-bottom: 150px; // Add extra bottom padding to account for footer
   font-family: "Manjari", sans-serif;
   font-weight: 700;
 
@@ -11,9 +12,161 @@
     font-size: 24px;
   }
 
+  .stage2-graphics-container {
+    width: 100%;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+
+    .ingredients-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 0fr;
+      gap: 40px 0px;
+      position: relative;
+
+      .ingredient-card,
+      .ingredient-card-hidden {
+        position: relative;
+        width: 190px;
+        height: 250px;
+        background-color: #f3c760;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        border-radius: 16px;
+        transition: transform 0.5s ease;
+      }
+
+      .ingredient-card:hover {
+        cursor: pointer;
+        transform: translateY(-8px);
+      }
+
+      .ingredient-card-hidden {
+        background-color: #f3c76040;
+      }
+
+      .ingredient-card img {
+        width: 121px;
+        align-self: center;
+      }
+
+      .ingredient-card p {
+        position: absolute;
+        bottom: 10px;
+        align-self: center;
+      }
+
+      .ingredient-card-selected {
+        position: absolute;
+        width: 360px;
+        height: 480px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #f3c760;
+        border-radius: 16px;
+        transition: transform 0.5s ease;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+        padding: 58px 40px 35px 40px;
+
+        p {
+          line-height: 1.25;
+        }
+
+        button {
+          width: 92%;
+          height: 20%;
+          border-radius: 12px;
+          background-color: #764d2f;
+          border: 0px;
+          color: white;
+          font-weight: 400;
+          font-family: "Manjari", sans-serif;
+          font-weight: 700;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          p {
+            font-size: 38px;
+            align-self: center;
+            padding-top: 6%;
+          }
+        }
+
+        button:hover {
+          cursor: pointer;
+        }
+      }
+
+      .ingredient-card-used {
+        opacity: 50%;
+      }
+
+      .ingredient-card-used:hover {
+        cursor: default;
+        transform: none;
+      }
+    }
+
+    .bowl-container {
+      margin: auto;
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 20px;
+
+      .eggs-icon {
+        position: absolute;
+        left: 40%;
+        top: 0%;
+      }
+
+      .sugar-icon {
+        position: absolute;
+        left: 8%;
+        top: 15%;
+        z-index: -5;
+      }
+    }
+  }
+
+  .next-button {
+    position: fixed;
+    bottom: 50px;
+    right: 30px;
+    background-color: #ffc107;
+    color: black;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.4);
+
+    &:hover {
+      background: #E3B750;
+      color: black;
+      transform: translateX(4px) scale(1.05);
+    }
+
+    svg {
+      stroke-width: 3;
+    }
+  }
+
   .back-button {
     position: fixed;
-    bottom: 80px;
+    bottom: 50px;
     left: 30px;
     background-color: #ffc107;
     color: black;
@@ -35,4 +188,5 @@
       stroke-width: 3;
     }
   }
+
 }
