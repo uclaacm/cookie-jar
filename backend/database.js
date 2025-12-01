@@ -1,6 +1,5 @@
 // database.js
-import mongoose from "mongoose"
-import { MongoClient } from "mongodb";
+import mongoose, { connect } from "mongoose"
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -8,7 +7,7 @@ dotenv.config();
 const uri = process.env.MONGO_URI;
 
 
-async function connectDB() {
+export async function connectDB() {
   try {
     await mongoose.connect(uri);
     console.log("can start filling da jar");
@@ -17,8 +16,3 @@ async function connectDB() {
     process.exit(1);
   }
 }
-
-const client = new MongoClient(uri);
-await client.connect();
-
-export { client, connectDB };
