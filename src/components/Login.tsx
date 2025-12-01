@@ -16,7 +16,7 @@ const Login: React.FC = () => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:3000/api/users/login', {
+      const response = await fetch('/api/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,15 +48,15 @@ const Login: React.FC = () => {
       <h1> Login to Start Baking! </h1>
       <form onSubmit={handleSubmit}>
         <p> Email </p>
-        <input 
-          type="email" 
+        <input
+          type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <p> Password </p>
-        <input 
-          type="password" 
+        <input
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
