@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import "../../styles/Stage2.scss";
 import flour from "/assets/Flour.png";
 import nest from "/assets/Nest.png";
@@ -14,11 +13,6 @@ import sugarMound from "/assets/Sugar.png";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { ArrowRight } from "lucide-react";
-import {
-  Button,
-  Card,
-  ListItem,
-} from "../../../node_modules/@mui/material/index";
 
 const Stage2: React.FC = () => {
   interface Ingredient {
@@ -27,8 +21,8 @@ const Stage2: React.FC = () => {
     img: string;
   }
   const [hideCardsInBackground, setHideCardsInBackground] = useState(false);
-  const [selectedIngredient, setSelectedIngredient] = useState("");
-  const [addedIngredients, setAddedIngredients] = useState<Set<string>>(
+  const [selectedIngredient, setSelectedIngredient] = useState<Ingredient["name"] | "">("");
+  const [addedIngredients, setAddedIngredients] = useState<Set<Ingredient["name"]>>(
     new Set()
   );
 
@@ -65,7 +59,7 @@ const Stage2: React.FC = () => {
     },
   ];
 
-  const ingredientDescriptions = {
+  const ingredientDescriptions: Record<Ingredient["name"], string> = {
     FLOUR:
       "Just like how flour is added to real cookies, login information (such as usernames and passwords) can be added and stored in web cookies!",
     EGGS: "Your browsing history can be stored in web cookies as well. Let's add some eggs in to represent all the sites you have visited.",
@@ -83,7 +77,11 @@ const Stage2: React.FC = () => {
 
   function selectIngredient(id: number) {
     if (hideCardsInBackground) return; // don't allow user to select a card if one is already selected
-    const ingredientName = ingredients.find((item) => item.id === id).name;
+    const ingredient = ingredients.find((item) => item.id === id);
+    if (!ingredient) {
+      return;
+    }
+    const ingredientName = ingredient.name;
     if (addedIngredients.has(ingredientName)) {
       return;
     }
@@ -92,6 +90,9 @@ const Stage2: React.FC = () => {
   }
 
   function addIngredient() {
+    if (!selectedIngredient) {
+      return;
+    }
     setAddedIngredients((prev) => new Set(prev).add(selectedIngredient));
     setHideCardsInBackground(false);
   }
@@ -127,12 +128,14 @@ const Stage2: React.FC = () => {
           ))}
           {hideCardsInBackground && (
             <div className="ingredient-card-selected">
-              <p>{ingredientDescriptions[selectedIngredient]}</p>
+              <p>{selectedIngredient ? ingredientDescriptions[selectedIngredient] : ""}</p>
               <button onClick={() => addIngredient()}>
                 <p>
                   Add{" "}
-                  {selectedIngredient.charAt(0) +
-                    selectedIngredient.slice(1).toLowerCase()}
+                  {selectedIngredient
+                    ? selectedIngredient.charAt(0) +
+                      selectedIngredient.slice(1).toLowerCase()
+                    : ""}
                 </p>
               </button>
             </div>
