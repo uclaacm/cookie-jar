@@ -1,0 +1,148 @@
+.instructionScreen{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 400px;
+    padding: 20px;
+    text-align: center;
+    background: rgb(181, 180, 180);
+
+    .start-button{
+        position:absolute;
+        bottom:15%;
+        left:50%;
+        transform: translate(-50%, -50%);
+    }
+}
+.instructionScreen p {
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+  }
+  
+.game-Container{
+    position:relative;
+    width: 100vw;
+    height: 90vh;
+    background:grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gameArea {
+    position: relative;
+    width: 85vw;
+    height: 80vh;
+    background: white;
+    overflow: hidden;
+    border: 12px solid #333;
+    border-radius: 20px;
+    box-sizing: border-box;
+
+.score{
+    position:absolute;
+    top:8px;
+    left:8px;
+}
+.instructions {
+    position: absolute;
+    top: 8px;
+    left: 120px;
+    font-weight: 600;
+  }
+.pause-button{
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: rgb(249, 1, 1);
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+  
+    &:hover {
+      transform: scale(1.02);
+    }
+  
+}
+.basket {
+    position: absolute;
+    bottom: 16px;
+    height: 100px;
+    background: rgb(164, 155, 152);
+    border-radius: 8px;
+    transition: left 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+.basket1{
+    box-shadow: 0 0 10px red;
+}
+.basket3{
+    box-shadow: 0 0 10px green;
+}
+
+.basket p {
+    color: white;
+    font-size: 24px;
+}
+  
+
+.cookie {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-image: url("/assets/c8.png");
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.cookie-1{
+    //box-shadow: 0 0 10px red;
+}
+
+.cookie-3{
+    //box-shadow: 0 0 10px green;
+}
+
+.game-over-overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    color: white;
+    font-size: 2rem;
+    z-index: 1000;
+    
+}
+.cookie-overlay{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    min-height: 200px;
+    height: auto;
+    background: rgba(255, 255, 255, 0.85);
+    color: black;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 1000;
+    text-align: left;
+    border: 8px solid grey;
+}
+}
+
