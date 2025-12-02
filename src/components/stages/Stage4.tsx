@@ -98,7 +98,7 @@ export default function Stage3() {
     const gameAreaRef = useRef<HTMLDivElement>(null);
     const [gameWidth, setGameWidth] = useState(0);
     const [gameHeight, setGameHeight] = useState(0);
-    const [score, setScore] = useState(0);
+    const [_score, setScore] = useState(0);
     const [basket1X, setBasket1X] = useState(100);
     const [basket3X, setBasket3X] = useState(300);
     const [noCookiesLeft, setNoCookiesLeft] = useState(false);
