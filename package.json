@@ -13,6 +13,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@hello-pangea/dnd": "^18.0.1",
     "@mui/material": "^5.15.15",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",

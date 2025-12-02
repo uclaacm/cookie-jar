@@ -1,0 +1,133 @@
+.game-stage-4-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 15px 20px;
+
+  .title {
+    font-size: 36px;
+  }
+
+  .score {
+
+  }
+
+  .bandit {
+    position: absolute;
+    top: 150px;
+    right: 150px;
+    z-index: 100;
+    width: 100px;
+    animation: shake 0.5s;
+  }
+
+  .instructions-button {
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
+  }
+
+  .instructions-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .instructions-popup {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 400px;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .instructions-popup h2 {
+    margin-top: 0;
+  }
+
+  .instructions-popup button {
+    margin-top: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 8px;
+  }
+
+  .instructions-popup button:hover {
+    background-color: #45a049;
+  }
+
+  .game-layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 60px;
+    width: 100%;
+  }
+
+  .conveyors {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .belt {
+    width: 700px;
+    height: 80px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+
+    &.HTTP {
+      background-color: #d9534f;
+    }
+
+    &.HTTPS {
+      background-color: #5cb85c;
+    }
+  }
+
+  .basket {
+    display: flex;
+    flex-wrap: wrap;
+    width: 250px;
+    min-height: 200px;
+    gap: 10px;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    padding: 10px;
+    background: #fffdf5;
+
+    .cookie {
+      width: 60px;
+      height: 60px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}
