@@ -24,11 +24,12 @@ const Login: React.FC = () => {
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
         throw new Error(data.error || 'Login failed');
       }
+
+      const data = await response.json();
 
       // Store the token in localStorage
       localStorage.setItem('token', data.token);

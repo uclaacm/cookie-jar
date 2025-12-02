@@ -168,20 +168,20 @@ export default function Stage3() {
         const exclude = Array.from(usedCookieIds.current).join(",");
         let res = await fetch(`/api/cookiesInfo/random?type=${cookieType}&exclude=${exclude}`,
             { cache: "no-store" });
-        let data = await res.json();
-        if (!res.ok || !data._id) {
 
+        if (!res.ok) {
             // Try again with the other type
             cookieType = (cookieType === "first") ? "third" : "first";
             res = await fetch(`/api/cookiesInfo/random?type=${cookieType}&exclude=${exclude}`, {
                 cache: "no-store"
             });
-            data = await res.json();
+        }
 
-            if (!res.ok || !data._id) {
-                setNoCookiesLeft(true);
-                return;
-            }
+        let data = await res.json().catch(() => ({}));
+
+        if (!res.ok || !data._id) {
+            setNoCookiesLeft(true);
+            return;
         }
 
         if (noCookiesLeft) {

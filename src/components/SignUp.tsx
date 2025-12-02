@@ -27,11 +27,12 @@ const SignUp: React.FC = () => {
         body: JSON.stringify({ firstName, lastName, email, password }),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
         throw new Error(data.error || 'Signup failed');
       }
+
+      const data = await response.json();
 
       // Store the token in localStorage
       localStorage.setItem('token', data.token);
