@@ -11,6 +11,7 @@ import SignUp from './components/SignUp'; // Import SignUp
 import Stage1 from "./components/stages/Stage1"; // Import Stage1
 import Stage2 from "./components/stages/Stage2"; // Import Stage2
 import Stage3 from "./components/stages/Stage3"; // Import Stage3
+import Stage4 from "./components/stages/Stage4"; //Import Stage4
 import GameStages from "./components/GameStages"; // Import Game Stages
 import "./styles/App.scss";
 
@@ -59,6 +60,14 @@ const App: React.FC = () => {
           element={
             <ProtectedRoute>
               <Stage3 />
+            </ProtectedRoute>
+          }
+        />
+                <Route
+          path="/stage4"
+          element={
+            <ProtectedRoute>
+              <Stage4 />
             </ProtectedRoute>
           }
         />
