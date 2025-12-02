@@ -73,7 +73,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     navigate('/');
   };
 
-  const handleProtectedNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+  const handleProtectedNavigation = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (!isLoggedIn) {
       e.preventDefault();
       navigate('/login');
@@ -103,21 +103,21 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <Link
               to="/menu"
               style={{ color: 'black', textDecoration: 'none' }}
-              onClick={(e) => handleProtectedNavigation(e, '/menu')}
+              onClick={(e) => handleProtectedNavigation(e)}
             >
               Menu
             </Link>
             <Link
               to="/stage1"
               style={{ color: 'black', textDecoration: 'none' }}
-              onClick={(e) => handleProtectedNavigation(e, '/stage1')}
+              onClick={(e) => handleProtectedNavigation(e)}
             >
               Bake
             </Link>
             <Link
               to="/gamestages"
               style={{ color: 'black', textDecoration: 'none' }}
-              onClick={(e) => handleProtectedNavigation(e, '/gamestages')}
+              onClick={(e) => handleProtectedNavigation(e)}
             >
               Game Stages
             </Link>
