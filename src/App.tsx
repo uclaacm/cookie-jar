@@ -13,8 +13,8 @@ import Stage2 from "./components/stages/Stage2"; // Import Stage2
 import Stage3 from "./components/stages/Stage3"; // Import Stage3
 import Stage4 from "./components/stages/Stage4"; //Import Stage4
 import GameStages from "./components/GameStages"; // Import Game Stages
+import Stage6 from "./components/stages/Stage6"; // Import Stage6
 import "./styles/App.scss";
-
 
 const App: React.FC = () => {
   return (
@@ -65,6 +65,22 @@ const App: React.FC = () => {
         />
                 <Route
           path="/stage4"
+          element={
+            <ProtectedRoute>
+              <Stage4 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/stage5"
+          element={
+            <ProtectedRoute>
+              <Stage4 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/stage6"
           element={
             <ProtectedRoute>
               <Stage4 />
