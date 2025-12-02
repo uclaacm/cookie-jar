@@ -89,10 +89,12 @@
 
 .stage5-container {
   container-type: size;
-  min-height: 100vh; // so that it's not 0
+  min-height: 100vh; // so that it's not 0; TODO: make sure header and footer heights are not included in here (so that if the content doesn't fill up the page, there is no scroll bar)
 }
 
-.stage5-container .game {
+// TODO: size for h2
+
+.stage5-container .game-container {
   // TODO: maybe this should be the min of {75% of the height, 100% of the width}
   // note: the size isn't great on a phone in landscape mode (but that might be okay)
   width: 100cqmin;
@@ -103,12 +105,23 @@
 // TODO: make sure this is the right way to do this
 // (in particular whether the units for the width and height are good; how do they show up on differently-sized screens?)
 // TODO: maybe use flexbox on the game container
-.game {
+.game-container {
   // TODO: behave properly under screen resizing, and don't take up too much of the horizontal space on a phone
   // see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/length#relative_length_units_based_on_viewport
-  background-color: lightgray; // not necessarily needed
   position: relative; // this is just so that the elements inside of it can use the position property
   margin: 0 auto;
+}
+
+.game {
+  width: 100%;
+  height: 100%;
+  //background-color: lightgray; // not necessarily needed
+  //border-radius: 50%;
+  // so that the parts of the zombies outside of the game are hidden:
+  // TODO: make the zombies spawn completely outside the game
+  //   (or not)
+  //position: relative; // TODO: see if this is needed
+  //overflow: hidden;
 }
 
 // TODO: make both .zombie and .player in a single class (to not repeat similarities)
@@ -131,4 +144,13 @@
   border-radius: 50%;
   background-color: brown;
   transform: translate(-50%, 50%);
+}
+
+.healthbar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  // temporary, for while the hearts are still displayed as text emojis:
+  user-select: none;
+  font-size: 36px;
 }
