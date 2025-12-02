@@ -1,8 +1,8 @@
 //Falling cookie game
 import React from "react";
-import { useState, useEffect, useRef, useLayoutEffect} from "react";
+import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import "../../styles/Stage4.scss";
- 
+
 
 interface CookieInfo {
     _id?: string;
@@ -11,10 +11,10 @@ interface CookieInfo {
     used_by: string;
     purpose: string;
     expires_in: string;
-    type:"first"|"third";
-  }
+    type: "first" | "third";
+}
 
-  
+
 interface CookieProps {
     data: {
         id: number;
@@ -25,7 +25,7 @@ interface CookieProps {
         height: number;
         type: string;
         mongo_id: string;
-        info:CookieInfo;
+        info: CookieInfo;
         clicked: boolean;
     }
 }
@@ -36,7 +36,7 @@ interface BasketProps {
     setBasketX: React.Dispatch<React.SetStateAction<number>>;
     controls: {
         left: string;
-        right:string;
+        right: string;
     };
     gameWidth: number;
     typeBasket: "basket1" | "basket3";
@@ -47,50 +47,50 @@ function checkCollision(cookie: any, basketX: number, basketY: number, basketWid
     const nextY = cookie.y + cookie.speed;
     const basketTop = basketY;
     const basketBottom = basketY + basketHeight;
-  
-    return (
-      cookie.x < basketX + basketWidth &&
-      cookie.x + cookie.width > basketX &&
-      (
-        // either overlapping
-        (cookie.y + cookie.height > basketTop && cookie.y < basketBottom)
-        ||
-        // or crossing between frames
-        (cookie.y + cookie.height <= basketTop && nextY + cookie.height >= basketTop)
-      )
-    );
-  }
 
-function Basket({basketX, basketWidth, setBasketX, controls, gameWidth, typeBasket}: BasketProps) {
+    return (
+        cookie.x < basketX + basketWidth &&
+        cookie.x + cookie.width > basketX &&
+        (
+            // either overlapping
+            (cookie.y + cookie.height > basketTop && cookie.y < basketBottom)
+            ||
+            // or crossing between frames
+            (cookie.y + cookie.height <= basketTop && nextY + cookie.height >= basketTop)
+        )
+    );
+}
+
+function Basket({ basketX, basketWidth, setBasketX, controls, gameWidth, typeBasket }: BasketProps) {
 
     //Basket Movement
     useEffect(() => {
-        const handleKeyDown = (e:KeyboardEvent) =>{
-        if(e.key === controls.left){
-            setBasketX((x) => Math.max(0,x-60));
-        }
-        else if (e.key=== controls.right){
-            setBasketX((x) => Math.min(gameWidth-basketWidth, x+60))
-        }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () =>window.removeEventListener("keydown", handleKeyDown);
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === controls.left) {
+                setBasketX((x) => Math.max(0, x - 60));
+            }
+            else if (e.key === controls.right) {
+                setBasketX((x) => Math.min(gameWidth - basketWidth, x + 60))
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
     }, []);
 
     return (
-    <div className = "basket-container">
-        <div className = {`basket ${typeBasket === "basket1" ? "basket1" : "basket3"}`}
-            style={{ left: basketX, width: basketWidth,}}>
+        <div className="basket-container">
+            <div className={`basket ${typeBasket === "basket1" ? "basket1" : "basket3"}`}
+                style={{ left: basketX, width: basketWidth, }}>
                 <p className="basket-label"> {typeBasket === "basket1" ? "Your Basket" : "Everyone's Basket"}</p>
+            </div>
         </div>
-        </div>
-      );
-    }
+    );
+}
 
 
 export default function Stage3() {
     const [cookies, setCookies] = useState<CookieProps["data"][]>([]);
-    const [gameState, setGameState] = useState<"instructions"|"playing"|"gameover"|"gamewon">("instructions")
+    const [gameState, setGameState] = useState<"instructions" | "playing" | "gameover" | "gamewon">("instructions")
     const [isPaused, setIsPaused] = useState(false);
     const [clickedCookie, setClickedCookie] = useState<CookieProps["data"] | null>(null);
     const Frames_per_spawn = 125;
@@ -111,6 +111,7 @@ export default function Stage3() {
     const cookieHeight = 30;
     let OffScreen = false;
     const [ready, setReady] = useState(false);
+    const spawnLockRef = useRef(false);
 
     function resetGame() {
         setScore(0);
@@ -124,70 +125,76 @@ export default function Stage3() {
     }
 
     useLayoutEffect(() => {
-        if (gameState !== "playing") return; 
+        if (gameState !== "playing") return;
         if (gameAreaRef.current) {
-        console.log("We've done it....")
+            console.log("We've done it....")
             const rect = gameAreaRef.current.getBoundingClientRect();
             const style = window.getComputedStyle(gameAreaRef.current);
             const borderLeft = parseFloat(style.borderLeftWidth);
             const borderRight = parseFloat(style.borderRightWidth);
             const borderTop = parseFloat(style.borderTopWidth);
-            const borderBottom = parseFloat(style.borderBottomWidth);        
-            
+            const borderBottom = parseFloat(style.borderBottomWidth);
+
             const playableWidth = rect.width - borderLeft - borderRight;
-            const playableHeight = rect.height - borderTop - borderBottom;        
-        
-          setGameWidth(playableWidth);
-          setGameHeight(playableHeight);
-        console.log(rect.width);
-        console.log(rect.height)
-          setReady(true); 
+            const playableHeight = rect.height - borderTop - borderBottom;
+
+            setGameWidth(playableWidth);
+            setGameHeight(playableHeight);
+            console.log(rect.width);
+            console.log(rect.height)
+            setReady(true);
         }
-      }, [gameState]);
-      
-    function handleCookieClick(cookie: CookieProps["data"]){
-        if(cookie.clicked) return;
+    }, [gameState]);
+
+    function handleCookieClick(cookie: CookieProps["data"]) {
+        if (cookie.clicked) return;
         setIsPaused(true);
         setClickedCookie(cookie);
         setTimeout(() => {
             setIsPaused(false);
             setClickedCookie(null);
-            cookie.clicked=true;
+            cookie.clicked = true;
         }, 3000);
-    }    
+    }
 
     //function to handle spawning cookies
-    async function spawnCookie(gameWidth: number){
+    async function spawnCookie(gameWidth: number) {
+        if (spawnLockRef.current) return;
+        spawnLockRef.current = true;
+
         const target = Math.random() < 0.5 ? "basket1" : "basket3";
-        let cookieType = target==="basket1"? "first" : "third";
-        
+        let cookieType = target === "basket1" ? "first" : "third";
+
         const exclude = Array.from(usedCookieIds.current).join(",");
         let res = await fetch(`/api/cookiesInfo/random?type=${cookieType}&exclude=${exclude}`,
-        {cache: "no-store"});
+            { cache: "no-store" });
         let data = await res.json();
         if (!res.ok || !data._id) {
-            
+
             // Try again with the other type
             cookieType = (cookieType === "first") ? "third" : "first";
             res = await fetch(`/api/cookiesInfo/random?type=${cookieType}&exclude=${exclude}`, {
-                cache: "no-store"});
+                cache: "no-store"
+            });
             data = await res.json();
-        
+
             if (!res.ok || !data._id) {
                 setNoCookiesLeft(true);
-                return; }}          
-
-            if (noCookiesLeft) {
                 return;
-                }
-                
+            }
+        }
+
+        if (noCookiesLeft) {
+            return;
+        }
+
         usedCookieIds.current.add(data._id);
 
         const newCookie: CookieProps["data"] = {
             id: Date.now(),
             x: Math.random() * (gameWidth - cookieWidth * 2) + cookieWidth,
-            y:-40,
-            speed:1,
+            y: -40,
+            speed: 1,
             width: cookieWidth,
             height: cookieHeight,
             type: cookieType,
@@ -195,7 +202,9 @@ export default function Stage3() {
             info: data,
             clicked: false,
         };
-        setCookies(prev =>[...prev, newCookie]);
+        setCookies(prev => [...prev, newCookie]);
+
+        spawnLockRef.current = false;
     }
 
     //references for basket locations
@@ -212,125 +221,127 @@ export default function Stage3() {
             setGameState("gamewon");
         }
     }, [noCookiesLeft, cookies, gameState]);
-    
+
 
     const gameStateRef = useRef(gameState);
     //main game loop
     useEffect(() => {
         gameStateRef.current = gameState;
-        
-        if(gameStateRef.current!="playing") return;
+
+        if (gameStateRef.current != "playing") return;
         if (!ready) return;
 
         const interval = setInterval(() => {
-            if(gameStateRef.current=="gameover"||gameStateRef.current=="gamewon"){
+            if (gameStateRef.current == "gameover" || gameStateRef.current == "gamewon") {
                 usedCookieIds.current.clear();
                 return;
             }
 
-            if (isPaused){
+            if (isPaused) {
                 return;
             }
 
-            frames_elapsed.current+=1;
+            frames_elapsed.current += 1;
 
             let should_spawn = false;
-            if(frames_elapsed.current>=Frames_per_spawn){
+            if (frames_elapsed.current >= Frames_per_spawn) {
                 should_spawn = true;
                 frames_elapsed.current = 0;
             }
-        
+
             setCookies((oldCookies) => {
                 let newScore = 0;
                 const basketY = gameHeight - basketHeight - 16;
                 let updatedCookies = oldCookies.map(cookie => ({ ...cookie, y: cookie.y + cookie.speed }))
-                .filter(cookie => {
-                    if (cookie.y>=gameHeight) OffScreen = true;
-                    let basket1XPos = basket1XRef.current;
-                    let basket3XPos = basket3XRef.current;
+                    .filter(cookie => {
+                        if (cookie.y >= gameHeight) OffScreen = true;
+                        let basket1XPos = basket1XRef.current;
+                        let basket3XPos = basket3XRef.current;
 
-                    const collidedWithBasket1 = checkCollision(cookie, basket1XPos, basketY, basketWidth, basketHeight);
-                    const collidedWithBasket3 = checkCollision(cookie, basket3XPos, basketY, basketWidth, basketHeight);
+                        const collidedWithBasket1 = checkCollision(cookie, basket1XPos, basketY, basketWidth, basketHeight);
+                        const collidedWithBasket3 = checkCollision(cookie, basket3XPos, basketY, basketWidth, basketHeight);
 
-                    if(collidedWithBasket1||collidedWithBasket3){
-                        if((cookie.type==="first"&&collidedWithBasket1)||(cookie.type==="third"&&collidedWithBasket3)){
-                            newScore +=1;}
-                        else{
-                            setGameState("gameover")
+                        if (collidedWithBasket1 || collidedWithBasket3) {
+                            if ((cookie.type === "first" && collidedWithBasket1) || (cookie.type === "third" && collidedWithBasket3)) {
+                                newScore += 1;
+                            }
+                            else {
+                                setGameState("gameover")
+                            }
                         }
-                    }
 
-                    return !collidedWithBasket1 && !collidedWithBasket3});
-                
+                        return !collidedWithBasket1 && !collidedWithBasket3
+                    });
+
                 if (newScore > 0) setScore(prev => prev + newScore);
                 if (OffScreen) setGameState("gameover");
 
-            
+
                 if (should_spawn && !noCookiesLeft) {
                     spawnCookie(gameWidth); //fix this later cuz like why are we sorting cookies and then spawning them we have a useless variable here
                 }
                 return updatedCookies;
-        });      
-    }, 16);
+            });
+        }, 16);
         return () => clearInterval(interval);
     }, [ready, isPaused, gameState]);
 
-    if (gameState == "instructions"){
-        return(
-        <div className = "instructionScreen">
-            <h2>How to Play</h2>
-            <p>Click on the falling cookie to see it's info. Decide whether it's a first party or third party cookie.</p>
-            <p>If it's a first party cookie, sort it into the Player's Jar. If it's a third party cookie, sort it into Everyone's Jar.</p>
-            <p>Use the A and D keys to move the player's Jar left and right, and the left and right arrow keys to move everyone's Jar left and right.</p>
-            <p>Good Luck!</p>
-            <button className = "start-button" onClick={()=>setGameState("playing")}>
-                Start Playing!
-            </button>
-        </div>
+    if (gameState == "instructions") {
+        return (
+            <div className="instructionScreen">
+                <h2>How to Play</h2>
+                <p>Click on the falling cookie to see it's info. Decide whether it's a first party or third party cookie.</p>
+                <p>If it's a first party cookie, sort it into the Player's Jar. If it's a third party cookie, sort it into Everyone's Jar.</p>
+                <p>Use the A and D keys to move the player's Jar left and right, and the left and right arrow keys to move everyone's Jar left and right.</p>
+                <p>Good Luck!</p>
+                <button className="start-button" onClick={() => setGameState("playing")}>
+                    Start Playing!
+                </button>
+            </div>
         );
     }
     return (
         <div className="game-Container">
-        <div className = "gameArea" ref = {gameAreaRef}>
-        {ready && (
-        <>
-        {/* <div className = "score">Score: {score}</div> */}
-       {/* <button className = "pause-button" onClick = {() => setIsPaused(prev => !prev)}>
+            <div className="gameArea" ref={gameAreaRef}>
+                {ready && (
+                    <>
+                        {/* <div className = "score">Score: {score}</div> */}
+                        {/* <button className = "pause-button" onClick = {() => setIsPaused(prev => !prev)}>
             {isPaused ? "Resume": "Pause"}
         </button>*/}
-        <Basket basketX={basket1X} basketWidth={basketWidth} setBasketX={setBasket1X} controls={{ left: "a", right: "d" }} gameWidth = {gameWidth} typeBasket = "basket1"/>
-        <Basket basketX={basket3X} basketWidth={basketWidth} setBasketX={setBasket3X} controls={{ left: "ArrowLeft", right: "ArrowRight" }} gameWidth = {gameWidth} typeBasket = "basket3"/>
+                        <Basket basketX={basket1X} basketWidth={basketWidth} setBasketX={setBasket1X} controls={{ left: "a", right: "d" }} gameWidth={gameWidth} typeBasket="basket1" />
+                        <Basket basketX={basket3X} basketWidth={basketWidth} setBasketX={setBasket3X} controls={{ left: "ArrowLeft", right: "ArrowRight" }} gameWidth={gameWidth} typeBasket="basket3" />
 
-           {cookies.map (cookie => (
-            <div
-            key = {cookie.id}
-            className = {`cookie ${cookie.type === "first" ? "cookie-1": "cookie-3"}`}
-            style = {{
-                top: cookie.y,
-                left: cookie.x,
-            }}onClick={()=> handleCookieClick(cookie)} />
-           ))} 
-           {clickedCookie && (
-            <div className = "cookie-overlay">
-                <h3>🍪 Cookie Info Card</h3>
-                <p>Name: {clickedCookie.info.name}</p>
-                <p>From: {clickedCookie.info.from}</p>
-                <p>Used By: {clickedCookie.info.used_by}</p>
-                <p>Expires: {clickedCookie.info.expires_in}</p>
-                <p>Purpose: {clickedCookie.info.purpose}</p>
+                        {cookies.map(cookie => (
+                            <div
+                                key={cookie.id}
+                                className={`cookie ${cookie.type === "first" ? "cookie-1" : "cookie-3"}`}
+                                style={{
+                                    top: cookie.y,
+                                    left: cookie.x,
+                                }} onClick={() => handleCookieClick(cookie)} />
+                        ))}
+                        {clickedCookie && (
+                            <div className="cookie-overlay">
+                                <h3>🍪 Cookie Info Card</h3>
+                                <p>Name: {clickedCookie.info.name}</p>
+                                <p>From: {clickedCookie.info.from}</p>
+                                <p>Used By: {clickedCookie.info.used_by}</p>
+                                <p>Expires: {clickedCookie.info.expires_in}</p>
+                                <p>Purpose: {clickedCookie.info.purpose}</p>
+                            </div>
+                        )}
+                        {(gameState == "gamewon" || gameState == "gameover") && (
+                            <div className="game-over-overlay">
+                                <h2>{gameState == "gamewon" ? "You won" : "Game Over"} </h2>
+                                <button className="restart-button" onClick={resetGame}>
+                                    Play Again
+                                </button>
+                            </div>
+                        )}
+                    </>
+                )}
             </div>
-           )}
-           {(gameState == "gamewon"||gameState=="gameover") && (
-        <div className="game-over-overlay">
-                <h2>{gameState=="gamewon" ? "You won" : "Game Over"} </h2>
-                <button className = "restart-button" onClick={resetGame}>
-                Play Again    
-                </button>       
         </div>
-        )}
-        </>
-    )}
-        </div>
-    </div>
-        );
-    }
+    );
+}

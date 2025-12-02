@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
-const cookieSchema = new mongoose.Schema({
+const cookieInfoSchema = new mongoose.Schema({
     name: String,
     from: String,
     purpose: String,
     expires_in: String,
     category: String
-}, {collection: "cookie_info"});
+}, { collection: "cookie_info" });
 
-const Cookie = mongoose.model("Cookie", cookieSchema, "cookie_info");
+const CookieInfo = mongoose.model("CookieInfo", cookieInfoSchema, "cookie_info");
 
-export default Cookie;
+export default CookieInfo;
