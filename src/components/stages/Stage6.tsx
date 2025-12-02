@@ -3,7 +3,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useDrag, useDrop } from "react-dnd";
 import { useState, useEffect, useRef } from "react";
-import "../../styles/Game_Stage6.scss";
+import "../../styles/Stage6.scss";
 import ShoppingCart from "/assets/ShoppingCart.png";
 import Clara from "/assets/Clara.png";
 import ChatBubble from "/assets/ChatBubble.png";
