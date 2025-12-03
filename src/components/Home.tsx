@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../styles/Home.scss";
 import "../styles/App.scss";
 import Button from "@mui/material/Button";
@@ -112,6 +112,17 @@ const CookieJarGame: React.FC = () => {
 };
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleStartBaking = () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+    } else {
+      navigate('/stage1');
+    }
+  };
+
   return (
     <div className="home-container">
       {/* Left Column: Text and Button */}
@@ -119,12 +130,12 @@ const Home: React.FC = () => {
         <h1>Cookie Jar</h1>
         <p>
           What are web cookies? What type of cookies are out there? In Cookie
-          Jar, we’ll learn all about web cookies and they make life easier. Have
+          Jar, we'll learn all about web cookies and they make life easier. Have
           fun!
         </p>
-        <Link to="/stage1">
-          <Button className="start-button">Start Baking</Button>
-        </Link>
+        <Button className="start-button" onClick={handleStartBaking}>
+          Start Baking
+        </Button>
       </div>
 
       {/* Right Column: Cookie Jar Animation */}
