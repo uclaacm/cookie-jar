@@ -1,9 +1,8 @@
 import { range } from "./utils.ts";
 
 function Heart() {
-  // TODO: make this an image instead
   return (
-    <span className="heart">❤️</span>
+    <div className="heart" />
   )
 }
 

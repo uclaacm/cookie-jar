@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { MAX_HEALTH, POINTS_PER_TICK, MAX_ZOMBIE_DISTANCE, MILLISECONDS_PER_TICK, coordinateMap, useInterval, zombieSpeed, zombieSpawnRate } from "./utils.ts";
+import { MAX_HEALTH, POINTS_PER_TICK, MILLISECONDS_PER_TICK, coordinateMap, useInterval, zombieSpeed, zombieSpawnRate } from "./utils.ts";
 import { Zombie, ZombieProps, newZombie } from "./Zombie.tsx";
 import { HealthBar } from "./HealthBar.tsx";
 import { Score } from "./Score.tsx";
@@ -30,7 +30,7 @@ export function ActiveGame({ gameOver }: { gameOver: (finalScore: number) => voi
     const newDistance = zombie.coords.distance - zombie.speed;
 
     // if the zombie reaches the player, decrement `health` and remove the zombie.
-    if (newDistance <= MAX_ZOMBIE_DISTANCE) {
+    if (newDistance <= 0) {
       console.log(`Zombie #${zombie.key} has reached the player`)
       setHealth((health) => health - 1); // TODO: or `setHealth(health - 1)`?
       return undefined;

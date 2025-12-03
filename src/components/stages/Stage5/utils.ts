@@ -7,11 +7,6 @@ const SCALING_FACTOR = 100/STARTING_DISTANCE/2;
 const ORIGIN_X = 50;
 const ORIGIN_Y = 50;
 
-// how close a zombie can get to the player before the player loses a life
-// TODO: name (really is the min zombie distance before the zombie & player get removed)
-// TODO: how to match this up with the displayed size in the CSS?
-export const MAX_ZOMBIE_DISTANCE = 0;
-
 // TODO: allow the tick rate to be changed without changing the speed of most things in the game, so that most things depend just on the number of points or the absolute time
 export const MILLISECONDS_PER_TICK = 50;
 
@@ -35,15 +30,11 @@ export function zombieSpeed(tick: number): number {
 
 // TODO: document
 export function zombieSpawnRate(tick: number): number {
-  // TODO: make it increase over time
-  /*
-  if (tick * POINTS_PER_TICK > 200) {
-    return 1/25;
-  } else {
-    return 1/50;
-  }
-  */
-  return 1/50;
+  const points = tick * POINTS_PER_TICK;
+  // formula chosen just so that it increases somewhat over time but doesn't really become unmanageable
+  const a = 9;
+  const b = 32;
+  return 1/60 * Math.log(b * points + Math.exp(a))/a;
 }
 
 // from https://overreacted.io/making-setinterval-declarative-with-react-hooks/
