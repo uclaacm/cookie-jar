@@ -1,0 +1,38 @@
+<svg width="135" height="135" viewBox="0 0 135 135" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_1004_705" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="135" height="135">
+<path d="M0 25C0 11.1929 11.1929 0 25 0H110C123.807 0 135 11.1929 135 25V110C135 123.807 123.807 135 110 135H25C11.1929 135 0 123.807 0 110V25Z" fill="#FFEED9"/>
+</mask>
+<g mask="url(#mask0_1004_705)">
+<path d="M0 25C0 11.1929 11.1929 0 25 0H110C123.807 0 135 11.1929 135 25V110C135 123.807 123.807 135 110 135H25C11.1929 135 0 123.807 0 110V25Z" fill="#E3BC8C"/>
+<line x1="31" y1="21.5355" x2="21.5355" y2="31" stroke="#FF9AB2" stroke-width="5" stroke-linecap="round"/>
+<line x1="2.5" y1="-2.5" x2="15.8848" y2="-2.5" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 70 65)" stroke="#FF9AB2" stroke-width="5" stroke-linecap="round"/>
+<line x1="2.5" y1="-2.5" x2="15.8848" y2="-2.5" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 51 25)" stroke="#FF9AB2" stroke-width="5" stroke-linecap="round"/>
+<line x1="47" y1="42.5355" x2="37.5355" y2="52" stroke="#FFECBE" stroke-width="5" stroke-linecap="round"/>
+<line x1="74.5105" y1="25.86" x2="61.31" y2="28.0739" stroke="#72ABEF" stroke-width="5" stroke-linecap="round"/>
+<line x1="87" y1="40.5355" x2="77.5355" y2="50" stroke="#FFECBE" stroke-width="5" stroke-linecap="round"/>
+<line x1="2.5" y1="-2.5" x2="15.8848" y2="-2.5" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 126 84)" stroke="#FFECBE" stroke-width="5" stroke-linecap="round"/>
+<line x1="2.5" y1="-2.5" x2="15.8848" y2="-2.5" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 107 44)" stroke="#72ABEF" stroke-width="5" stroke-linecap="round"/>
+<line x1="103.632" y1="64.1043" x2="91.3727" y2="69.4772" stroke="#FFECBE" stroke-width="5" stroke-linecap="round"/>
+<line x1="2.5" y1="-2.5" x2="15.8848" y2="-2.5" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 86 15)" stroke="#72ABEF" stroke-width="5" stroke-linecap="round"/>
+<line x1="23.4738" y1="1.17097" x2="19.171" y2="13.8453" stroke="#72ABEF" stroke-width="5" stroke-linecap="round"/>
+<line x1="2.5" y1="-2.5" x2="15.8848" y2="-2.5" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 142 34)" stroke="#FFECBE" stroke-width="5" stroke-linecap="round"/>
+<line x1="2.5" y1="-2.5" x2="15.8848" y2="-2.5" transform="matrix(-0.880342 -0.47434 -0.47434 0.880342 10.1836 35.7206)" stroke="#FFECBE" stroke-width="5" stroke-linecap="round"/>
+<line x1="119.632" y1="14.1043" x2="107.373" y2="19.4772" stroke="#FF9AB2" stroke-width="5" stroke-linecap="round"/>
+<line x1="2.5" y1="-2.5" x2="15.8848" y2="-2.5" transform="matrix(-0.179651 -0.98373 -0.98373 0.179651 19.1523 132.545)" stroke="#FFECBE" stroke-width="5" stroke-linecap="round"/>
+<line x1="44" y1="130.536" x2="34.5355" y2="140" stroke="#FF9AB2" stroke-width="5" stroke-linecap="round"/>
+<line x1="2.5" y1="-2.5" x2="15.8848" y2="-2.5" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 100 143)" stroke="#72ABEF" stroke-width="5" stroke-linecap="round"/>
+<line x1="2.5" y1="-2.5" x2="15.8848" y2="-2.5" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 64 134)" stroke="#FFECBE" stroke-width="5" stroke-linecap="round"/>
+<line x1="136.552" y1="112.293" x2="124.293" y2="117.666" stroke="#FF9AB2" stroke-width="5" stroke-linecap="round"/>
+<line x1="130" y1="40.5355" x2="120.536" y2="50" stroke="#FF9AB2" stroke-width="5" stroke-linecap="round"/>
+<line x1="64" y1="86.5355" x2="54.5355" y2="96" stroke="#FFECBE" stroke-width="5" stroke-linecap="round"/>
+<line x1="2.5" y1="-2.5" x2="15.8848" y2="-2.5" transform="matrix(-0.874654 -0.484747 -0.484747 0.874654 110.08 121.912)" stroke="#FFECBE" stroke-width="5" stroke-linecap="round"/>
+<line x1="2.5" y1="-2.5" x2="15.8848" y2="-2.5" transform="matrix(-0.909398 -0.415927 -0.415927 0.909398 85.8574 87.3223)" stroke="#FFECBE" stroke-width="5" stroke-linecap="round"/>
+<line x1="80" y1="107.536" x2="70.5355" y2="117" stroke="#72ABEF" stroke-width="5" stroke-linecap="round"/>
+<line x1="107" y1="86.5355" x2="97.5355" y2="96" stroke="#FF9AB2" stroke-width="5" stroke-linecap="round"/>
+<line x1="2" y1="69.5355" x2="-7.46447" y2="79" stroke="#72ABEF" stroke-width="5" stroke-linecap="round"/>
+<line x1="2.5" y1="-2.5" x2="15.8848" y2="-2.5" transform="matrix(-0.707107 -0.707107 -0.707107 0.707107 41 113)" stroke="#FF9AB2" stroke-width="5" stroke-linecap="round"/>
+<line x1="2.5" y1="-2.5" x2="15.8848" y2="-2.5" transform="matrix(-0.594519 -0.804081 -0.804081 0.594519 17.9297 66.7828)" stroke="#FF9AB2" stroke-width="5" stroke-linecap="round"/>
+<line x1="18" y1="90.5355" x2="8.53553" y2="100" stroke="#FF9AB2" stroke-width="5" stroke-linecap="round"/>
+<line x1="41.8428" y1="66.1823" x2="40.1194" y2="79.4557" stroke="#72ABEF" stroke-width="5" stroke-linecap="round"/>
+</g>
+</svg>

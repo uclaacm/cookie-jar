@@ -19,7 +19,7 @@ const SignUp: React.FC = () => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:3000/api/users/signup', {
+      const response = await fetch('/api/users/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,7 +35,10 @@ const SignUp: React.FC = () => {
 
       // Store the token in localStorage
       localStorage.setItem('token', data.token);
-      
+
+      // Dispatch custom event to update auth state in navbar
+      window.dispatchEvent(new Event('authChange'));
+
       // Navigate to home page or dashboard
       navigate('/');
     } catch (err) {
@@ -48,29 +51,29 @@ const SignUp: React.FC = () => {
       <h1> Sign Up to Start Baking! </h1>
       <form onSubmit={handleSubmit}>
         <p> First Name </p>
-        <input 
-          type="text" 
+        <input
+          type="text"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           required
         />
         <p> Last Name </p>
-        <input 
-          type="text" 
+        <input
+          type="text"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
           required
         />
         <p> Email </p>
-        <input 
-          type="email" 
+        <input
+          type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <p> Password </p>
-        <input 
-          type="password" 
+        <input
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required

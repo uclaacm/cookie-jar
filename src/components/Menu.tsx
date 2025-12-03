@@ -87,14 +87,13 @@ const Menu: React.FC = () => {
 
 
         {selectedCookie && (
-        <CookieExpandedView
-          name={selectedCookie.name}
-          description={selectedCookie.description}
-          image={selectedCookie.image}
-          color={selectedCookie.color}
-          onClose={closePopup}
-        />
-      )}
+          <CookieExpandedView
+            name={selectedCookie.name}
+            description={selectedCookie.description}
+            color={selectedCookie.color}
+            onClose={closePopup}
+          />
+        )}
     </div>
   );
 };

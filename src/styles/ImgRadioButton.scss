@@ -1,0 +1,40 @@
+.img-radio-button {
+    font-family: 'Manjari', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: black;
+    cursor: pointer;
+
+    &:hover > div::after {
+        transform: scale(1);
+    }
+}
+
+.img-radio-button > input {
+    display: none;
+
+    &:checked ~ div::after {
+        transform: scale(1);
+    }
+}
+
+.img-radio-button > div {
+    position: relative;
+    display: block;
+    text-align: center;
+}
+
+.img-radio-button > div::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #F3C760;
+    opacity: 1;
+    transform: scale(0);
+    transform-origin: center;
+    transition: transform 300ms;
+}
+

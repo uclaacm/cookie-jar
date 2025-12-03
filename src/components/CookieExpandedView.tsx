@@ -4,7 +4,6 @@ import './../styles/Cookie.scss';
 interface CookieExpandedViewProps {
   name: string;
   description: string;
-  image: string;
   color: string;
   onClose: () => void;
 }
@@ -12,7 +11,6 @@ interface CookieExpandedViewProps {
 const CookieExpandedView: React.FC<CookieExpandedViewProps> = ({
   name,
   description,
-  image,
   color,
   onClose
 }) => {
