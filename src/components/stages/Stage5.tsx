@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "../../styles/GameStage4.scss";
+import "../../styles/Stage5.scss";
 import { Link } from "react-router-dom";
 import {
   DragDropContext,
