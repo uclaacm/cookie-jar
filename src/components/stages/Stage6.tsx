@@ -229,23 +229,28 @@ const GameStage6: React.FC = () => {
           <div>
             <h1>Stage 6</h1>
             <p style={{ paddingTop: "20px" }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              In this stage, you’ll explore how session cookies help online stores remember what’s in a shopper’s cart. Customers will arrive with either empty or full carts, and it’s your job to move their cookie data between the server box and the customer. Drag a cookie to a customer to “restore” their saved items, or drag a new cookie back to the server when they leave so their cart can be remembered for later. When you close the shop at the end, all active sessions (and cookies) disappear—just like closing a browser window. Match each customer correctly to earn points and keep the store running smoothly!
             </p>
             <button className="start-button" onClick={() => startGame()}>
               Start
             </button>
             <div className="customer-container">
-              <img src={ShoppingCart} alt="Shopping cart" />
+              <img
+                src={ShoppingCart}
+                alt="Shopping cart"
+                style={{
+                  position: "relative",
+                  width: "300px"
+                }} />
               <img
                 src={Clara}
                 alt="Person holding shopping cart"
-                style={{ position: "relative", left: "-12px" }}
+                style={{
+                  position: "relative",
+                  left: "-12px",
+                  width: "130px",   // adjust smaller or larger as needed
+                  height: "auto",
+                }}
               />
             </div>
           </div>
