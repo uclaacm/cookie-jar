@@ -93,8 +93,8 @@ export default function Stage3() {
     const [gameState, setGameState] = useState<"instructions" | "playing" | "gameover" | "gamewon">("instructions")
     const [isPaused, setIsPaused] = useState(false);
     const [clickedCookie, setClickedCookie] = useState<CookieProps["data"] | null>(null);
-    const Frames_per_spawn = 200;
-    const frames_elapsed = useRef(200);
+    const Frames_per_spawn = 250;
+    const frames_elapsed = useRef(250);
     const lastCookieX = useRef<number | null>(null);
     const gameAreaRef = useRef<HTMLDivElement>(null);
     const [gameWidth, setGameWidth] = useState(0);
@@ -218,7 +218,7 @@ export default function Stage3() {
             clicked: false,
         };
         setCookies(prev => [...prev, newCookie]);
-        gameSpeed.current *= 1.03;
+        gameSpeed.current *= 1.035;
         spawnLockRef.current = false;
     }
 
