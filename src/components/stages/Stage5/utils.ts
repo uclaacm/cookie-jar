@@ -13,6 +13,8 @@ export const MILLISECONDS_PER_TICK = 50;
 export const MAX_HEALTH = 5;
 export const POINTS_PER_TICK = MILLISECONDS_PER_TICK*20/1000; // 20 points per second
 
+export const TICKS_TO_RESPAWN = 3 * 1000/MILLISECONDS_PER_TICK; // 3 seconds to respawn
+
 export function zombieSpeed(tick: number): number {
   const points = tick * POINTS_PER_TICK;
   // TODO: adjust this formula

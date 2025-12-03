@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import { MAX_HEALTH, POINTS_PER_TICK, MILLISECONDS_PER_TICK, coordinateMap, useInterval, zombieSpeed, zombieSpawnRate } from "./utils.ts";
-import { Zombie, ZombieProps, newZombie } from "./Zombie.tsx";
+import { MAX_HEALTH, POINTS_PER_TICK, MILLISECONDS_PER_TICK, TICKS_TO_RESPAWN, coordinateMap, useInterval, zombieSpeed, zombieSpawnRate } from "./utils.ts";
+import { Zombie, ZombieProps, ZombieState, newZombie } from "./Zombie.tsx";
 import { HealthBar } from "./HealthBar.tsx";
 import { Score } from "./Score.tsx";
 
@@ -19,14 +19,50 @@ export function ActiveGame({ gameOver }: { gameOver: (finalScore: number) => voi
     setZombies((zombies) => zombies.filter((zombie) => zombie.key !== key));
   }
 
+  // what to replace a zombie with once it gets clicked
+  // TODO: name
+  function whenClicked(zombie: ZombieProps): ZombieProps | undefined {
+    switch (zombie.state) {
+      case ZombieState.New:
+        return {
+          ...zombie,
+          state: ZombieState.Tombstone,
+          tickToRespawn: tick + TICKS_TO_RESPAWN
+        };
+      case ZombieState.Tombstone:
+        return zombie;
+      case ZombieState.Undead:
+        return undefined; // remove the zombie
+    }
+  }
+
   function onClick(key: number): () => void {
-    // will be different once zombies can have multiple states
-    return () => {removeZombie(key)};
+    return () => {
+      const zombie = zombies.filter((zombie) => zombie.key === key)[0];
+      const newZombie = whenClicked(zombie);
+      if (newZombie === undefined) {
+        removeZombie(key);
+        return;
+      }
+      setZombies((zombies) => zombies.map((zombie) => (zombie.key === key ? newZombie : zombie))); // TODO: make it readable
+    }
   }
 
   // TODO: address different zombie states
   // returns `undefined` if the zombie should be removed
   function stepZombie(zombie: ZombieProps): ZombieProps | undefined {
+    if (zombie.state === ZombieState.Tombstone) {
+      if (tick >= zombie.tickToRespawn) {
+        console.log(`Respawning zombie #${zombie.key}`);
+        // respawn the zombie
+        return {
+          ...zombie,
+          state: ZombieState.Undead
+        };
+      }
+      return zombie;
+    }
+    
     const newDistance = zombie.coords.distance - zombie.speed;
 
     // if the zombie reaches the player, decrement `health` and remove the zombie.

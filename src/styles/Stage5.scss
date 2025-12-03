@@ -116,6 +116,10 @@
   margin: 0 auto;
 }
 
+.instructions .p {
+  font-size: 16px;
+}
+
 .game {
   width: 100%;
   height: 100%;
@@ -129,17 +133,26 @@
 
 .zombie {
   position: absolute;
-  width: 36px;
-  height: 36px;
-  cursor: pointer; // TODO: this actually depends on the zombie state (so does background-image); so have different classes for each state
   transform: translate(-50%, 50%); // make the `bottom` and `left` positioning attributes specify the center position
-  background-image: url("../../assets/zombieCookie.svg");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
-// TODO: maybe hard-code the position
-// TODO: the specified positions are always for the bottom left corner; see how to make it so that they are for the center
+.zombie.alive {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  background-image: url("../../assets/zombieCookie.svg");
+}
+
+.zombie.tombstone {
+  width: 48px;
+  height: 48px;
+  cursor: not-allowed;
+  background-image: url("../../assets/tombstone.svg"); // TODO: update the number to reflect the number of seconds before the zombie respawns
+}
+
+// TODO: get rid of the player and make the zombies move downwards (from the top of the screen to the bottom)
 .player {
   position: absolute;
   width: 48px;
