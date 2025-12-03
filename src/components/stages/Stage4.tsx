@@ -93,8 +93,9 @@ export default function Stage3() {
     const [gameState, setGameState] = useState<"instructions" | "playing" | "gameover" | "gamewon">("instructions")
     const [isPaused, setIsPaused] = useState(false);
     const [clickedCookie, setClickedCookie] = useState<CookieProps["data"] | null>(null);
-    const Frames_per_spawn = 125;
-    const frames_elapsed = useRef(0);
+    const Frames_per_spawn = 200;
+    const frames_elapsed = useRef(200);
+    const lastCookieX = useRef<number | null>(null);
     const gameAreaRef = useRef<HTMLDivElement>(null);
     const [gameWidth, setGameWidth] = useState(0);
     const [gameHeight, setGameHeight] = useState(0);
@@ -112,22 +113,24 @@ export default function Stage3() {
     let OffScreen = false;
     const [ready, setReady] = useState(false);
     const spawnLockRef = useRef(false);
+    const gameSpeed = useRef(1); 
 
     function resetGame() {
         setScore(0);
         setCookies([]);
         usedCookieIds.current.clear();
-        frames_elapsed.current = 0;
+        frames_elapsed.current = Frames_per_spawn;
         setClickedCookie(null);
         setIsPaused(false);
         setGameState("playing"); // restarts loop
         setNoCookiesLeft(false);
+        spawnLockRef.current = false;
+        gameSpeed.current = 1;
     }
 
     useLayoutEffect(() => {
         if (gameState !== "playing") return;
         if (gameAreaRef.current) {
-            console.log("We've done it....")
             const rect = gameAreaRef.current.getBoundingClientRect();
             const style = window.getComputedStyle(gameAreaRef.current);
             const borderLeft = parseFloat(style.borderLeftWidth);
@@ -155,6 +158,16 @@ export default function Stage3() {
             setClickedCookie(null);
             cookie.clicked = true;
         }, 3000);
+    }
+
+    function generateValidX (gameWidth: number, cookieWidth: number, basketWidth: number){
+        let x;
+        do{
+            x=Math.random() * (gameWidth - cookieWidth * 2) + cookieWidth;
+        } while(lastCookieX.current !== null &&
+            Math.abs(x - lastCookieX.current) < basketWidth);
+        lastCookieX.current = x;
+        return x;
     }
 
     //function to handle spawning cookies
@@ -188,13 +201,15 @@ export default function Stage3() {
             return;
         }
 
+        const x = generateValidX(gameWidth, cookieWidth, basketWidth);
+
         usedCookieIds.current.add(data._id);
 
         const newCookie: CookieProps["data"] = {
             id: Date.now(),
-            x: Math.random() * (gameWidth - cookieWidth * 2) + cookieWidth,
+            x,
             y: -40,
-            speed: 1,
+            speed: gameSpeed.current,
             width: cookieWidth,
             height: cookieHeight,
             type: cookieType,
@@ -203,7 +218,7 @@ export default function Stage3() {
             clicked: false,
         };
         setCookies(prev => [...prev, newCookie]);
-
+        gameSpeed.current *= 1.03;
         spawnLockRef.current = false;
     }
 
@@ -261,6 +276,11 @@ export default function Stage3() {
                         const collidedWithBasket1 = checkCollision(cookie, basket1XPos, basketY, basketWidth, basketHeight);
                         const collidedWithBasket3 = checkCollision(cookie, basket3XPos, basketY, basketWidth, basketHeight);
 
+                        if (collidedWithBasket1 && collidedWithBasket3) {
+                            setGameState("gameover");
+                            return false;
+                        }
+                        
                         if (collidedWithBasket1 || collidedWithBasket3) {
                             if ((cookie.type === "first" && collidedWithBasket1) || (cookie.type === "third" && collidedWithBasket3)) {
                                 newScore += 1;
@@ -268,9 +288,9 @@ export default function Stage3() {
                             else {
                                 setGameState("gameover")
                             }
+                            return false;
                         }
-
-                        return !collidedWithBasket1 && !collidedWithBasket3
+                        return true;
                     });
 
                 if (newScore > 0) setScore(prev => prev + newScore);
