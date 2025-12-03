@@ -63,7 +63,7 @@ const App: React.FC = () => {
             </ProtectedRoute>
           }
         />
-                <Route
+        <Route
           path="/stage4"
           element={
             <ProtectedRoute>
@@ -75,7 +75,7 @@ const App: React.FC = () => {
           path="/stage5"
           element={
             <ProtectedRoute>
-              <Stage4 />
+              <Home />
             </ProtectedRoute>
           }
         />
@@ -83,7 +83,7 @@ const App: React.FC = () => {
           path="/stage6"
           element={
             <ProtectedRoute>
-              <Stage4 />
+              <Stage6 />
             </ProtectedRoute>
           }
         />
