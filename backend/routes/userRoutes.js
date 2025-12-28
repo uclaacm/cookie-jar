@@ -1,23 +1,21 @@
-import express from "express";
-import bcrypt from "bcrypt";
+import express from 'express';
 import jwt from 'jsonwebtoken';
-import { client } from "../database.js"; 
+import User from '../models/User.js';
+import StageProgress from '../models/StageProgress.js';
+import Cookie from '../models/Cookie.js';
 
 const router = express.Router();
 
-const db = client.db("sample_mflix");
-const usersCollection = db.collection("users");
-
-const JWT_SECRET = process.env.JWT_SECRET
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const generateToken = (user) => {
   return jwt.sign(
-    { 
+    {
       userId: user._id,
-      email: user.email 
+      email: user.email,
     },
     JWT_SECRET,
-    { expiresIn: '24h' }
+    { expiresIn: '24h' },
   );
 };
 
@@ -39,95 +37,91 @@ const verifyToken = (req, res, next) => {
 
 // POST login endpoint
 
-router.post("/login", async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
     // Check if all required fields are provided
     if (!email || !password) {
-      return res.status(400).json({ error: "Email and password are required" });
+      return res.status(400).json({ error: 'Email and password are required' });
     }
 
     // Check if the user exists
-    const existingUser = await usersCollection.findOne({ email });
-    if (!existingUser) {
-      return res.status(404).json({ error: "User not found" });
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
     }
 
     // Check if the password is correct
-    const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+    const isPasswordValid = await user.comparePassword(password);
     if (!isPasswordValid) {
-      return res.status(401).json({ error: "Invalid credentials" });
+      return res.status(401).json({ error: 'Invalid credentials' });
     }
 
     // Generate JWT token
-    const token = generateToken(existingUser);
+    const token = generateToken(user);
 
     // Return user data and token
     return res.status(200).json({
-      message: "Login successful",
+      message: 'Login successful',
       token,
-      user: {
-        firstName: existingUser.firstName,
-        lastName: existingUser.lastName,
-        email: existingUser.email,
-        level: existingUser.level,
-        timestamp: existingUser.timestamp
-      }
+      user: user.toJSON(),
     });
-
   } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).json({ error: "An error occurred during login" });
+    console.error('Login error:', error);
+    res.status(500).json({ error: 'An error occurred during login' });
   }
 });
 
-
 // POST signup endpoint
 
-router.post("/signup", async (req, res) => {
+router.post('/signup', async (req, res) => {
   try {
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password, profilePhoto } = req.body;
 
     // Check if all required fields are provided
     if (!firstName || !lastName || !email || !password) {
-      return res.status(400).json({ error: "All fields are required" });
+      return res.status(400).json({ error: 'All fields are required' });
     }
 
     // Check if the user already exists
-    const existingUser = await usersCollection.findOne({ email });
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(409).json({ error: "Email already registered" });
+      return res.status(409).json({ error: 'Email already registered' });
     }
 
-    // Hash the password using bcrypt with 10 salt rounds
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-    // Create the user object
-    const user = {
+    // Create new user
+    const user = new User({
       firstName,
       lastName,
       email,
-      password: hashedPassword,
-      level: 0,
-      timestamp: Date.now()
-    };
+      password,
+      profilePhoto: profilePhoto || null,
+    });
 
-    // Insert the new user into the collection
-    const result = await usersCollection.insertOne(user);
+    // Save user (password will be hashed automatically by pre-save hook)
+    await user.save();
 
-    // Generate JWT token for the new user  
-    const token = generateToken({ _id: result.insertedId, email }); 
+    // Generate JWT token for the new user
+    const token = generateToken(user);
 
     return res.status(201).json({
-      message: "User registered successfully",
+      message: 'User registered successfully',
       token,
-      userId: result.insertedId,
+      user: user.toJSON(),
     });
   } catch (error) {
-    console.error("Signup error:", error);
-    res.status(500).json({ error: "An error occurred during registration" });
+    console.error('Signup error:', error);
+
+    // Handle validation errors
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({
+        error: 'Validation error',
+        details: Object.values(error.errors).map(e => e.message)
+      });
+    }
+
+    res.status(500).json({ error: 'An error occurred during registration' });
   }
 });
 

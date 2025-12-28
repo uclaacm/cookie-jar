@@ -1,202 +1,133 @@
-/* mostly copied from Stage2.scss */
-.stage5-container {
-  padding: 50px 60px;
-  padding-bottom: 150px; // Add extra bottom padding to account for footer
-  font-family: "Manjari", sans-serif;
-  font-weight: 700;
-
-  h1 {
-    font-size: 64px;
-  }
-
-  h2 {
-    font-size: 44px;
-  }
-
-  p {
-    font-size: 24px;
-  }
-
-  // mostly copied from .login-button in Login.scss
-  button {
-    background-color: #ffc00a !important;
-    color: black !important;
-    font-family: 'Manjari', sans-serif !important;
-    font-size: 1.1rem !important;
-    font-weight: 700;
-    padding: 12px 24px;
-    width: 200px;
-    border-radius: 8px;
-    text-transform: none;
-    transition: background-color 0.3s ease;
-    //position: absolute;
-    //left: 50%;
-    //transform: translate(-50%, 9%);
-    border: none;
-
-    &:hover {
-      background-color: #E3B750 !important; // Slightly darker
-      cursor: pointer;
-    }
-  }
-
-  .back-button {
-    position: fixed;
-    bottom: 50px;
-    left: 30px;
-    background-color: #ffc107;
-    color: black;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.4);
-
-    &:hover {
-      background: #E3B750;
-      color: black;
-      transform: translateX(4px) scale(1.05);
-    }
-
-    svg {
-      stroke-width: 3;
-    }
-  }
-
-  .next-button {
-    position: fixed;
-    bottom: 50px;
-    right: 30px;
-    background-color: #ffc107;
-    color: black;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.4);
-
-    &:hover {
-      background: #E3B750;
-      color: black;
-      transform: translateX(4px) scale(1.05);
-    }
-
-    svg {
-      stroke-width: 3;
-    }
-  }
-}
-
-.stage5-container {
-  container-type: size;
-  min-height: 100vh; // so that it's not 0; TODO: make sure header and footer heights are not included in here (so that if the content doesn't fill up the page, there is no scroll bar)
-}
-
-// TODO: size for h2
-
-.stage5-container .game-container {
-  // Use viewport units instead of container queries for better compatibility
-  width: min(75vh, 100vw);
-  height: min(75vh, 100vw);
-  max-width: 600px;
-  max-height: 600px;
-}
-
-// specific to this stage
-// TODO: make sure this is the right way to do this
-// (in particular whether the units for the width and height are good; how do they show up on differently-sized screens?)
-// TODO: maybe use flexbox on the game container
-.game-container {
-  // TODO: behave properly under screen resizing, and don't take up too much of the horizontal space on a phone
-  // see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/length#relative_length_units_based_on_viewport
-  position: relative; // this is just so that the elements inside of it can use the position property
-  margin: 0 auto;
-  border: 2px solid #ffc107;
-  border-radius: 8px;
-}
-
-.instructions {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
+.game-stage-4-container {
+  display: flex;
+  flex-direction: column;
   text-align: center;
-}
+  padding: 15px 20px;
 
-.instructions p {
-  font-size: 16px;
-  line-height: 1.5;
-  margin-bottom: 20px;
-}
+  .title {
+    font-size: 36px;
+  }
 
-.game {
-  width: 100%;
-  height: 100%;
-  background-image: url("../../assets/stage5Background.svg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
-  overflow: hidden;
-}
+  .score {
 
-.zombie {
-  position: absolute;
-  transform: translate(-50%, 50%); // make the `bottom` and `left` positioning attributes specify the center position
-  background-size: contain;
-  background-repeat: no-repeat;
-}
+  }
 
-.zombie.alive {
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-  background-image: url("../../assets/zombieCookie.svg");
-}
+  .bandit {
+    position: absolute;
+    top: 150px;
+    right: 150px;
+    z-index: 100;
+    width: 100px;
+    animation: shake 0.5s;
+  }
 
-.zombie.tombstone {
-  width: 48px;
-  height: 48px;
-  cursor: not-allowed;
-  background-image: url("../../assets/tombstone.svg"); // TODO: update the number to reflect the number of seconds before the zombie respawns
-}
+  .instructions-button {
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
+  }
 
-// TODO: get rid of the player and make the zombies move downwards (from the top of the screen to the bottom)
-.player {
-  position: absolute;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background-color: brown;
-  transform: translate(-50%, 50%);
-}
+  .instructions-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
 
-.healthbar {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  padding: 6px; // TODO: why are the hearts further from the bottom than the left?
-}
+  .instructions-popup {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 400px;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
 
-.heart {
-  width: 36px;
-  height: 36px;
-  background-image: url("../../assets/redHeart.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  display: inline-block;
-  margin: 3px;
-}
+  .instructions-popup h2 {
+    margin-top: 0;
+  }
 
-.score {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  padding: 6px;
-  font-size: 24px;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  .instructions-popup button {
+    margin-top: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 8px;
+  }
+
+  .instructions-popup button:hover {
+    background-color: #45a049;
+  }
+
+  .game-layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 60px;
+    width: 100%;
+  }
+
+  .conveyors {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .belt {
+    width: 700px;
+    height: 80px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+
+    &.HTTP {
+      background-color: #d9534f;
+    }
+
+    &.HTTPS {
+      background-color: #5cb85c;
+    }
+  }
+
+  .basket {
+    display: flex;
+    flex-wrap: wrap;
+    width: 250px;
+    min-height: 200px;
+    gap: 10px;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    padding: 10px;
+    background: #fffdf5;
+
+    .cookie {
+      width: 60px;
+      height: 60px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
 }
