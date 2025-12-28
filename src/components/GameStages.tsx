@@ -35,6 +35,11 @@ const GameStages: React.FC = () => {
                 name="Stage 6"
                 description="Learn about session cookies that exist only within a single session."
             />
+            <GameStageCard
+                to="/stage7"
+                name="Stage 7"
+                description="See how zombie cookies can come back after being deleted."
+            />
         </div>
     );
 };

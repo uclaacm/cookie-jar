@@ -11,6 +11,7 @@ import SignUp from './components/SignUp'; // Import SignUp
 import Stage1 from "./components/stages/Stage1"; // Import Stage1
 import Stage2 from "./components/stages/Stage2"; // Import Stage2
 import Stage3 from "./components/stages/Stage3"; // Import Stage3
+import Stage7 from "./components/stages/Stage7"; // Import Stage7
 import Stage5 from "./components/stages/Stage5"; // Import Stage5
 import Stage4 from "./components/stages/Stage4"; //Import Stage4
 import GameStages from "./components/GameStages"; // Import Game Stages
@@ -85,6 +86,14 @@ const App: React.FC = () => {
           element={
             <ProtectedRoute>
               <Stage6 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/stage7"
+          element={
+            <ProtectedRoute>
+              <Stage7 />
             </ProtectedRoute>
           }
         />
