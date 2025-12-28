@@ -62,7 +62,7 @@ export function ActiveGame({ gameOver }: { gameOver: (finalScore: number) => voi
       }
       return zombie;
     }
-    
+
     const newDistance = zombie.coords.distance - zombie.speed;
 
     // if the zombie reaches the player, decrement `health` and remove the zombie.
@@ -115,7 +115,7 @@ export function ActiveGame({ gameOver }: { gameOver: (finalScore: number) => voi
     <>
       <div className="game-container">
         <div className="game">
-          {zombies.map((props) => <Zombie props={props} onClick={onClick(props.key)} key={props.key} />)}
+          {zombies.map((props) => <Zombie coords={props.coords} state={props.state} onClick={onClick(props.key)} key={props.key} />)}
           <div className="player" style={coordinateMap({ distance: 0, angle: 0 })} />
         </div>
         <HealthBar health={health} />

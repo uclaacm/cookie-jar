@@ -33,12 +33,12 @@
     //left: 50%;
     //transform: translate(-50%, 9%);
     border: none;
-    
+
     &:hover {
       background-color: #E3B750 !important; // Slightly darker
       cursor: pointer;
     }
-}
+  }
 
   .back-button {
     position: fixed;
@@ -99,10 +99,11 @@
 // TODO: size for h2
 
 .stage5-container .game-container {
-  // TODO: maybe this should be the min of {75% of the height, 100% of the width}
-  // note: the size isn't great on a phone in landscape mode (but that might be okay)
-  width: 100cqmin;
-  height: 100cqmin;
+  // Use viewport units instead of container queries for better compatibility
+  width: min(75vh, 100vw);
+  height: min(75vh, 100vw);
+  max-width: 600px;
+  max-height: 600px;
 }
 
 // specific to this stage
@@ -114,10 +115,21 @@
   // see https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/length#relative_length_units_based_on_viewport
   position: relative; // this is just so that the elements inside of it can use the position property
   margin: 0 auto;
+  border: 2px solid #ffc107;
+  border-radius: 8px;
 }
 
-.instructions .p {
+.instructions {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.instructions p {
   font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
 }
 
 .game {
@@ -177,4 +189,14 @@
   background-repeat: no-repeat;
   display: inline-block;
   margin: 3px;
+}
+
+.score {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 6px;
+  font-size: 24px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }

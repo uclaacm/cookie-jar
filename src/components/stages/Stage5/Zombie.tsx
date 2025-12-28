@@ -19,7 +19,7 @@ export interface ZombieProps {
   readonly key: number; // just for the key; TODO: see if it should be called "id"
 }
 
-export const Zombie = ({ props: { coords, state }, onClick }: { props: ZombieProps, onClick: () => void }) => {
+export const Zombie = ({ coords, state, onClick }: { coords: Coordinates, state: ZombieState, onClick: () => void }) => {
   return (
     <div className={`zombie ${(state === ZombieState.Tombstone) ? "tombstone" : "alive"}`} style={coordinateMap(coords)} onClick={onClick} />
   );
