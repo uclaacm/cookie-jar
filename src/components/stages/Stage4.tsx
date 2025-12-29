@@ -2,6 +2,7 @@
 import React from "react";
 import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import "../../styles/Stage4.scss";
+import { updateUserPoints } from "../../utils/api";
 
 
 interface CookieInfo {
@@ -113,7 +114,7 @@ export default function Stage3() {
     let OffScreen = false;
     const [ready, setReady] = useState(false);
     const spawnLockRef = useRef(false);
-    const gameSpeed = useRef(1); 
+    const gameSpeed = useRef(1);
 
     function resetGame() {
         setScore(0);
@@ -160,11 +161,11 @@ export default function Stage3() {
         }, 3000);
     }
 
-    function generateValidX (gameWidth: number, cookieWidth: number, basketWidth: number){
+    function generateValidX(gameWidth: number, cookieWidth: number, basketWidth: number) {
         let x;
-        do{
-            x=Math.random() * (gameWidth - cookieWidth * 2) + cookieWidth;
-        } while(lastCookieX.current !== null &&
+        do {
+            x = Math.random() * (gameWidth - cookieWidth * 2) + cookieWidth;
+        } while (lastCookieX.current !== null &&
             Math.abs(x - lastCookieX.current) < basketWidth);
         lastCookieX.current = x;
         return x;
@@ -234,8 +235,12 @@ export default function Stage3() {
     useEffect(() => {
         if (noCookiesLeft && cookies.length === 0 && gameState === "playing") {
             setGameState("gamewon");
+            // Save points when game is won
+            if (_score > 0) {
+                updateUserPoints(_score);
+            }
         }
-    }, [noCookiesLeft, cookies, gameState]);
+    }, [noCookiesLeft, cookies, gameState, _score]);
 
 
     const gameStateRef = useRef(gameState);
@@ -278,15 +283,23 @@ export default function Stage3() {
 
                         if (collidedWithBasket1 && collidedWithBasket3) {
                             setGameState("gameover");
+                            // Save points when game ends
+                            if (_score > 0) {
+                                updateUserPoints(_score);
+                            }
                             return false;
                         }
-                        
+
                         if (collidedWithBasket1 || collidedWithBasket3) {
                             if ((cookie.type === "first" && collidedWithBasket1) || (cookie.type === "third" && collidedWithBasket3)) {
                                 newScore += 1;
                             }
                             else {
-                                setGameState("gameover")
+                                setGameState("gameover");
+                                // Save points when game ends
+                                if (_score > 0) {
+                                    updateUserPoints(_score);
+                                }
                             }
                             return false;
                         }
@@ -294,7 +307,13 @@ export default function Stage3() {
                     });
 
                 if (newScore > 0) setScore(prev => prev + newScore);
-                if (OffScreen) setGameState("gameover");
+                if (OffScreen) {
+                    setGameState("gameover");
+                    // Save points when game ends due to off-screen cookies
+                    if (_score > 0) {
+                        updateUserPoints(_score);
+                    }
+                }
 
 
                 if (should_spawn && !noCookiesLeft) {
@@ -325,7 +344,7 @@ export default function Stage3() {
             <div className="gameArea" ref={gameAreaRef}>
                 {ready && (
                     <>
-                        {/* <div className = "score">Score: {score}</div> */}
+                        <div className="score">Score: {_score}</div>
                         {/* <button className = "pause-button" onClick = {() => setIsPaused(prev => !prev)}>
             {isPaused ? "Resume": "Pause"}
         </button>*/}
@@ -354,6 +373,7 @@ export default function Stage3() {
                         {(gameState == "gamewon" || gameState == "gameover") && (
                             <div className="game-over-overlay">
                                 <h2>{gameState == "gamewon" ? "You won" : "Game Over"} </h2>
+                                <p>Final Score: {_score}</p>
                                 <button className="restart-button" onClick={resetGame}>
                                     Play Again
                                 </button>

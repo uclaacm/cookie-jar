@@ -135,20 +135,28 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               Game Stages
             </Link>
             {isLoggedIn ? (
-              <button
-                onClick={handleLogout}
-                style={{
-                  color: 'black',
-                  textDecoration: 'none',
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: '1rem',
-                  fontFamily: 'inherit',
-                }}
-              >
-                Logout
-              </button>
+              <>
+                <Link
+                  to="/profile"
+                  style={{ color: 'black', textDecoration: 'none' }}
+                >
+                  Profile
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  style={{
+                    color: 'black',
+                    textDecoration: 'none',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    fontSize: '1rem',
+                    fontFamily: 'inherit',
+                  }}
+                >
+                  Logout
+                </button>
+              </>
             ) : (
               <Link to="/login" style={{ color: 'black', textDecoration: 'none' }}>
                 Login

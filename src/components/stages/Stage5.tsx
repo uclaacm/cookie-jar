@@ -10,6 +10,7 @@ import {
 } from "@hello-pangea/dnd";
 import plainCookie from "/assets/c11.png";
 import chocolateCookie from "/assets/c8.png";
+import { updateUserPoints } from "../../utils/api";
 
 interface Cookie {
   id: number;
@@ -35,7 +36,13 @@ const GameStage4: React.FC = () => {
   const [showInstructions, setShowInstructions] = useState(false);
 
   useEffect(() => {
-    if (gameOver) return;
+    if (gameOver) {
+      // Save points when game ends
+      if (score > 0) {
+        updateUserPoints(score);
+      }
+      return;
+    }
 
     const spawn = setInterval(() => {
       setCookies((prev) => {
@@ -52,7 +59,7 @@ const GameStage4: React.FC = () => {
     }, 3000);
 
     return () => clearInterval(spawn);
-  }, [gameOver]);
+  }, [gameOver, score]);
 
   const handleDrop = (result: DropResult) => {
     if (!result.destination) return;
@@ -68,6 +75,10 @@ const GameStage4: React.FC = () => {
     if (cookie.type === "secret" && belt.label === "HTTP") {
       setBanditVisible(true);
       setGameOver(true);
+      // Save points when game ends due to bandit
+      if (score > 0) {
+        updateUserPoints(score);
+      }
       return;
     }
 

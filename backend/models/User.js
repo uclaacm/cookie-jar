@@ -75,6 +75,16 @@ userSchema.methods.unlockNextStage = async function () {
   return await this.save();
 };
 
+// Method to add points to totalPoints
+userSchema.methods.addPoints = async function (points) {
+  if (typeof points !== 'number' || points < 0) {
+    throw new Error('Points must be a non-negative number');
+  }
+  this.totalPoints += points;
+  console.log("USER TOTAL POINTS AFTER ADDING:", this.totalPoints);
+  return await this.save();
+};
+
 // Remove password from JSON response
 userSchema.methods.toJSON = function () {
   const user = this.toObject();
