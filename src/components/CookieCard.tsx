@@ -8,9 +8,17 @@ interface CookieCardProps {
 }
 
 const CookieCard: React.FC<CookieCardProps> = ({ name, image, onClick }) => (
-    <div className="cookie-card" onClick={onClick}>
-        <img src={image} alt={name} className="cookie-image" />
-        <h3>{name}</h3>
+    <div className="cookie-card">
+        <div onClick={onClick}>
+            <img src={image} alt={name} className="cookie-image" />
+            <h3>{name}</h3>
+        </div>
+        <button className="buy-button" onClick={(e) => {
+            e.stopPropagation();
+            console.log(`Buying ${name}`);
+        }}>
+            Buy this cookie
+        </button>
     </div>
 );
 
