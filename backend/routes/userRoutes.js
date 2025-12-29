@@ -13,6 +13,11 @@ const generateToken = (user) => {
     {
       userId: user._id,
       email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      profilePhoto: user.profilePhoto,
+      currentStage: user.currentStage,
+      totalPoints: user.totalPoints,
     },
     JWT_SECRET,
     { expiresIn: '24h' },
@@ -122,6 +127,52 @@ router.post('/signup', async (req, res) => {
     }
 
     res.status(500).json({ error: 'An error occurred during registration' });
+  }
+});
+
+// PUT endpoint to update user total points
+router.put('/points', verifyToken, async (req, res) => {
+  try {
+    const { points } = req.body;
+
+    if (typeof points !== 'number' || points < 0) {
+      return res.status(400).json({ error: 'Points must be a non-negative number' });
+    }
+
+    const user = await User.findById(req.user.userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    user.totalPoints += points;
+    console.log("NEW TOTAL POINTS:", user.totalPoints);
+    await user.save();
+
+    return res.status(200).json({
+      message: 'Points updated successfully',
+      totalPoints: user.totalPoints,
+      pointsAdded: points
+    });
+  } catch (error) {
+    console.error('Update points error:', error);
+    res.status(500).json({ error: 'An error occurred while updating points' });
+  }
+});
+
+// GET endpoint to get user's current total points
+router.get('/points', verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    return res.status(200).json({
+      totalPoints: user.totalPoints
+    });
+  } catch (error) {
+    console.error('Get points error:', error);
+    res.status(500).json({ error: 'An error occurred while fetching points' });
   }
 });
 
