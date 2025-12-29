@@ -167,6 +167,176 @@
   }
 }
 
+/* Purchase Confirmation Popup */
+.buy-confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.buy-confirm-popup {
+  background: #fff9ec;
+  border: 3px solid #F3C760;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+  h3 {
+    font-family: "Manjari", sans-serif;
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-family: "Manjari", sans-serif;
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .confirm-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      font-family: "Manjari", sans-serif;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+
+    .confirm-yes {
+      background: #27ae60;
+      color: white;
+
+      &:hover {
+        background: #229954;
+      }
+    }
+
+    .confirm-no {
+      background: #e74c3c;
+      color: white;
+
+      &:hover {
+        background: #c0392b;
+      }
+    }
+  }
+}
+
+/* Purchased Cookie Cards */
+.purchased-cookie-card {
+  background: #fff9ec;
+  border: 3px solid #F3C760;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  h4 {
+    font-family: "Manjari", sans-serif;
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+
+  .cookie-type {
+    font-family: "Manjari", sans-serif;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.3rem;
+    font-style: italic;
+  }
+
+  .cookie-price {
+    font-family: "Manjari", sans-serif;
+    font-size: 1rem;
+    color: #27ae60;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+  }
+
+  .purchase-date {
+    font-family: "Manjari", sans-serif;
+    font-size: 0.8rem;
+    color: #999;
+    margin: 0;
+  }
+}
+
+.purchased-cookies-container {
+  margin-top: 2rem;
+
+  h3 {
+    font-family: "Manjari", sans-serif;
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .purchased-cookies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 0.5rem;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(243, 199, 96, 0.5);
+      border-radius: 10px;
+
+      &:hover {
+        background: rgba(243, 199, 96, 0.7);
+      }
+    }
+  }
+
+  .no-cookies {
+    text-align: center;
+    color: #666;
+    font-family: "Manjari", sans-serif;
+    font-style: italic;
+    padding: 2rem;
+  }
+}
+
 /* for popup */
 .cookie-popup {
   position: fixed;
