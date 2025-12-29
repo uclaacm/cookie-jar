@@ -93,26 +93,19 @@ const Profile: React.FC = () => {
             <div className="profile-header">
                 <h1>User Profile</h1>
                 <button className="refresh-button" onClick={refreshPoints}>
-                    🔄 Refresh Points
+                    Refresh Points
                 </button>
             </div>
 
             <div className="profile-content">
                 <div className="profile-info">
                     <div className="avatar">
-                        {user.profilePhoto ? (
-                            <img src={user.profilePhoto} alt="Profile" />
-                        ) : (
-                            <div className="default-avatar">
-                                {user.firstName.charAt(0).toUpperCase()}
-                            </div>
-                        )}
+                        <img src={user.profilePhoto || '/src/assets/c8.png'} alt="Profile" />
                     </div>
 
                     <div className="user-details">
                         <h2>{user.firstName} {user.lastName}</h2>
                         <p className="email">{user.email}</p>
-                        <p className="stage">Current Stage: {user.currentStage}</p>
                     </div>
                 </div>
 

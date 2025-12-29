@@ -1,21 +1,25 @@
 /* for gird */
 .cookie-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  grid-template-columns: repeat(3, 1fr);
+  /* 3 columns */
   padding: 20px;
   height: 100vh;
   width: 100%;
   box-sizing: border-box;
-  overflow-y: auto; /* vertical scrolling if necessary */
+  overflow-y: auto;
+  /* vertical scrolling if necessary */
   align-items: center;
   justify-items: center;
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 columns on medium screens */
   }
 
   @media (max-width: 480px) {
-    grid-template-columns: repeat(1, 1fr); /* 1 column on small screens */
+    grid-template-columns: repeat(1, 1fr);
+    /* 1 column on small screens */
   }
 }
 
@@ -44,7 +48,8 @@
   }
 
   p {
-    font-size: 2vw; /* Make font size responsive to viewport width */
+    font-size: 2vw;
+    /* Make font size responsive to viewport width */
     color: #333;
     margin: 0;
   }
@@ -82,6 +87,86 @@
   }
 }
 
+/* Cookie Card styling */
+.cookie-card {
+  text-align: center;
+  width: 30vw;
+  max-width: 80%;
+  display: flex;
+  font-family: "Manjari", sans-serif;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  .cookie-image {
+    width: 15vw;
+    height: 15vw;
+    max-width: 20vh;
+    max-height: 20vh;
+    object-fit: contain;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 10px 0;
+  }
+
+  .buy-button {
+    background: #F3C760;
+    color: black;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: "Manjari", sans-serif;
+    margin-top: 10px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background: #e6b54a;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .cookie-card {
+    width: 40vw;
+
+    .cookie-image {
+      width: 20vw;
+      height: 20vw;
+    }
+
+    h3 {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .cookie-card {
+    width: 70vw;
+
+    .cookie-image {
+      width: 30vw;
+      height: 30vw;
+    }
+
+    h3 {
+      font-size: 0.9rem;
+    }
+  }
+}
+
 /* for popup */
 .cookie-popup {
   position: fixed;
@@ -89,13 +174,16 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: brown;
-  border-radius: 10px; /* Changed from circle to a rectangular box */
+  border-radius: 10px;
+  /* Changed from circle to a rectangular box */
   width: 300px;
-  max-height: 400px; /* Set maximum height */
+  max-height: 400px;
+  /* Set maximum height */
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  overflow: hidden; /* Ensure no overflow from popup box */
+  overflow: hidden;
+  /* Ensure no overflow from popup box */
 
   .popup-content {
     display: flex;
@@ -111,8 +199,10 @@
 
   .popup-description {
     padding: 0 20px;
-    overflow-y: auto; /* vertical scrolling */
-    flex-grow: 1; /* Allow the description to grow and take up remaining space */
+    overflow-y: auto;
+    /* vertical scrolling */
+    flex-grow: 1;
+    /* Allow the description to grow and take up remaining space */
 
     p {
       color: white;
@@ -289,6 +379,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -299,9 +390,9 @@
     transform: perspective(1000px) rotateY(-90deg);
     opacity: 0;
   }
+
   to {
     transform: perspective(1000px) rotateY(0deg);
     opacity: 1;
   }
 }
-

@@ -1,8 +1,12 @@
 .profile-container {
   max-width: 800px;
   margin: 0 auto;
+  margin-top: 2rem;
   padding: 2rem;
   font-family: 'Arial', sans-serif;
+  border: 10px solid #F3C760;
+  border-radius: 50px;
+  background-color: #fff9ec;
 
   .loading,
   .error {
@@ -30,8 +34,8 @@
     }
 
     .refresh-button {
-      background: #3498db;
-      color: white;
+      background: #F3C760;
+      color: black;
       border: none;
       padding: 0.5rem 1rem;
       border-radius: 6px;
@@ -40,15 +44,12 @@
       transition: background-color 0.2s ease;
 
       &:hover {
-        background: #2980b9;
+        background: #e6b54a;
       }
     }
   }
 
   .profile-content {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 2rem;
   }
 
@@ -57,15 +58,13 @@
     align-items: center;
     gap: 2rem;
     margin-bottom: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 2px solid #ecf0f1;
 
     .avatar {
       width: 100px;
       height: 100px;
       border-radius: 50%;
       overflow: hidden;
-      border: 3px solid #3498db;
+      border: 3px solid #F3C760;
 
       img {
         width: 100%;
@@ -114,12 +113,12 @@
     gap: 2rem;
 
     .stat-card {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
+      background: #fff9ec;
+      color: black;
       padding: 2rem;
       border-radius: 12px;
       text-align: center;
-      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      border: 3px solid #F3C760;
 
       h3 {
         font-size: 1.2rem;
@@ -130,6 +129,7 @@
       .points-display {
         font-size: 3rem;
         font-weight: bold;
+        font-family: 'Manjari', sans-serif;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
       }
     }
