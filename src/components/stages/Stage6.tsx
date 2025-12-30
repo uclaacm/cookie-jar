@@ -18,13 +18,21 @@ import Cookie8 from "/assets/c8.png";
 import Cookie9 from "/assets/c9.png";
 
 interface ShoppingCartProps {
-  onDrop: (cookieLabel: string) => void;
+  onDrop: (cookieId: number) => void;
 }
 
 interface CookieProps {
   id: number;
   img: string;
   label: string;
+}
+
+interface DraggedCookie {
+  id: number;
+}
+
+interface DropCollectedProps {
+  isOver: boolean;
 }
 
 const COOKIE_TYPE = "COOKIE";
@@ -52,7 +60,7 @@ function Cookie({ id, img, label }: CookieProps) {
 }
 
 function ShoppingCartDropZone({ onDrop }: ShoppingCartProps) {
-  const [{ isOver }, dropRef] = useDrop(() => ({
+  const [{ isOver }, dropRef] = useDrop<DraggedCookie, void, DropCollectedProps>(() => ({
     accept: COOKIE_TYPE,
     drop: (item) => {
       onDrop(item.id);
@@ -292,9 +300,7 @@ const GameStage6: React.FC = () => {
                       </p>
                     </div>
                     <ShoppingCartDropZone
-                      onDrop={(cookieLabel: string) =>
-                        onCookieDrop(cookieLabel)
-                      }
+                      onDrop={(cookieId: number) => onCookieDrop(cookieId)}
                     />
                     <img
                       src={customers[currentCustomer.current].img}
