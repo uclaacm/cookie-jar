@@ -3,7 +3,7 @@ import '../styles/App.scss';
 import '../styles/Login.scss'
 import Button from '@mui/material/Button';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -65,9 +65,9 @@ const Login: React.FC = () => {
         <Button type="submit" className='login-button'>Login</Button>
       </form>
 
-      <a href="/signup">
+      <Link to="/signup">
         Don&rsquo;t have an account? Create one here!
-      </a>
+      </Link>
     </div>
   );
 };
